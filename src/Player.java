@@ -9,12 +9,13 @@ public class Player {
 	String protectionType;
 	
 	/**
-	 * 
+	 * Constructeur sans paramètre
 	 */
 	public Player() {
 	}
 
 	/**
+	 * Constructeur
 	 * @param name
 	 */
 	public Player(String name) {
@@ -24,6 +25,7 @@ public class Player {
 	
 
 	/**
+	 * Constructeur
 	 * @param name
 	 * @param life
 	 * @param baseAttack

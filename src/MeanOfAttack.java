@@ -3,7 +3,9 @@ public class MeanOfAttack {
 
 	String name;
 	int attack;
+	
 	/**
+	 * Constructeur
 	 * @param name
 	 * @param attack
 	 */
