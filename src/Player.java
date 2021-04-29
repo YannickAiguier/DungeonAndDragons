@@ -8,17 +8,116 @@ public class Player {
 	MeanOfAttack attackType;
 	String protectionType;
 	
+	/**
+	 * 
+	 */
 	public Player() {
-		name = "";
 	}
-	
+
+	/**
+	 * @param name
+	 */
 	public Player(String name) {
 		this.name = name;
 	}
+
 	
-	public Player(String name, int life, int attack) {
+
+	/**
+	 * @param name
+	 * @param life
+	 * @param baseAttack
+	 */
+	public Player(String name, int life, int baseAttack) {
 		this.name = name;
 		this.life = life;
+		this.attack = baseAttack;
+		this.baseAttack = baseAttack;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the life
+	 */
+	public int getLife() {
+		return life;
+	}
+
+	/**
+	 * @param life the life to set
+	 */
+	public void setLife(int life) {
+		this.life = life;
+	}
+
+	/**
+	 * @return the attack
+	 */
+	public int getAttack() {
+		return attack;
+	}
+
+	/**
+	 * @param attack the attack to set
+	 */
+	public void setAttack(int attack) {
 		this.attack = attack;
 	}
+
+	/**
+	 * @return the baseAttack
+	 */
+	public int getBaseAttack() {
+		return baseAttack;
+	}
+
+	/**
+	 * @param baseAttack the baseAttack to set
+	 */
+	public void setBaseAttack(int baseAttack) {
+		this.baseAttack = baseAttack;
+	}
+
+	/**
+	 * @return the attackType
+	 */
+	public MeanOfAttack getAttackType() {
+		return attackType;
+	}
+
+	/**
+	 * @param attackType the attackType to set
+	 */
+	public void setAttackType(MeanOfAttack attackType) {
+		this.attackType = attackType;
+	}
+
+	/**
+	 * @return the protectionType
+	 */
+	public String getProtectionType() {
+		return protectionType;
+	}
+
+	/**
+	 * @param protectionType the protectionType to set
+	 */
+	public void setProtectionType(String protectionType) {
+		this.protectionType = protectionType;
+	}
+	
+	
 }
