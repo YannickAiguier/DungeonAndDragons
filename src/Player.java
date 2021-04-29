@@ -125,7 +125,10 @@ public class Player {
 				+ ", protectionType=" + protectionType + "]";
 	}
 	
-	
+	public static void main(String[] args) {
+		Player myPlayer = new Player("Yannick", 100, 150);
+		System.out.println(myPlayer);
+	}
 	
 	
 }
