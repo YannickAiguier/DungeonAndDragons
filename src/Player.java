@@ -118,6 +118,14 @@ public class Player {
 	public void setProtectionType(String protectionType) {
 		this.protectionType = protectionType;
 	}
+
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", life=" + life + ", attack=" + attack + ", baseAttack=" + baseAttack
+				+ ", protectionType=" + protectionType + "]";
+	}
+	
+	
 	
 	
 }
