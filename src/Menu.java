@@ -14,12 +14,9 @@ public class Menu {
 	// fonction qui démarre le menu
 	public void start() {
 		choix = 0;
-		while (choix < 1 || choix > 3 ) {
+		while (choix < 1 || choix > 2 ) {
 			System.out.println("1) Nouveau personnage");
 			System.out.println("2) Quitter le jeu");
-			if (player != null) {
-				System.out.println("3) Démarrer le jeu");
-			}
 			System.out.print("Votre choix : ");
 			choix = saisie.nextInt();
 			saisie.nextLine();
@@ -31,11 +28,7 @@ public class Menu {
 			case 2:
 				System.out.println("Fin du programme.");
 				System.exit(0);
-				break;
-			case 3:
-				GameEngine myEngine = new GameEngine();
-				myEngine.start();
-				break;			
+				break;		
 			default:
 				System.out.println("Choisissez 1 ou 2...");
 				break;
@@ -47,7 +40,7 @@ public class Menu {
 	// fonction qui gère le sous-menu de création de joueur
 	private void createMenu() {
 		choix = 0;
-		while (choix != 1 && choix != 2) {
+		while (choix < 1 || choix > 3) {
 			System.out.println("1) Guerrier");
 			System.out.println("2) Magicien");
 			System.out.println("3) Retour");
@@ -71,7 +64,7 @@ public class Menu {
 				choix = 0;
 				return;
 			default:
-				System.out.println("Choisissez 1  ou 2...");
+				System.out.println("Choisissez 1, 2 ou 3...");
 				break;
 			}
 		}
@@ -105,6 +98,9 @@ public class Menu {
 			System.out.println("1) Afficher les caractéristiques du personnage");
 			System.out.println("2) Modifier les caractéristiques du personnage");
 			System.out.println("3) Retour");
+			if (player != null) {
+				System.out.println("4) Démarrer le jeu");
+			}
 			System.out.print("Votre choix : ");
 			choix = saisie.nextInt();
 			saisie.nextLine();
@@ -121,6 +117,12 @@ public class Menu {
 			case 3:
 				choix = 0;
 				return;
+			case 4:
+				GameEngine myEngine = new GameEngine();
+				myEngine.start();
+				saisie.close();
+				System.exit(0);
+				break;
 			default:
 				break;
 			}

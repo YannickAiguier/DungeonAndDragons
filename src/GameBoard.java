@@ -26,13 +26,13 @@ public class GameBoard {
 	// méthode qui fait avancer le joueur d'un D6 
 	public void advancePlayer() {
 		playerPos += MyUtils.rollDice(6);
-	}
-		// méthode qui vérifie si un joueur est arrivé au bout du plateau
-	public boolean playerOnLastBox() {
 		if (playerPos > 63) {
 			playerPos = 63;
 		}
-		return playerPos == 63;
+	}
+		// méthode qui vérifie si un joueur est arrivé au bout du plateau
+	public boolean playerNotOnLastBox() {
+		return playerPos != 63;
 	}
 		
 }
