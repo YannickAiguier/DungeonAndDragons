@@ -123,7 +123,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", life=" + life + ", attack=" + attack + ", baseAttack=" + baseAttack
+		return this.getClass().getName() + " [name=" + name + ", life=" + life + ", attack=" + attack + ", baseAttack=" + baseAttack
 				+ ", protectionType=" + protectionType + "]";
 	}
 	
