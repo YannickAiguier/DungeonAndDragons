@@ -4,19 +4,22 @@ public class Menu {
 	
 	Scanner saisie;
 	int choix;
-	Player joueur;
+	Player player;
 
 	public Menu() {
 		saisie = new Scanner(System.in);
 		choix = 0;
 	}
 
-	// fonction qui démarre le menu (lance le jeu)
+	// fonction qui démarre le menu
 	public void start() {
 		choix = 0;
-		while (choix != 1 && choix != 2) {
+		while (choix < 1 || choix > 3 ) {
 			System.out.println("1) Nouveau personnage");
 			System.out.println("2) Quitter le jeu");
+			if (player != null) {
+				System.out.println("3) Démarrer le jeu");
+			}
 			System.out.print("Votre choix : ");
 			choix = saisie.nextInt();
 			saisie.nextLine();
@@ -29,6 +32,10 @@ public class Menu {
 				System.out.println("Fin du programme.");
 				System.exit(0);
 				break;
+			case 3:
+				GameEngine myEngine = new GameEngine();
+				myEngine.start();
+				break;			
 			default:
 				System.out.println("Choisissez 1 ou 2...");
 				break;
@@ -83,10 +90,10 @@ public class Menu {
 		attack = saisie.nextInt();
 		saisie.nextLine();
 		if(myClass == "Warrior") {
-			joueur = new Warrior(name, life, attack);
+			player = new Warrior(name, life, attack);
 		}
 		if(myClass == "Magician") {
-			joueur = new Magician(name, life, attack);
+			player = new Magician(name, life, attack);
 		}
 		System.out.println("Personnage créé.");		
 	}
@@ -104,11 +111,11 @@ public class Menu {
 			switch (choix) {
 			case 1:
 				System.out.println("Caractéristiques de votre personnage : ");
-				System.out.println(joueur);
+				System.out.println(player);
 				choix = 0;
 				break;
 			case 2:
-				createPlayer(joueur.getClass().getSimpleName());
+				createPlayer(player.getClass().getSimpleName());
 				choix = 0;
 				break;
 			case 3:
