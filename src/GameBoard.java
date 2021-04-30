@@ -23,8 +23,16 @@ public class GameBoard {
 		return "Joueur en case " + (playerPos + 1) + " sur 64.";
 	}
 	
-	// fonction qui fait avancer le joueur d'un D6 
+	// méthode qui fait avancer le joueur d'un D6 
 	public void advancePlayer() {
 		playerPos += MyUtils.rollDice(6);
 	}
+		// méthode qui vérifie si un joueur est arrivé au bout du plateau
+	public boolean playerOnLastBox() {
+		if (playerPos > 63) {
+			playerPos = 63;
+		}
+		return playerPos == 63;
+	}
+		
 }
