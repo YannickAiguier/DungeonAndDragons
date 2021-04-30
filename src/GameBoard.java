@@ -20,7 +20,7 @@ public class GameBoard {
 
 	@Override
 	public String toString() {
-		return "Joueur en case " + (playerPos + 1) + " sur 64.";
+		return " en case " + (playerPos + 1) + " sur 64.";
 	}
 	
 	// méthode qui fait avancer le joueur d'un D6 

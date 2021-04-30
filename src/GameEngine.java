@@ -1,7 +1,10 @@
 
 public class GameEngine {
 	
-	public GameEngine() {
+	Player player1;
+	
+	public GameEngine(Player player) {
+		player1 = player;
 	}
 	
 	public void start() {
@@ -9,8 +12,8 @@ public class GameEngine {
 		GameBoard myGameBoard = new GameBoard();
 		while (myGameBoard.playerNotOnLastBox()) {
 			myGameBoard.advancePlayer();
-			System.out.println("Joueur en case " + (myGameBoard.getPlayerPos() + 1) + " sur 64.");
+			System.out.println(player1.getName() + myGameBoard);
 		}
-		System.out.println("Le joueur est arrivé à la fin du plateau. Jeu terminé !");
+		System.out.println(player1.getName() + " est arrivé à la fin du plateau. Jeu terminé !");
 	}
 }

@@ -125,12 +125,6 @@ public class Player {
 	public String toString() {
 		return this.getClass().getName() + " [name=" + name + ", life=" + life + ", attack=" + attack + ", baseAttack=" + baseAttack
 				+ ", protectionType=" + protectionType + "]";
-	}
-	
-	public static void main(String[] args) {
-		Player myPlayer = new Player("Yannick", 100, 150);
-		System.out.println(myPlayer);
-	}
-	
+	}	
 	
 }

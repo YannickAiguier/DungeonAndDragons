@@ -118,7 +118,7 @@ public class Menu {
 				choix = 0;
 				return;
 			case 4:
-				GameEngine myEngine = new GameEngine();
+				GameEngine myEngine = new GameEngine(player);
 				myEngine.start();
 				saisie.close();
 				System.exit(0);
@@ -129,9 +129,4 @@ public class Menu {
 		}
 	}
 	
-	public static void main(String[] args) {
-		Menu firstMenu = new Menu();
-		
-		firstMenu.start();
-	}
 }
