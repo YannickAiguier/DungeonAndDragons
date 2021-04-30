@@ -22,5 +22,9 @@ public class GameBoard {
 	public String toString() {
 		return "Joueur en case " + (playerPos + 1) + " sur 64.";
 	}
-		
+	
+	// fonction qui fait avancer le joueur d'un D6 
+	public void advancePlayer() {
+		playerPos += MyUtils.rollDice(6);
+	}
 }
