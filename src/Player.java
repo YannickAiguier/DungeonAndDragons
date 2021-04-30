@@ -1,11 +1,10 @@
 
-public class Player {
+public abstract class Player {
 
 	String name;
 	int life;
 	int attack;
-	int baseAttack;
-	MeanOfAttack attackType;
+	MeanOfAttack firstAttack;
 	String protectionType;
 	
 	/**
@@ -30,11 +29,10 @@ public class Player {
 	 * @param life
 	 * @param baseAttack
 	 */
-	public Player(String name, int life, int baseAttack) {
+	public Player(String name, int life, int attack) {
 		this.name = name;
 		this.life = life;
-		this.attack = baseAttack;
-		this.baseAttack = baseAttack;
+		this.attack = attack;
 	}
 
 	/**
@@ -80,51 +78,23 @@ public class Player {
 	}
 
 	/**
-	 * @return the baseAttack
-	 */
-	public int getBaseAttack() {
-		return baseAttack;
-	}
-
-	/**
-	 * @param baseAttack the baseAttack to set
-	 */
-	public void setBaseAttack(int baseAttack) {
-		this.baseAttack = baseAttack;
-	}
-
-	/**
 	 * @return the attackType
 	 */
-	public MeanOfAttack getAttackType() {
-		return attackType;
+	public MeanOfAttack getFirstAttack() {
+		return firstAttack;
 	}
 
 	/**
 	 * @param attackType the attackType to set
 	 */
-	public void setAttackType(MeanOfAttack attackType) {
-		this.attackType = attackType;
-	}
-
-	/**
-	 * @return the protectionType
-	 */
-	public String getProtectionType() {
-		return protectionType;
-	}
-
-	/**
-	 * @param protectionType the protectionType to set
-	 */
-	public void setProtectionType(String protectionType) {
-		this.protectionType = protectionType;
+	public void setFirstAttack(MeanOfAttack attackType) {
+		this.firstAttack = attackType;
 	}
 
 	@Override
 	public String toString() {
-		return this.getClass().getName() + " [name=" + name + ", life=" + life + ", attack=" + attack + ", baseAttack=" + baseAttack
-				+ ", protectionType=" + protectionType + "]";
+		return this.getClass().getName() + " [name= " + name + ", life= " + life + ", attack= " + attack + ", baseAttack= " + attack
+				+ ", protectionType= " + protectionType + "]";
 	}	
 	
 }
