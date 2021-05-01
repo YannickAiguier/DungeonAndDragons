@@ -1,5 +1,5 @@
 
-public abstract class Monster {
+public class Monster {
 
 	int life;
 	int attack;
