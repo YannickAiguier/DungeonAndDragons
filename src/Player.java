@@ -1,11 +1,11 @@
 
 public abstract class Player {
 
-	String name;
-	int life;
-	int attack;
-	MeanOfAttack firstAttack;
-	String protectionType;
+	private String name;
+	private int life;
+	private int attack;
+	private MeanOfAttack firstAttack;
+	private String protectionType;
 	
 	/**
 	 * Constructeur sans paramètre
@@ -21,18 +21,22 @@ public abstract class Player {
 		this.name = name;
 	}
 
-	
 
+	
 	/**
 	 * Constructeur
 	 * @param name
 	 * @param life
-	 * @param baseAttack
+	 * @param attack
+	 * @param firstAttack
+	 * @param protectionType
 	 */
-	public Player(String name, int life, int attack) {
+	public Player(String name, int life, int attack, MeanOfAttack firstAttack, String protectionType) {
 		this.name = name;
 		this.life = life;
 		this.attack = attack;
+		this.firstAttack = firstAttack;
+		this.protectionType = protectionType;
 	}
 
 	/**
@@ -93,8 +97,7 @@ public abstract class Player {
 
 	@Override
 	public String toString() {
-		return this.getClass().getName() + " [name= " + name + ", life= " + life + ", attack= " + attack + ", baseAttack= " + attack
-				+ ", protectionType= " + protectionType + "]";
+		return this.getClass().getName() + " [name= " + name + ", life= " + life + ", attack= " + attack + ", firstAttack= " + firstAttack + " , protectionType= " + protectionType + "]";
 	}	
 	
 }
