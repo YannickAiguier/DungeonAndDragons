@@ -51,5 +51,20 @@ public class GameBoard {
 	public void setBox(int index, Object object) {
 		board[index] = object;
 	}
+	
+	// méthode d'initialisation du plateau de jeu
+	public void initBoard() {
+		// pour l'instant les objets seront placés toujours à la même place
+		// trésor et monstre une fois sur deux
+		for (int i =1; i < 63; i+=4) {
+			this.setBox(i, new Monster(10, 1));
+		}
+		for (int i =3; i < 63; i+=8) {
+			this.setBox(i, new Weapon("Massue", 3));
+		}
+		for (int i =7; i < 63; i+=8) {
+			this.setBox(i, new Spell("ThunderBolt", 8));
+		}
+	}
 
 }
