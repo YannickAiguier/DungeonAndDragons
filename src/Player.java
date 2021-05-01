@@ -98,6 +98,13 @@ public abstract class Player {
 	@Override
 	public String toString() {
 		return this.getClass().getName() + " [name= " + name + ", life= " + life + ", attack= " + attack + ", firstAttack= " + firstAttack + " , protectionType= " + protectionType + "]";
-	}	
+	}
+	
+	// méthode d'attaque d'un monstre
+	public void attackMonster(Monster monster) {
+		int dmg = this.attack + firstAttack.getAttack();
+		monster.setLife(monster.getLife() - dmg);			
+		}
+	}
 	
 }
