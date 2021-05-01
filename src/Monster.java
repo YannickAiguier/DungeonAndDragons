@@ -26,4 +26,9 @@ public abstract class Monster {
 	public String toString() {
 		return this.getClass().getName() + " a " + life + " points de vie et " + attack + " points d'attaque.";
 	}
+	
+	// méthode d'attaque d'un joueur
+		public void attackPlayer(Player player) {
+			player.setLife(player.getLife() - attack);
+		}
 }
