@@ -6,7 +6,7 @@ public abstract class Player {
 	private int attack;
 	private MeanOfAttack firstAttack;
 	private String protectionType;
-	
+
 	/**
 	 * Constructeur sans paramètre
 	 */
@@ -15,16 +15,16 @@ public abstract class Player {
 
 	/**
 	 * Constructeur
+	 * 
 	 * @param name
 	 */
 	public Player(String name) {
 		this.name = name;
 	}
 
-
-	
 	/**
 	 * Constructeur
+	 * 
 	 * @param name
 	 * @param life
 	 * @param attack
@@ -97,7 +97,23 @@ public abstract class Player {
 
 	@Override
 	public String toString() {
-		return this.getClass().getName() + " [name= " + name + ", life= " + life + ", attack= " + attack + ", firstAttack= " + firstAttack + " , protectionType= " + protectionType + "]";
-	}	
-	
+		return this.getClass().getName() + " [name= " + name + ", life= " + life + ", attack= " + attack
+				+ ", firstAttack= " + firstAttack + " , protectionType= " + protectionType + "]";
+	}
+
+	// méthode d'attaque d'un monstre
+	public void attackMonster(Monster monster) {
+		int dmg = this.attack + firstAttack.getAttack();
+		monster.setLife(monster.getLife() - dmg);
+	}
+
+	// méthode qui change l'équipement seulement s'il est meilleur que l'actuel
+	public void changeItem(MeanOfAttack item) {
+		if (item.getAttack() > firstAttack.getAttack()) {
+			firstAttack = item;
+		} else {
+			System.out.println("Votre équipement est meilleur, vous le gardez.");
+		}
+	}
+
 }
