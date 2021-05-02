@@ -1,11 +1,15 @@
+import java.util.Scanner;
 
 public class GameEngine {
 
 	Player player1;
 	Monster monster;
+	Scanner keyboard;
+	String read;
 
 	public GameEngine(Player player) {
 		player1 = player;
+		keyboard = new Scanner(System.in);
 	}
 
 	// fonction qui gère le jeu une fois la partie démarrée
@@ -16,9 +20,21 @@ public class GameEngine {
 		myGameBoard.initBoard();
 		// tant que le joueur n'est pas arrivé au bout et qu'il est en vie
 		while (myGameBoard.playerNotOnLastBox() && player1.getLife() > 0) {
-			// faire avancer le joueur et afficher sa position
-			myGameBoard.advancePlayer();
-			System.out.println(player1.getName() + myGameBoard);
+			// appuyer sur la touche Entrée pour lancer le dé
+			boolean wait = true;
+			while (wait) {
+				System.out.println("Appuyez sur Entrée pour avancer...");
+				read = keyboard.nextLine();
+				if (read.isEmpty()) {
+					// faire avancer le joueur et afficher sa position
+					myGameBoard.advancePlayer();
+					System.out.println(player1.getName() + myGameBoard);
+					wait = false;
+				} else {
+					System.out.println("Merci de juste appuyer sur Entrée");
+				}
+			}
+
 			// traitement de la case : vide, coffre ou monstre
 			if (myGameBoard.getBox() == null) {
 				System.out.println("RAS, on continue.");
@@ -26,7 +42,8 @@ public class GameEngine {
 				monster = (Monster) myGameBoard.getBox();
 				fight(monster);
 				if (player1.isAlive()) {
-					System.out.println(player1.getName() + " a vaincu le " + monster.getClass().getName() + ", il lui reste " + player1.getLife() + " points de vie.");
+					System.out.println(player1.getName() + " a vaincu le " + monster.getClass().getName()
+							+ ", il lui reste " + player1.getLife() + " points de vie.");
 				}
 			} else {
 				System.out.println(getChest(myGameBoard.getBox()));
@@ -35,9 +52,10 @@ public class GameEngine {
 		if (player1.isAlive()) {
 			System.out.println(player1.getName() + " est arrivé à la fin du plateau. Jeu terminé !");
 		} else {
-			System.out.println(player1.getName() + " a trouvé la mort en combattant un " + monster.getClass().getName());
+			System.out
+					.println(player1.getName() + " a trouvé la mort en combattant un " + monster.getClass().getName());
 		}
-		
+		keyboard.close();
 	}
 
 	// fonction qui gère la récupération d'un coffre

@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 public class GameBoard {
 
@@ -68,8 +67,6 @@ public class GameBoard {
 				this.setBox(i, new Weapon("Super Epée", 4));
 			}
 		}
-		// TODO Enlever la ligne suivante à la fin des tests
-		System.out.println(Arrays.toString(board));
 	}
 
 }

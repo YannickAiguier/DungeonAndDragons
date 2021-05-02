@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class Menu {
 	
-	Scanner saisie;
+	Scanner keyboard;
 	int choix;
 	Player player;
 
 	public Menu() {
-		saisie = new Scanner(System.in);
+		keyboard = new Scanner(System.in);
 		choix = 0;
 	}
 
@@ -18,8 +18,8 @@ public class Menu {
 			System.out.println("1) Nouveau personnage");
 			System.out.println("2) Quitter le jeu");
 			System.out.print("Votre choix : ");
-			choix = saisie.nextInt();
-			saisie.nextLine();
+			choix = keyboard.nextInt();
+			keyboard.nextLine();
 			switch (choix) {
 			case 1:
 				createMenu();
@@ -34,7 +34,7 @@ public class Menu {
 				break;
 			}
 		}
-		saisie.close();
+		keyboard.close();
 	}
 	
 	// fonction qui gère le sous-menu de création de joueur
@@ -45,8 +45,8 @@ public class Menu {
 			System.out.println("2) Magicien");
 			System.out.println("3) Retour");
 			System.out.print("Votre choix : ");
-			choix = saisie.nextInt();
-			saisie.nextLine();
+			choix = keyboard.nextInt();
+			keyboard.nextLine();
 			switch (choix) {
 			case 1:
 				System.out.println("Création d'un guerrier");
@@ -75,13 +75,13 @@ public class Menu {
 		String name;
 		int life, attack;
 		System.out.println("Nom de votre personnage : ");
-		name = saisie.nextLine();
+		name = keyboard.nextLine();
 		System.out.println("Vie de votre personnage : ");
-		life = saisie.nextInt();
-		saisie.nextLine();
+		life = keyboard.nextInt();
+		keyboard.nextLine();
 		System.out.println("Attaque de votre personnage : ");
-		attack = saisie.nextInt();
-		saisie.nextLine();
+		attack = keyboard.nextInt();
+		keyboard.nextLine();
 		if(myClass == "Warrior") {
 			player = new Warrior(name, life, attack);
 		}
@@ -102,8 +102,8 @@ public class Menu {
 				System.out.println("4) Démarrer le jeu");
 			}
 			System.out.print("Votre choix : ");
-			choix = saisie.nextInt();
-			saisie.nextLine();
+			choix = keyboard.nextInt();
+			keyboard.nextLine();
 			switch (choix) {
 			case 1:
 				System.out.println("Caractéristiques de votre personnage : ");
@@ -120,7 +120,7 @@ public class Menu {
 			case 4:
 				GameEngine myEngine = new GameEngine(player);
 				myEngine.start();
-				saisie.close();
+				keyboard.close();
 				System.exit(0);
 				break;
 			default:
