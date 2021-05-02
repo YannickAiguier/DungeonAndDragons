@@ -102,17 +102,19 @@ public abstract class Player {
 	}
 
 	// méthode d'attaque d'un monstre
-	public void attackMonster(Monster monster) {
+	public String attackMonster(Monster monster) {
 		int dmg = this.attack + firstAttack.getAttack();
 		monster.setLife(monster.getLife() - dmg);
+		return name + " attaque un " + monster.getClass().getName() + " et lui inflige " + (attack + firstAttack.getAttack()) + " points de dégâts.";
 	}
 
 	// méthode qui change l'équipement seulement s'il est meilleur que l'actuel
-	public void changeItem(MeanOfAttack item) {
+	public String changeItem(MeanOfAttack item) {
 		if (item.getAttack() > firstAttack.getAttack()) {
 			firstAttack = item;
+			return name + "s'équipe de " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts.";
 		} else {
-			System.out.println("Votre équipement est meilleur, vous le gardez.");
+			return name + " trouve  " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts. Pas intéressant...";
 		}
 	}
 
