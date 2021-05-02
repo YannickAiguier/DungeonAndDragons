@@ -8,7 +8,6 @@ public class GameBoard {
 	// Constructeur : initialisation du plateau à 64 cases, joueur en case 1
 	public GameBoard() {
 		board = new Object[64];
-		System.out.println(Arrays.toString(board));
 		playerPos = 0;
 	}
 
@@ -39,7 +38,7 @@ public class GameBoard {
 
 	// méthode qui vérifie si un joueur est arrivé au bout du plateau
 	public boolean playerNotOnLastBox() {
-		return playerPos != 63;
+		return playerPos < 63;
 	}
 	
 	// méthode qui retourne le contenu de la case où se trouve le joueur
@@ -60,11 +59,17 @@ public class GameBoard {
 			this.setBox(i, new Monster(10, 1));
 		}
 		for (int i =3; i < 63; i+=8) {
-			this.setBox(i, new Weapon("Massue", 3));
+			this.setBox(i, new Potion("Soin", 3));
 		}
 		for (int i =7; i < 63; i+=8) {
-			this.setBox(i, new Spell("ThunderBolt", 8));
+			if ((int)(Math.random()*2) == 0) {
+				this.setBox(i, new Spell("ThunderBolt", 4));
+			} else {
+				this.setBox(i, new Weapon("Super Epée", 4));
+			}
 		}
+		// TODO Enlever la ligne suivante à la fin des tests
+		System.out.println(Arrays.toString(board));
 	}
 
 }

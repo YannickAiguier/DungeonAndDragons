@@ -112,10 +112,15 @@ public abstract class Player {
 	public String changeItem(MeanOfAttack item) {
 		if (item.getAttack() > firstAttack.getAttack()) {
 			firstAttack = item;
-			return name + "s'équipe de " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts.";
+			return name + " s'équipe de " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts.";
 		} else {
 			return name + " trouve  " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts. Pas intéressant...";
 		}
+	}
+	
+	// fonction qui vérifie si le joueur est en vie
+	public boolean isAlive() {
+		return life > 0;
 	}
 
 }
