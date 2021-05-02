@@ -40,4 +40,14 @@ public class GameEngine {
 			return "Oups...";
 		}
 	}
+	
+	// fonction qui gère un combat entre le joueur et un monstre jusqu'à la mort de l'un d'entre eux
+	private void fight(Monster monster) {
+		while (player1.getLife() > 0 || monster.getLife() > 0) {
+			System.out.println(player1.attackMonster(monster));
+			if (monster.getLife() > 0) {
+				System.out.println(monster.attackPlayer(player1));
+			}
+		}
+	}
 }
