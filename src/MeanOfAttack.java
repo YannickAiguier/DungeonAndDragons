@@ -1,5 +1,5 @@
 
-public class MeanOfAttack {
+public abstract class MeanOfAttack {
 
 	String name;
 	int attack;
@@ -39,7 +39,7 @@ public class MeanOfAttack {
 	}
 	@Override
 	public String toString() {
-		return "MeanOfAttack [name=" + name + ", attack=" + attack + "]";
+		return this.getClass().getName() + " [name=" + name + ", attack=" + attack + "]";
 	}
 	
 	
