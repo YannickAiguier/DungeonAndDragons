@@ -35,10 +35,10 @@ public class GameEngine {
 				}
 			}
 
-			// traitement de la case : vide, coffre ou monstre
+			// traitement de la case : vide, monstre ou coffre
 			if (myGameBoard.getBox() == null) {
 				System.out.println("RAS, on continue.");
-			} else if (myGameBoard.getBox().getClass().getName() == "Monster") {
+			} else if (myGameBoard.getBox() instanceof Monster) {
 				monster = (Monster) myGameBoard.getBox();
 				fight(monster);
 				if (player1.isAlive()) {

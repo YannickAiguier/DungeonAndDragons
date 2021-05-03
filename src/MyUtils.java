@@ -1,5 +1,5 @@
 
-public class MyUtils {
+public abstract class MyUtils {
 	
 	// fonction pout lancer un dé à 'sides' faces
 	public static int rollDice(int sides) {

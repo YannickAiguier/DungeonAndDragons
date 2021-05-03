@@ -39,33 +39,51 @@ public class GameBoard {
 	public boolean playerNotOnLastBox() {
 		return playerPos < 63;
 	}
-	
+
 	// méthode qui retourne le contenu de la case où se trouve le joueur
 	public Object getBox() {
 		return board[playerPos];
 	}
-	
+
 	// méthode qui met un objet dans la case board[index]
-	public void setBox(int index, Object object) {
+	private void setBox(int index, Object object) {
 		board[index] = object;
 	}
-	
+
 	// méthode d'initialisation du plateau de jeu
 	public void initBoard() {
 		// pour l'instant les objets seront placés toujours à la même place
 		// trésor et monstre une fois sur deux
-		for (int i =1; i < 63; i+=4) {
-			this.setBox(i, new Monster(10, 1));
+		for (int i = 1; i < 63; i += 4) {
+			this.setBox(i, createMonster());
 		}
-		for (int i =3; i < 63; i+=8) {
+		for (int i = 3; i < 63; i += 8) {
 			this.setBox(i, new Potion("Soin", 3));
 		}
-		for (int i =7; i < 63; i+=8) {
-			if ((int)(Math.random()*2) == 0) {
+		for (int i = 7; i < 63; i += 8) {
+			if ((int) (Math.random() * 2) == 0) {
 				this.setBox(i, new Spell("ThunderBolt", 4));
 			} else {
 				this.setBox(i, new Weapon("Super Epée", 4));
 			}
+		}
+	}
+
+	// méthode qui tire au hasard un monstre, l'initialise et le renvoie
+	// D6 : 1/2 = gobelin, 3/4 = sorcier, 5/6 = dragon
+	private Monster createMonster() {
+		switch (MyUtils.rollDice(6)) {
+		case 1:
+		case 2:
+			return (Monster) new Gobelin();
+		case 3:
+		case 4:
+			return (Monster) new Sorcerer();
+		case 5:
+		case 6:
+			return (Monster) new Dragon();
+		default:
+			return null;
 		}
 	}
 

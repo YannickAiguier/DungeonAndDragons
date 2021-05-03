@@ -1,8 +1,8 @@
 
 public class Dragon extends Monster {
 	
-	public Dragon(int life, int attack) {
-		super(life, attack);
+	public Dragon() {
+		super(15, 4);
 	}
 
 }

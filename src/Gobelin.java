@@ -1,8 +1,8 @@
 
 public class Gobelin extends Monster {
 	
-	public Gobelin(int life, int attack) {
-		super(life, attack);
+	public Gobelin() {
+		super(6, 1);
 	}
 
 }
