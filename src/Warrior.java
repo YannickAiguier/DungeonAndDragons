@@ -2,7 +2,7 @@
 public class Warrior extends Player {
 
 	// constructeur, utilise aussi celui de la classe parente Player
-	public Warrior(String name, int life, int attack) {
-		super(name, life, attack, new Weapon("Sword", 3), "Shield");
+	public Warrior(String name) {
+		super(name, 5, 10, 5, new Weapon("Main", 0), "Shield");
 	}
 }

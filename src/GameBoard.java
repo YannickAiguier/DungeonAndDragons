@@ -58,33 +58,71 @@ public class GameBoard {
 			this.setBox(i, createMonster());
 		}
 		for (int i = 3; i < 63; i += 8) {
-			this.setBox(i, new Potion("Soin", 3));
+			this.setBox(i, createPotion());
 		}
 		for (int i = 7; i < 63; i += 8) {
-			if ((int) (Math.random() * 2) == 0) {
-				this.setBox(i, new Spell("ThunderBolt", 4));
+			if (MyUtils.rollDice(2) == 1) {
+				this.setBox(i, createSpell());
 			} else {
-				this.setBox(i, new Weapon("Super Epée", 4));
+				this.setBox(i, createWeapon());
 			}
 		}
 	}
 
-	// méthode qui tire au hasard un monstre, l'initialise et le renvoie
-	// D6 : 1/2 = gobelin, 3/4 = sorcier, 5/6 = dragon
+	// méthode qui tire au hasard un monstre, l'instancie et le renvoie
+	// D3 : 1 = gobelin, 2 = sorcier, 3 = dragon
 	private Monster createMonster() {
-		switch (MyUtils.rollDice(6)) {
+		switch (MyUtils.rollDice(3)) {
 		case 1:
-		case 2:
 			return (Monster) new Gobelin();
-		case 3:
-		case 4:
+		case 2:
 			return (Monster) new Sorcerer();
-		case 5:
-		case 6:
+		case 3:
 			return (Monster) new Dragon();
 		default:
 			return null;
 		}
 	}
+
+	// méthode qui tire au hasard une potion, l'instancie et la renvoie
+	// D3 : 1/2 = potion (2) , 3 = grande potion (5)
+	private Potion createPotion() {
+		switch (MyUtils.rollDice(3)) {
+		case 1:
+		case 2:
+			return new Potion("potion de soin", 2);
+		case 3:
+			return new Potion("grande potion de soin ", 5);
+		default:
+			return null;
+		}
+
+	}
+	
+	// méthode qui tire au hasard une arme, l'instancie et la renvoie
+	// D2 : 1 = massue, 2 = épée
+	private Weapon createWeapon() {
+		switch (MyUtils.rollDice(2)) {
+		case 1:
+			return new Weapon("Club", 3);
+		case 2:
+			return new Weapon("Sword", 5);
+		default:
+			return null;
+		}
+	}
+	
+	// méthode qui tire au hasard un sort, l'instancie et le renvoie
+		// D2 : 1 = éclair, 2 = boule de feu
+		private Spell createSpell() {
+			switch (MyUtils.rollDice(2)) {
+			case 1:
+				return new Spell("Lightning", 2);
+			case 2:
+				return new Spell("Fireball", 7);
+			default:
+				return null;
+			}
+		}
 
 }

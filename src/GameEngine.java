@@ -63,9 +63,9 @@ public class GameEngine {
 		System.out.println("Contenu du coffre : " + content);
 		switch (content.getClass().getName()) {
 		case "Potion":
-			player1.setLife(player1.getLife() + ((Potion) content).getLife());
-			return player1.getName() + " boit " + ((Potion) content).getName() + " et gagne "
-					+ ((Potion) content).getLife() + " points de vie.";
+			player1.setLife(Math.min(player1.getMaxLife(), player1.getLife() + ((Potion) content).getLife()));
+			return player1.getName() + " boit " + ((Potion) content).getName() + ", il a maintenant "
+					+ (player1.getLife()) + " points de vie.";
 		case "Weapon":
 			if (player1.getClass().getName() == "Warrior") {
 				return player1.changeItem((Weapon) content);

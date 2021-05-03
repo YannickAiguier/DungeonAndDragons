@@ -76,17 +76,11 @@ public class Menu {
 		int life, attack;
 		System.out.println("Nom de votre personnage : ");
 		name = keyboard.nextLine();
-		System.out.println("Vie de votre personnage : ");
-		life = keyboard.nextInt();
-		keyboard.nextLine();
-		System.out.println("Attaque de votre personnage : ");
-		attack = keyboard.nextInt();
-		keyboard.nextLine();
 		if(myClass == "Warrior") {
-			player = new Warrior(name, life, attack);
+			player = new Warrior(name);
 		}
 		if(myClass == "Magician") {
-			player = new Magician(name, life, attack);
+			player = new Magician(name);
 		}
 		System.out.println("Personnage créé.");		
 	}
