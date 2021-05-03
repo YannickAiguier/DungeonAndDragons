@@ -1,5 +1,5 @@
 
-public class Monster {
+public abstract class Monster {
 
 	int life;
 	int attack;
@@ -28,7 +28,8 @@ public class Monster {
 	}
 	
 	// méthode d'attaque d'un joueur
-		public void attackPlayer(Player player) {
+		public String attackPlayer(Player player) {
 			player.setLife(player.getLife() - attack);
+			return this.getClass().getName() + " riposte et lui inflige " + attack + " points de dégâts.";
 		}
 }

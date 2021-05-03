@@ -3,6 +3,7 @@ public abstract class Player {
 
 	private String name;
 	private int life;
+	private int maxLife;
 	private int attack;
 	private MeanOfAttack firstAttack;
 	private String protectionType;
@@ -27,13 +28,15 @@ public abstract class Player {
 	 * 
 	 * @param name
 	 * @param life
+	 * @param maxLife
 	 * @param attack
 	 * @param firstAttack
 	 * @param protectionType
 	 */
-	public Player(String name, int life, int attack, MeanOfAttack firstAttack, String protectionType) {
+	public Player(String name, int life, int maxLife, int attack, MeanOfAttack firstAttack, String protectionType) {
 		this.name = name;
 		this.life = life;
+		this.maxLife = maxLife;
 		this.attack = attack;
 		this.firstAttack = firstAttack;
 		this.protectionType = protectionType;
@@ -65,6 +68,22 @@ public abstract class Player {
 	 */
 	public void setLife(int life) {
 		this.life = life;
+	}
+	
+	
+
+	/**
+	 * @return the maxLife
+	 */
+	public int getMaxLife() {
+		return maxLife;
+	}
+
+	/**
+	 * @param maxLife the maxLife to set
+	 */
+	public void setMaxLife(int maxLife) {
+		this.maxLife = maxLife;
 	}
 
 	/**
@@ -102,18 +121,25 @@ public abstract class Player {
 	}
 
 	// méthode d'attaque d'un monstre
-	public void attackMonster(Monster monster) {
+	public String attackMonster(Monster monster) {
 		int dmg = this.attack + firstAttack.getAttack();
 		monster.setLife(monster.getLife() - dmg);
+		return name + " attaque un " + monster.getClass().getName() + " et lui inflige " + (attack + firstAttack.getAttack()) + " points de dégâts.";
 	}
 
 	// méthode qui change l'équipement seulement s'il est meilleur que l'actuel
-	public void changeItem(MeanOfAttack item) {
+	public String changeItem(MeanOfAttack item) {
 		if (item.getAttack() > firstAttack.getAttack()) {
 			firstAttack = item;
+			return name + " s'équipe de " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts.";
 		} else {
-			System.out.println("Votre équipement est meilleur, vous le gardez.");
+			return name + " trouve  " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts. Pas intéressant...";
 		}
+	}
+	
+	// fonction qui vérifie si le joueur est en vie
+	public boolean isAlive() {
+		return life > 0;
 	}
 
 }
