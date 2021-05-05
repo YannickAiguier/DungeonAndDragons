@@ -1,61 +1,53 @@
-import java.util.Scanner;
 
 public class Menu {
-	
-	Scanner keyboard;
-	int choix;
+
 	Player player;
+	MyUtils u;
 
 	public Menu() {
-		keyboard = new Scanner(System.in);
-		choix = 0;
+		u = new MyUtils();
 	}
 
 	// fonction qui démarre le menu
 	public void start() {
-		choix = 0;
-		while (choix < 1 || choix > 2 ) {
-			System.out.println("1) Nouveau personnage");
-			System.out.println("2) Quitter le jeu");
-			System.out.print("Votre choix : ");
-			choix = keyboard.nextInt();
-			keyboard.nextLine();
+		int choix = 0;
+		while (choix < 1 || choix > 2) {
+			u.print(("1) Nouveau personnage"));
+			u.print(("2) Quitter le jeu"));
+			choix = u.getInt("Votre choix : ");
 			switch (choix) {
 			case 1:
 				createMenu();
 				choix = 0;
 				break;
 			case 2:
-				System.out.println("Fin du programme.");
+				u.print("Fin du programme.");
 				System.exit(0);
-				break;		
+				break;
 			default:
-				System.out.println("Choisissez 1 ou 2...");
+				u.print("Choisissez 1 ou 2...");
 				break;
 			}
 		}
-		keyboard.close();
 	}
-	
+
 	// fonction qui gère le sous-menu de création de joueur
 	private void createMenu() {
-		choix = 0;
+		int choix = 0;
 		while (choix < 1 || choix > 3) {
-			System.out.println("1) Guerrier");
-			System.out.println("2) Magicien");
-			System.out.println("3) Retour");
-			System.out.print("Votre choix : ");
-			choix = keyboard.nextInt();
-			keyboard.nextLine();
+			u.print("1) Guerrier");
+			u.print("2) Magicien");
+			u.print("3) Retour");
+			choix = u.getInt("Votre choix : ");
 			switch (choix) {
 			case 1:
-				System.out.println("Création d'un guerrier");
+				u.print("Création d'un guerrier");
 				createPlayer("Warrior");
 				playerMenu();
 				choix = 0;
 				break;
 			case 2:
-				System.out.println("Création d'un magicien");
+				u.print("Création d'un magicien");
 				createPlayer("Magician");
 				playerMenu();
 				choix = 0;
@@ -64,44 +56,39 @@ public class Menu {
 				choix = 0;
 				return;
 			default:
-				System.out.println("Choisissez 1, 2 ou 3...");
+				u.print("Choisissez 1, 2 ou 3...");
 				break;
 			}
 		}
 	}
-	
+
 	// fonction qui crée un guerrier ou un magicien
 	private void createPlayer(String myClass) {
-		String name;
-		int life, attack;
-		System.out.println("Nom de votre personnage : ");
-		name = keyboard.nextLine();
-		if(myClass == "Warrior") {
+		String name = u.getText("Nom de votre personnage : ");
+		if (myClass == "Warrior") {
 			player = new Warrior(name);
 		}
-		if(myClass == "Magician") {
+		if (myClass == "Magician") {
 			player = new Magician(name);
 		}
-		System.out.println("Personnage créé.");		
+		u.print("Personnage créé.");
 	}
-	
+
 	// fonction qui gère le sous-menu d'affichage ou de modification du joueur
 	private void playerMenu() {
-		choix = 0;
+		int choix = 0;
 		while (choix != 1 && choix != 2) {
-			System.out.println("1) Afficher les caractéristiques du personnage");
-			System.out.println("2) Modifier les caractéristiques du personnage");
-			System.out.println("3) Retour");
+			u.print("1) Afficher les caractéristiques du personnage");
+			u.print("2) Modifier les caractéristiques du personnage");
+			u.print("3) Retour");
 			if (player != null) {
-				System.out.println("4) Démarrer le jeu");
+				u.print("4) Démarrer le jeu");
 			}
-			System.out.print("Votre choix : ");
-			choix = keyboard.nextInt();
-			keyboard.nextLine();
+			choix = u.getInt("Votre choix : ");
 			switch (choix) {
 			case 1:
-				System.out.println("Caractéristiques de votre personnage : ");
-				System.out.println(player);
+				u.print("Caractéristiques de votre personnage : ");
+				u.print(player.toString());
 				choix = 0;
 				break;
 			case 2:
@@ -114,7 +101,6 @@ public class Menu {
 			case 4:
 				GameEngine myEngine = new GameEngine(player);
 				myEngine.start();
-				keyboard.close();
 				System.exit(0);
 				break;
 			default:
@@ -122,5 +108,5 @@ public class Menu {
 			}
 		}
 	}
-	
+
 }
