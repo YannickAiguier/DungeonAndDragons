@@ -1,5 +1,5 @@
 
-public class Potion {
+public class Potion extends Box {
 	
 	String name;
 	int life;

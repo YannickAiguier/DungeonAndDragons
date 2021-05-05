@@ -1,5 +1,5 @@
 
-public abstract class MeanOfAttack {
+public abstract class MeanOfAttack extends Box {
 
 	String name;
 	int attack;

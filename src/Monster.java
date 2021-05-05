@@ -1,5 +1,5 @@
 
-public abstract class Monster {
+public abstract class Monster extends Box {
 
 	int life;
 	int attack;
