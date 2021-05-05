@@ -3,13 +3,9 @@ import java.util.Scanner;
 public class GameEngine {
 
 	Player player1;
-	Monster monster;
-	Scanner keyboard;
-	String read;
 
 	public GameEngine(Player player) {
 		player1 = player;
-		keyboard = new Scanner(System.in);
 	}
 
 	// fonction qui gère le jeu une fois la partie démarrée
@@ -24,7 +20,8 @@ public class GameEngine {
 			boolean wait = true;
 			while (wait) {
 				System.out.println("Appuyez sur Entrée pour avancer...");
-				read = keyboard.nextLine();
+				Scanner keyboard = new Scanner(System.in);
+				String read = keyboard.nextLine();
 				if (read.isEmpty()) {
 					// faire avancer le joueur et afficher sa position
 					myGameBoard.advancePlayer();
@@ -39,7 +36,7 @@ public class GameEngine {
 			if (myGameBoard.getBox() == null) {
 				System.out.println("RAS, on continue.");
 			} else if (myGameBoard.getBox() instanceof Monster) {
-				monster = (Monster) myGameBoard.getBox();
+				Monster monster = (Monster) myGameBoard.getBox();
 				fight(monster);
 				if (player1.isAlive()) {
 					System.out.println(player1.getName() + " a vaincu le " + monster.getClass().getName()
@@ -53,9 +50,8 @@ public class GameEngine {
 			System.out.println(player1.getName() + " est arrivé à la fin du plateau. Jeu terminé !");
 		} else {
 			System.out
-					.println(player1.getName() + " a trouvé la mort en combattant un " + monster.getClass().getName());
+					.println(player1.getName() + " a trouvé la mort en combattant un " + myGameBoard.getBox().getClass().getName());
 		}
-		keyboard.close();
 	}
 
 	// fonction qui gère la récupération d'un coffre
