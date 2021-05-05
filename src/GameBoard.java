@@ -23,15 +23,18 @@ public class GameBoard {
 		return " en case " + (playerPos + 1) + " sur 64.";
 	}
 
-	// méthode qui fait avancer le joueur d'un D6
-	public void advancePlayer() {
+	// méthode qui fait avancer le joueur d'un D6 et retourne la valeur du dé
+	public int advancePlayer() {
 		try {
-			playerPos += new MyUtils().rollDice(6);
+			int dice = new MyUtils().rollDice(6);
+			playerPos += dice;
 			if (playerPos > 63) {
-				throw new PersonnageHorsPlateauException("Impossible de dépasser la case 64");
+				throw new PersonnageHorsPlateauException("Impossible de dépasser la case 64", dice);
 			}
+			return dice;
 		} catch (PersonnageHorsPlateauException e) {
 			playerPos = 63;
+			return e.getDice();
 		}
 	}
 
