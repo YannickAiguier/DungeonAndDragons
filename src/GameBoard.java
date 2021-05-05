@@ -6,7 +6,7 @@ public class GameBoard {
 
 	// Constructeur : initialisation du plateau à 64 cases, joueur en case 1
 	public GameBoard() {
-		board = new Object[64];
+		board = new Box[64];
 		playerPos = 0;
 	}
 
