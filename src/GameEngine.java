@@ -15,7 +15,7 @@ public class GameEngine {
 		GameBoard myGameBoard = new GameBoard();
 		myGameBoard.initBoard();
 		// tant que le joueur n'est pas arrivé au bout et qu'il est en vie
-		while (myGameBoard.playerNotOnLastBox() && player1.getLife() > 0) {
+		while (myGameBoard.playerNotOnLastBox() && player1.isAlive()) {
 			// appuyer sur la touche Entrée pour lancer le dé
 			boolean wait = true;
 			while (wait) {
