@@ -134,8 +134,7 @@ public class Menu extends Viewer {
 
 	@Override
 	public void showBox(Box box) {
-		// TODO Auto-generated method stub
-		
+		// rien à faire en mode texte
 	}
 	
 	
