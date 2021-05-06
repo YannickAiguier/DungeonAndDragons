@@ -17,10 +17,11 @@ public class GameEngine {
 		// création et initialisation du plateau de jeu
 		GameBoard myGameBoard = new GameBoard();
 		myGameBoard.initBoard();
+		u.print("1");
 		
 		// tant que le joueur n'est pas arrivé au bout et qu'il est en vie
 		while (myGameBoard.playerNotOnLastBox() && player1.isAlive()) {
-			
+			u.print("2");
 			// jouer un tour
 			// int dice = myGameBoard.advancePlayer();
 			//viewer.playRound(dice, myGameBoard.getPlayerPos());
@@ -29,6 +30,7 @@ public class GameEngine {
 			}
 			// lancer le dé et avancer le joueur
 			int dice = myGameBoard.advancePlayer();
+			u.print(String.valueOf(u));
 			// afficher la position
 			viewer.showMove(dice, myGameBoard.getPlayerPos());
 

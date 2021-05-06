@@ -9,10 +9,10 @@ import javax.swing.JOptionPane;
 
 public class MainGraphics implements Viewer {
 
-	Player Player;
+	Player player;
 	MyUtils u;
 	MyGame game;
-	static boolean waitBtnClic;
+	boolean waitBtnClic;
 
 	public MainGraphics() {
 		u = new MyUtils();
@@ -34,7 +34,7 @@ public class MainGraphics implements Viewer {
 		this.waitBtnClic = waitBtnClic;
 	}
 
-	public static void main(String[] args) throws IOException {
+	public void start() throws IOException {
 
 		// déclarations et instanciations
 		// la fenêtre principale
@@ -59,7 +59,7 @@ public class MainGraphics implements Viewer {
 		myWindow.setLocationRelativeTo(null);
 
 		// TODO décommenter ligne ci-dessous à la fin des tests
-		// menuItem2.setEnabled(false);
+		menuItem2.setEnabled(false);
 
 		// listeners
 		menuItem2.addActionListener(new ActionListener() {
@@ -67,6 +67,8 @@ public class MainGraphics implements Viewer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				game.showGamePanel(true);
+				startEngine();
+				System.out.println("Suite");
 			}
 		});
 
@@ -88,7 +90,9 @@ public class MainGraphics implements Viewer {
 			public void actionPerformed(ActionEvent e) {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Guerrier ?",
 						"Nouveau Guerrier", JOptionPane.QUESTION_MESSAGE);
-				System.out.println(name);
+				createPlayer("Warrior", name);
+				System.out.println(player);
+				menuItem2.setEnabled(true);
 			}
 		});
 
@@ -98,7 +102,9 @@ public class MainGraphics implements Viewer {
 			public void actionPerformed(ActionEvent e) {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Magicien ?",
 						"Nouveau Magicien", JOptionPane.QUESTION_MESSAGE);
-				System.out.println(name);
+				createPlayer("Magician", name);
+				System.out.println(player);
+				menuItem2.setEnabled(true);
 			}
 		});
 
@@ -126,6 +132,8 @@ public class MainGraphics implements Viewer {
 		myWindow.setVisible(true);
 
 	}
+
+
 
 	@Override
 	public void showMove(int dice, int playerPosition) {
@@ -167,13 +175,28 @@ public class MainGraphics implements Viewer {
 	public boolean waitDice() {
 		// attendre le clic sur bouton...
 		while (isWaitBtnClic()) {
-
+			u.print("MainGraphics wait...");
 		}
 		return false;
 	}
 
-	public static void clic() {
+	public void clic() {
 		waitBtnClic = false;
+	}
+
+	// fonction qui crée un guerrier ou un magicien
+	private void createPlayer(String myClass, String name) {
+		if (myClass == "Warrior") {
+			this.player = new Warrior(name);
+		}
+		if (myClass == "Magician") {
+			this.player = new Magician(name);
+		}
+	}
+	
+	private void startEngine() {
+		GameEngine myEngine = new GameEngine(player, this);
+		myEngine.start();
 	}
 
 }

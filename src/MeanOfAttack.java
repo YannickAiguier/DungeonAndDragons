@@ -10,18 +10,7 @@ public abstract class MeanOfAttack extends Box {
 	public MeanOfAttack(String name, int attack, String forClass) {
 		super(name, 0, attack, forClass);
 	}
-	/**
-	 * @return the attack
-	 */
-	public int getAttack() {
-		return attack;
-	}
-	/**
-	 * @param attack the attack to set
-	 */
-	public void setAttack(int attack) {
-		this.attack = attack;
-	}
+	
 	@Override
 	public String toString() {
 		return this.getClass().getName() + " [name=" + name + ", attack=" + attack + "]";

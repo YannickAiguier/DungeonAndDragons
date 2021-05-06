@@ -11,14 +11,6 @@ public abstract class Monster extends Box {
 		super(name, life, attack, "");
 	}
 
-	public int getLife() {
-		return life;
-	}
-
-	public void setLife(int life) {
-		this.life = life;
-	}
-
 	@Override
 	public String toString() {
 		return this.name + " a " + life + " points de vie et " + attack + " points d'attaque.";

@@ -11,14 +11,6 @@ public class Potion extends Box {
 		super(name, life, 0, "");
 	}
 
-	public int getLife() {
-		return life;
-	}
-
-	public void setLife(int life) {
-		this.life = life;
-	}
-
 	@Override
 	public String toString() {
 		return name + " qui restaure " + life + " points de vie";
