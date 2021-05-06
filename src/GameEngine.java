@@ -21,18 +21,9 @@ public class GameEngine {
 		// tant que le joueur n'est pas arrivé au bout et qu'il est en vie
 		while (myGameBoard.playerNotOnLastBox() && player1.isAlive()) {
 			
-			// appuyer sur la touche Entrée pour lancer le dé
-			boolean wait = true;
-			while (wait) {
-				String read = u.getText("Appuyez sur Entrée pour avancer...");
-				if (read.isEmpty()) {
-					// faire avancer le joueur et afficher sa position
-					viewer.showMove(myGameBoard.advancePlayer(), myGameBoard.getPlayerPos());
-					wait = false;
-				} else {
-					u.print("Merci de juste appuyer sur Entrée");
-				}
-			}
+			// jouer un tour
+			int dice = myGameBoard.advancePlayer();
+			viewer.playRound(dice, myGameBoard.getPlayerPos());
 
 			// traitement de la case
 			if (myGameBoard.getBox() == null) {

@@ -11,4 +11,5 @@ public abstract class Viewer {
 	
 	public abstract void showBox(Box box);
 	
+	public abstract void playRound(int dice, int playerPosition);
 }
