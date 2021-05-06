@@ -1,5 +1,5 @@
 
-public class Menu extends Viewer {
+public class Menu implements Viewer {
 
 	Player player;
 	MyUtils u;
@@ -156,4 +156,6 @@ public class Menu extends Viewer {
 		}
 
 	}
+	
+	
 }
