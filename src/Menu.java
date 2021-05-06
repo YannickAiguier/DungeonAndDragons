@@ -111,7 +111,7 @@ public class Menu implements Viewer {
 
 	@Override
 	public void showMove(int dice, int playerPosition) {
-		u.print("vous avancez de " + dice + " case(s) et arrivez en case " + playerPosition + ".");
+		u.print("Vous avancez de " + dice + " case(s) et arrivez en case " + playerPosition + ".");
 	}
 
 	@Override
@@ -140,22 +140,17 @@ public class Menu implements Viewer {
 	}
 
 	@Override
-	public void playRound(int dice, int playerPosition) {
-
-		// appuyer sur la touche Entrée pour lancer le dé
+	public boolean waitDice() {
 		boolean wait = true;
 		while (wait) {
 			String read = u.getText("Appuyez sur Entrée pour avancer...");
 			if (read.isEmpty()) {
-				//  afficher la position
-				showMove(dice, playerPosition);
-				wait = false;
+				return false;
 			} else {
 				u.print("Merci de juste appuyer sur Entrée");
 			}
 		}
-
+		return true;
 	}
-	
-	
+
 }

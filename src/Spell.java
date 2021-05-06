@@ -1,11 +1,16 @@
 
 public class Spell extends MeanOfAttack {
-
-	// constructeur, utilise celui de la classe parente MeanOfAttack
-	public Spell(String name, int attack) {
-		super(name, attack);
-	}
 	
+	/**
+	 * @param name
+	 * @param life
+	 * @param attack
+	 * @param forClass
+	 */
+	public Spell(String name, int attack) {
+		super(name, attack, "Magician");
+	}
+
 	@Override
 	protected String equip(Player player) {
 		

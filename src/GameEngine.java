@@ -22,8 +22,15 @@ public class GameEngine {
 		while (myGameBoard.playerNotOnLastBox() && player1.isAlive()) {
 			
 			// jouer un tour
+			// int dice = myGameBoard.advancePlayer();
+			//viewer.playRound(dice, myGameBoard.getPlayerPos());
+			while(viewer.waitDice()) {
+				
+			}
+			// lancer le dé et avancer le joueur
 			int dice = myGameBoard.advancePlayer();
-			viewer.playRound(dice, myGameBoard.getPlayerPos());
+			// afficher la position
+			viewer.showMove(dice, myGameBoard.getPlayerPos());
 
 			// traitement de la case
 			if (myGameBoard.getBox() == null) {

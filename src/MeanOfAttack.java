@@ -1,18 +1,15 @@
 
 public abstract class MeanOfAttack extends Box {
-
-	int attack;
 	
 	/**
-	 * Constructeur
 	 * @param name
+	 * @param life
 	 * @param attack
+	 * @param forClass
 	 */
-	public MeanOfAttack(String name, int attack) {
-		super(name);
-		this.attack = attack;
+	public MeanOfAttack(String name, int attack, String forClass) {
+		super(name, 0, attack, forClass);
 	}
-	
 	/**
 	 * @return the attack
 	 */

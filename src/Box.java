@@ -2,15 +2,24 @@
 public abstract class Box {
 	
 	String name;
-		
+	int life;
+	int attack;
+	String forClass;	
+
 	/**
 	 * @param name
+	 * @param life
+	 * @param attack
+	 * @param forClass
 	 */
-	public Box(String name) {
+	public Box(String name, int life, int attack, String forClass) {
 		this.name = name;
+		this.life = life;
+		this.attack = attack;
+		this.forClass = forClass;
 	}
-	
-	
+
+
 
 	/**
 	 * @return the name

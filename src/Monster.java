@@ -1,19 +1,14 @@
 
 public abstract class Monster extends Box {
 
-	int life;
-	int attack;
-
 	/**
-	 * Constructeur
-	 * 
+	 * @param name
 	 * @param life
 	 * @param attack
+	 * @param forClass
 	 */
 	public Monster(String name, int life, int attack) {
-		super(name);
-		this.life = life;
-		this.attack = attack;
+		super(name, life, attack, "");
 	}
 
 	public int getLife() {

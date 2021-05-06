@@ -1,9 +1,14 @@
 
 public class Weapon extends MeanOfAttack {
 
-	// constructeur, utilise celui de la classe parente MeanOfAttack
+	/**
+	 * @param name
+	 * @param life
+	 * @param attack
+	 * @param forClass
+	 */
 	public Weapon(String name, int attack) {
-		super(name, attack);
+		super(name, attack, "Warrior");
 	}
 
 	@Override

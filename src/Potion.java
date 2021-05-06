@@ -1,16 +1,14 @@
 
-public class Potion extends Box {
-	
-	int life;
-	
+public class Potion extends Box {	
+
 	/**
-	 * Constructeur
 	 * @param name
 	 * @param life
+	 * @param attack
+	 * @param forClass
 	 */
 	public Potion(String name, int life) {
-		super(name);
-		this.life = life;
+		super(name, life, 0, "");
 	}
 
 	public int getLife() {
