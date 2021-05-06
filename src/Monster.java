@@ -10,7 +10,8 @@ public abstract class Monster extends Box {
 	 * @param life
 	 * @param attack
 	 */
-	public Monster(int life, int attack) {
+	public Monster(String name, int life, int attack) {
+		super(name);
 		this.life = life;
 		this.attack = attack;
 	}
@@ -25,13 +26,13 @@ public abstract class Monster extends Box {
 
 	@Override
 	public String toString() {
-		return this.getClass().getName() + " a " + life + " points de vie et " + attack + " points d'attaque.";
+		return this.name + " a " + life + " points de vie et " + attack + " points d'attaque.";
 	}
 
 	// méthode d'attaque d'un joueur
 	public String attackPlayer(Player player) {
-		player.setLife(player.getLife() - attack);
-		return this.getClass().getName() + " riposte et lui inflige " + attack + " points de dégâts.";
+		player.setLife(Math.max(0, player.getLife() - attack));
+		return this.name + " riposte et lui inflige " + attack + " points de dégâts.";
 	}
 
 	@Override
@@ -55,6 +56,8 @@ public abstract class Monster extends Box {
 			viewer.showDetail(player.attackMonster(this));
 			if (this.isAlive()) {
 				viewer.showDetail(this.attackPlayer(player));
+			} else {
+				viewer.showDetail(player.getName() + " tue " + name);
 			}
 		}
 	}

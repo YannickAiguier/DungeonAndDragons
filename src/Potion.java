@@ -9,16 +9,8 @@ public class Potion extends Box {
 	 * @param life
 	 */
 	public Potion(String name, int life) {
-		this.name = name;
+		super(name);
 		this.life = life;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public int getLife() {
@@ -43,7 +35,7 @@ public class Potion extends Box {
 		// afficher ce qu'il se passe = showEvent, showDetail
 		viewer.showEvent("Vous trouvez " + toString());
 		player.setLife(Math.min(player.getMaxLife(), player.getLife() + this.getLife()));
-		viewer.showDetail("Vous buvez " + this.getName() + ", vous avez maintenant " + player.getLife() + " points de vie.");
+		viewer.showDetail("Vous buvez " + this.name + ", vous avez maintenant " + player.getLife() + " points de vie.");
 		
 		// afficher le résultat = showPlayer
 		viewer.showPlayer(player);

@@ -1,7 +1,6 @@
 
 public abstract class MeanOfAttack extends Box {
 
-	String name;
 	int attack;
 	
 	/**
@@ -10,21 +9,10 @@ public abstract class MeanOfAttack extends Box {
 	 * @param attack
 	 */
 	public MeanOfAttack(String name, int attack) {
-		this.name = name;
+		super(name);
 		this.attack = attack;
 	}
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	/**
 	 * @return the attack
 	 */
