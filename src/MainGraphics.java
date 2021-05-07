@@ -45,7 +45,6 @@ public class MainGraphics {
 		myWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myWindow.setLocationRelativeTo(null);
 
-		// TODO décommenter ligne ci-dessous à la fin des tests
 		menuItem2.setEnabled(false);
 
 		// listeners
@@ -56,6 +55,7 @@ public class MainGraphics {
 				game.showGamePanel(true);
 				myEngine = new GameEngine(player, game);
 				myEngine.initBoard();
+				game.showPlayer(player);
 			}
 		});
 
@@ -78,7 +78,6 @@ public class MainGraphics {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Guerrier ?",
 						"Nouveau Guerrier", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Warrior", name);
-				System.out.println(player);
 				menuItem2.setEnabled(true);
 			}
 		});
@@ -90,7 +89,6 @@ public class MainGraphics {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Magicien ?",
 						"Nouveau Magicien", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Magician", name);
-				System.out.println(player);
 				menuItem2.setEnabled(true);
 			}
 		});
@@ -101,35 +99,13 @@ public class MainGraphics {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				game.resetShowBox();
-				game.showDetail("</html>");
+				game.showDetail("");
 				myEngine.letsGo();
 				myEngine.boxProcess();
-				System.out.println(myEngine.myGameBoard.getPlayerPos());
-				System.out.println(myEngine.myGameBoard.playerNotOnLastBox());
-				System.out.println(myEngine.player1.getLife());
-				System.out.println(myEngine.player1.isAlive());
 				if (myEngine.isGameOver()) {
 					game.rollDice.setEnabled(false);
 					myEngine.gameEnd();
 				}
-//				if (!player.isAlive()) {
-//					game.showDetail(player.getName() + " a trouvé la mort en combattant un " + myEngine.myGameBoard.getBox().getName());
-//					game.rollDice.setEnabled(false);
-//				} else {
-//					if (!myEngine.myGameBoard.playerNotOnLastBox()) {
-//						game.showDetail(player.getName() + " est arrivé à la fin du plateau. Jeu terminé !");
-//						game.rollDice.setEnabled(false);
-//					}
-//				}
-//				int dice = myGameBoard.advancePlayer();
-//				game.showMove(dice, myGameBoard.getPlayerPos());
-//				if (myGameBoard.getBox() == null) {
-//					game.storyEvent.setText("Case vide, on continue...");
-//				} else {
-//					game.storyEvent.setText("Y'a un truc...");
-//				}
-				//game.showPlayer(player);
-
 			}
 		});
 
@@ -158,9 +134,6 @@ public class MainGraphics {
 		if (myClass == "Magician") {
 			this.player = new Magician(name);
 		}
-	}
-
-	public void clic() {
 	}
 
 }

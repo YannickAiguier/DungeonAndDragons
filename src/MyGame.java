@@ -4,14 +4,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,7 +26,7 @@ public class MyGame implements Viewer{
 	String detail;
 
 	public MyGame() {
-		detail = "</html>";
+		detail = "";
 		
 		// création du JPanel parent
 		all = new JPanel(new BorderLayout());
@@ -88,36 +84,31 @@ public class MyGame implements Viewer{
 		playerPicture = new GraphArea();
 		playerPicture.setImg("orc.png", 200, 300);
 		playerPicture.setMinimumSize(new Dimension(200, 300));
-		playerName = new TextArea("Player Name", 20, 300, 25);
-		playerLife = new TextArea("Player Life", 20, 300, 25);
-		playerAttack = new TextArea("Player Attack", 20, 300, 25);
-		playerTotalAttack = new TextArea("Player Total Attack", 20, 300, 25);
+		playerName = new TextArea("", 20, 300, 25);
+		playerLife = new TextArea("", 20, 300, 25);
+		playerAttack = new TextArea("", 20, 300, 25);
+		playerTotalAttack = new TextArea("", 20, 300, 25);
 		
 		// création des éléments de playerWeaponPicture
 		playerWeaponPicture = new TextArea("Player Weapon Picture", 20, 300, 25);
-		playerWeaponAttack = new TextArea("Player Weapon Attack", 20, 300, 25);
+		playerWeaponAttack = new TextArea("", 20, 300, 25);
 		
 		// création des éléments de storyPanel
-		//Border border = BorderFactory.createLineBorder(Color.blue, 1);
 		storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
 		storyEvent = new TextArea("", 20, 300, 25);
-		//storyEvent.setHorizontalAlignment(SwingConstants.CENTER);
 		storyEvent.setMaximumSize(new Dimension(400, 100));
-		//storyEvent.setBorder(border);
 		storyDetail = new TextArea("", 20, 300, 25);
-		//storyDetail.setHorizontalAlignment(SwingConstants.CENTER);
 		storyDetail.setMaximumSize(new Dimension(400, 300));
 		storyMove = new TextArea("", 20, 300, 25);
-		//storyMove.setHorizontalAlignment(SwingConstants.CENTER);
 		storyMove.setMaximumSize(new Dimension(400, 100));
 		
 		// création des éléments de boxPanel
 		boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
 		boxPicture = new TextArea("Box Picture", 20, 300, 25);
-		boxName = new TextArea("Box Name", 20, 300, 25);
-		boxLife = new TextArea("Box Life", 20, 300, 25);
-		boxAttack = new TextArea("Box Attack", 20, 300, 25);
-		boxClass = new TextArea("Box Class", 20, 300, 25);
+		boxName = new TextArea("", 20, 300, 25);
+		boxLife = new TextArea("", 20, 300, 25);
+		boxAttack = new TextArea("", 20, 300, 25);
+		boxClass = new TextArea("", 20, 300, 25);
 		
 		// création des éléments de buttonsPanel
 		buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -173,13 +164,6 @@ public class MyGame implements Viewer{
 	// afficher les infos du jeu au lancement de la partie
 	public void showGamePanel(boolean b) {
 		gamePanel.setVisible(b);
-	}
-		
-	public void startEngine(Player player) {
-		showGamePanel(true);
-		//GameEngine myEngine = new GameEngine(player, this);
-		System.out.println("Engine OK, lancement du jeu.");
-		//myEngine.start();
 	}
 	
 	@Override
