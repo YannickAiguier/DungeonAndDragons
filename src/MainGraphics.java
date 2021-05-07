@@ -51,7 +51,6 @@ public class MainGraphics {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.showGamePanel(true);
 				startGame();
 			}
 		});
@@ -121,8 +120,11 @@ public class MainGraphics {
 	
 	// fonction qui permet de lancer le moteur
 	private void startGame() {
-		System.out.println("Let's go !!");
-		game.startEngine(player);
+		myWindow.setVisible(false);
+		game.showGamePanel(true);
+		myWindow.setVisible(true);
+		System.out.println("Let's go !");
+		//game.startEngine(player);
 	}
 
 }

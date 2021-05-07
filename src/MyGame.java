@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -53,7 +55,7 @@ public class MyGame implements Viewer {
 		
 		gamePanel = new JPanel(new BorderLayout());
 		gamePanel.setBackground(Color.green);
-		gamePanel.setVisible(false);
+		//gamePanel.setVisible(false);
 		
 		// création des JPanels enfants de gamePanel
 		boardPanel = new JPanel();
@@ -71,6 +73,10 @@ public class MyGame implements Viewer {
 		buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(Color.black);
 		buttonsPanel.setPreferredSize(new Dimension(1000, 50));
+		boardPanel.setVisible(false);
+		playerFullPanel.setVisible(false);
+		storyPanel.setVisible(false);
+		boxPanel.setVisible(false);
 		
 		// création des JPanel enfants de playerFullPanel
 		playerPanel = new JPanel();
@@ -185,7 +191,10 @@ public class MyGame implements Viewer {
 	
 	// afficher les infos du jeu au lancement de la partie
 	public void showGamePanel(boolean b) {
-		gamePanel.setVisible(b);
+		boardPanel.setVisible(b);
+		playerFullPanel.setVisible(b);
+		storyPanel.setVisible(b);
+		boxPanel.setVisible(b);
 	}
 	
 	//
@@ -235,9 +244,15 @@ public class MyGame implements Viewer {
 	}
 	
 	public void startEngine(Player player) {
+		showGamePanel(true);
 		GameEngine myEngine = new GameEngine(player, this);
 		System.out.println("Engine OK, lancement du jeu.");
 		//myEngine.start();
+	}
+
+	@Override
+	public String toString() {
+		return "MyGame [gamePanel=" + gamePanel + "]";
 	}
 
 }
