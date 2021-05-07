@@ -93,9 +93,9 @@ public class GameBoard {
 		switch (new MyUtils().rollDice(3)) {
 		case 1:
 		case 2:
-			return new Potion("potion de soin", 2);
+			return new Potion("potion de soin", "potion.png",  2);
 		case 3:
-			return new Potion("grande potion de soin ", 5);
+			return new Potion("grande potion de soin ", "big_potion.png", 5);
 		default:
 			return null;
 		}
@@ -107,9 +107,9 @@ public class GameBoard {
 	private Weapon createWeapon() {
 		switch (new MyUtils().rollDice(2)) {
 		case 1:
-			return new Weapon("Club", 3);
+			return new Weapon("Massue", "club.png", 3);
 		case 2:
-			return new Weapon("Sword", 5);
+			return new Weapon("Epée", "sword.png", 5);
 		default:
 			return null;
 		}
@@ -120,9 +120,9 @@ public class GameBoard {
 		private Spell createSpell() {
 			switch (new MyUtils().rollDice(2)) {
 			case 1:
-				return new Spell("Lightning", 2);
+				return new Spell("Lightning", "lightning.png", 2);
 			case 2:
-				return new Spell("Fireball", 7);
+				return new Spell("Fireball", "fireball.png", 7);
 			default:
 				return null;
 			}

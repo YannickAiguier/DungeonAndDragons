@@ -3,12 +3,13 @@ public class Weapon extends MeanOfAttack {
 
 	/**
 	 * @param name
+	 * @param img
 	 * @param life
 	 * @param attack
 	 * @param forClass
 	 */
-	public Weapon(String name, int attack) {
-		super(name, attack, "Warrior");
+	public Weapon(String name, String img, int attack) {
+		super(name, img, attack, "Warrior");
 	}
 
 	@Override

@@ -3,12 +3,13 @@ public class Spell extends MeanOfAttack {
 	
 	/**
 	 * @param name
+	 * @param img
 	 * @param life
 	 * @param attack
 	 * @param forClass
 	 */
-	public Spell(String name, int attack) {
-		super(name, attack, "Magician");
+	public Spell(String name, String img, int attack) {
+		super(name, img, attack, "Magician");
 	}
 
 	@Override

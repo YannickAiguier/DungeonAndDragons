@@ -2,6 +2,7 @@
 public abstract class Player {
 
 	private String name;
+	String img;
 	private int life;
 	private int maxLife;
 	private int attack;
@@ -33,8 +34,9 @@ public abstract class Player {
 	 * @param firstAttack
 	 * @param protectionType
 	 */
-	public Player(String name, int life, int maxLife, int attack, MeanOfAttack firstAttack, String protectionType) {
+	public Player(String name, String img, int life, int maxLife, int attack, MeanOfAttack firstAttack, String protectionType) {
 		this.name = name;
+		this.img = img;
 		this.life = life;
 		this.maxLife = maxLife;
 		this.attack = attack;

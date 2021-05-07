@@ -2,7 +2,7 @@
 public class Sorcerer extends Monster {
 	
 	public Sorcerer() {
-		super("Sorcerer", 9, 2);
+		super("Sorcier", "sorcerer.png", 9, 2);
 	}
 
 }

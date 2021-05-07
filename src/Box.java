@@ -2,6 +2,7 @@
 public abstract class Box {
 	
 	String name;
+	String img;
 	int life;
 	int attack;
 	String forClass;	
@@ -12,8 +13,9 @@ public abstract class Box {
 	 * @param attack
 	 * @param forClass
 	 */
-	public Box(String name, int life, int attack, String forClass) {
+	public Box(String name, String img, int life, int attack, String forClass) {
 		this.name = name;
+		this.img = img;
 		this.life = life;
 		this.attack = attack;
 		this.forClass = forClass;

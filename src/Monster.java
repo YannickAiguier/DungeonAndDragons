@@ -3,12 +3,13 @@ public abstract class Monster extends Box {
 
 	/**
 	 * @param name
+	 * @param img
 	 * @param life
 	 * @param attack
 	 * @param forClass
 	 */
-	public Monster(String name, int life, int attack) {
-		super(name, life, attack, "");
+	public Monster(String name, String img, int life, int attack) {
+		super(name, img, life, attack, "");
 	}
 
 	@Override
@@ -38,13 +39,12 @@ public abstract class Monster extends Box {
 	}
 
 	public void fight(Player player, Viewer viewer) {
-
 		while (player.isAlive() && this.isAlive()) {
-			viewer.showDetail(player.attackMonster(this));
+			viewer.addDetail(player.attackMonster(this));
 			if (this.isAlive()) {
-				viewer.showDetail(this.attackPlayer(player));
+				viewer.addDetail(this.attackPlayer(player));
 			} else {
-				viewer.showDetail(player.getName() + " tue " + name);
+				viewer.addDetail(player.getName() + " tue le " + name);
 			}
 		}
 	}

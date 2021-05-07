@@ -13,11 +13,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MyGame implements Viewer{
-	
-	JPanel all, gamePanel, boardPanel, playerFullPanel, playerPanel, playerWeaponPanel, storyPanel, boxPanel, buttonsPanel;
-	// TODO ligne suivante à changer en GraphArea lors de la mise en place des images
-	TextArea playerWeaponPicture, boxPicture;
+public class MyGame implements Viewer {
+
+	JPanel all, gamePanel, boardPanel, playerFullPanel, playerPanel, playerWeaponPanel, storyPanel, boxPanel,
+			buttonsPanel;
+	GraphArea playerWeaponPicture, boxPicture;
 	GraphArea playerPicture;
 	TextArea playerName, playerLife, playerAttack, playerTotalAttack, playerWeaponAttack;
 	TextArea storyEvent, storyDetail, storyMove;
@@ -27,89 +27,89 @@ public class MyGame implements Viewer{
 
 	public MyGame() {
 		detail = "";
-		
+
 		// création du JPanel parent
 		all = new JPanel(new BorderLayout());
 		all.setBackground(Color.black);
-		
+
 		// création des 5 JPanels enfants
 		JPanel titlePanel = new JPanel();
 		titlePanel.setPreferredSize(new Dimension(1200, 100));
 		titlePanel.setBackground(Color.cyan);
-		
+
 		JPanel leftDecoPanel = new JPanel();
 		leftDecoPanel.setPreferredSize(new Dimension(100, 600));
 		leftDecoPanel.setBackground(Color.pink);
-		
+
 		JPanel rightDecoPanel = new JPanel();
 		rightDecoPanel.setPreferredSize(new Dimension(100, 600));
 		rightDecoPanel.setBackground(Color.pink);
-		
+
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setPreferredSize(new Dimension(1200, 100));
 		bottomPanel.setBackground(Color.cyan);
-		
+
 		gamePanel = new JPanel(new BorderLayout());
-		gamePanel.setBackground(Color.green);
+		gamePanel.setBackground(Color.black);
 		gamePanel.setVisible(false);
-		
+
 		// création des JPanels enfants de gamePanel
 		boardPanel = new JPanel();
-		boardPanel.setBackground(Color.blue);
+		boardPanel.setBackground(Color.black);
 		boardPanel.setPreferredSize(new Dimension(1000, 150));
 		playerFullPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
-		playerFullPanel.setBackground(Color.orange);
+		playerFullPanel.setBackground(Color.black);
 		playerFullPanel.setPreferredSize(new Dimension(400, 500));
 		storyPanel = new JPanel();
-		storyPanel.setBackground(Color.gray);
+		storyPanel.setBackground(Color.black);
 		storyPanel.setPreferredSize(new Dimension(400, 500));
 		boxPanel = new JPanel();
-		boxPanel.setBackground(Color.orange);
+		boxPanel.setBackground(Color.black);
 		boxPanel.setPreferredSize(new Dimension(200, 500));
 		buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(Color.black);
 		buttonsPanel.setPreferredSize(new Dimension(1000, 50));
-		
+
 		// création des JPanel enfants de playerFullPanel
 		playerPanel = new JPanel();
 		playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.Y_AXIS));
-		playerPanel.setBackground(Color.red);
+		playerPanel.setBackground(Color.black);
 		playerPanel.setPreferredSize(new Dimension(300, 500));
 		playerWeaponPanel = new JPanel();
 		playerWeaponPanel.setLayout(new BoxLayout(playerWeaponPanel, BoxLayout.Y_AXIS));
-		playerWeaponPanel.setBackground(Color.green);
+		playerWeaponPanel.setBackground(Color.black);
 		playerWeaponPanel.setPreferredSize(new Dimension(100, 500));
-		
+
 		// création des éléments de playerPanel
 		playerPicture = new GraphArea();
-		playerPicture.setImg("orc.png", 200, 300);
+		// playerPicture.setImg("orc.png", 200, 300);
 		playerPicture.setMinimumSize(new Dimension(200, 300));
 		playerName = new TextArea("", 20, 300, 25);
 		playerLife = new TextArea("", 20, 300, 25);
 		playerAttack = new TextArea("", 20, 300, 25);
-		playerTotalAttack = new TextArea("", 20, 300, 25);
-		
-		// création des éléments de playerWeaponPicture
-		playerWeaponPicture = new TextArea("Player Weapon Picture", 20, 300, 25);
 		playerWeaponAttack = new TextArea("", 20, 300, 25);
-		
+		playerTotalAttack = new TextArea("", 20, 300, 25);
+
+		// création des éléments de playerWeaponPicture
+		playerWeaponPicture = new GraphArea();
+
 		// création des éléments de storyPanel
 		storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
+		storyMove = new TextArea("", 20, 300, 25);
+		storyMove.setMaximumSize(new Dimension(400, 100));
 		storyEvent = new TextArea("", 20, 300, 25);
 		storyEvent.setMaximumSize(new Dimension(400, 100));
 		storyDetail = new TextArea("", 20, 300, 25);
 		storyDetail.setMaximumSize(new Dimension(400, 300));
-		storyMove = new TextArea("", 20, 300, 25);
-		storyMove.setMaximumSize(new Dimension(400, 100));
-		
+
 		// création des éléments de boxPanel
 		boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
-		boxPicture = new TextArea("Box Picture", 20, 300, 25);
-		boxName = new TextArea("", 20, 300, 25);
+		boxPicture = new GraphArea();
+		boxName = new TextArea("", 20, 300, 50);
 		boxLife = new TextArea("", 20, 300, 25);
 		boxAttack = new TextArea("", 20, 300, 25);
 		boxClass = new TextArea("", 20, 300, 25);
-		
+
 		// création des éléments de buttonsPanel
 		buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		try {
@@ -121,23 +121,21 @@ public class MyGame implements Viewer{
 			rollDice.setBorderPainted(false);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}	
-		
-		
-		
+		}
+
 		// assemblage !
 		playerPanel.add(playerPicture);
 		playerPanel.add(playerName);
 		playerPanel.add(playerLife);
 		playerPanel.add(playerAttack);
+		playerPanel.add(playerWeaponAttack);
 		playerPanel.add(playerTotalAttack);
 		playerWeaponPanel.add(playerWeaponPicture);
-		playerWeaponPanel.add(playerWeaponAttack);
 		playerFullPanel.add(playerPanel);
 		playerFullPanel.add(playerWeaponPanel);
+		storyPanel.add(storyMove);
 		storyPanel.add(storyEvent);
 		storyPanel.add(storyDetail);
-		storyPanel.add(storyMove);
 		boxPanel.add(boxPicture);
 		boxPanel.add(boxName);
 		boxPanel.add(boxLife);
@@ -155,41 +153,49 @@ public class MyGame implements Viewer{
 		all.add(bottomPanel, BorderLayout.PAGE_END);
 		all.add(gamePanel, BorderLayout.CENTER);
 	}
-	
+
 	// récupérer le JPanel parent
 	public JPanel getAll() {
 		return all;
 	}
-	
+
 	// afficher les infos du jeu au lancement de la partie
 	public void showGamePanel(boolean b) {
 		gamePanel.setVisible(b);
 	}
-	
+
 	@Override
 	public void showPlayer(Player player) {
-		// TODO : afficher l'image
+		playerPicture.setImg(player.img, 250, 200);
 		playerName.setText(player.getName());
-		playerLife.setText(String.valueOf(player.getLife()));
-		playerAttack.setText(String.valueOf(player.getAttack()));
-		playerTotalAttack.setText(String.valueOf(player.getAttack() + player.getFirstAttack().getAttack()));
+		playerLife.setText("Vie : " + String.valueOf(player.getLife()));
+		playerAttack.setText("Attaque de base : " + String.valueOf(player.getAttack()));
+		playerWeaponAttack.setText("Attaque de l'arme : " + String.valueOf(player.getFirstAttack().getAttack()));
+		playerTotalAttack.setText(
+				"Attaque totale : " + String.valueOf(player.getAttack() + player.getFirstAttack().getAttack()));
+		playerWeaponPicture.setImg(player.getFirstAttack().img, 100, 100);
 	}
-	
+
 	@Override
 	public void showMove(int dice, int playerPosition) {
-		storyMove.setText("<html>Vous avancez de " + dice + " case(s) <br>et arrivez en case " + playerPosition + ".</html>");
+		storyMove.setText("<html><p style=\"text-align: center\">Vous avancez de " + dice
+				+ " case(s) et arrivez en case " + playerPosition + ".</p></html>");
 	}
 
 	@Override
 	public void showEvent(String s) {
-		storyEvent.setText(s);
+		if (s == "Case vide, on continue...") {
+			resetShowBox();
+		}
+		storyEvent.setText("<html><p style=\"text-align: center\">" + s + "</p></html>");
+
 	}
 
 	@Override
 	public void showDetail(String s) {
-		storyDetail.setText("<html>" + s + "<br></html>");
+		storyDetail.setText("<html><p style=\"text-align: center\">" + s + "</p></html>");
 	}
-	
+
 	@Override
 	public void addDetail(String s) {
 		storyDetail.setText(addText(s));
@@ -197,12 +203,24 @@ public class MyGame implements Viewer{
 
 	@Override
 	public void showBox(Box box) {
-		// TODO afficher l'image
-		boxName.setText(box.name);
-		boxLife.setText(String.valueOf(box.life));
-		boxAttack.setText(String.valueOf(box.attack));
-		boxClass.setText(String.valueOf(box.forClass));
-
+		boxName.setText("<html><p style=\"text-align: center\">" + box.name + "</p></html>");
+		if (box instanceof Potion) {
+			boxPicture.setImg(box.img, 200, 200);
+			boxLife.setText("Vie : " + String.valueOf(box.life));
+			boxAttack.setText("");
+			boxClass.setText("");
+		} else if (box instanceof MeanOfAttack) {
+			boxPicture.setImg(box.img, 200, 200);
+			boxLife.setText("");
+			boxAttack.setText("Attaque : " + String.valueOf(box.attack));
+			boxClass.setText("");
+		} else if (box instanceof Monster) {
+			boxPicture.setImg(box.img, 200, 200);
+			boxLife.setText("Vie : " + String.valueOf(box.life));
+			boxAttack.setText("Attaque : " + String.valueOf(box.attack));
+			boxClass.setText("");
+		}
+		System.out.println(box.getClass().getName());
 	}
 
 	@Override
@@ -210,18 +228,19 @@ public class MyGame implements Viewer{
 		// rien pour le mode graphique
 		return false;
 	}
-	
+
 	private String addText(String s) {
 		detail = storyDetail.getText();
 		if (detail == "") {
 			detail = "</html>";
 		}
-		detail = detail.substring(0, detail.length() - 7);
-		detail = detail + s + "<br></html>";
+		detail = detail.substring(0, detail.length() - 11);
+		detail = detail + "<br>" + s + "</p></html>";
 		return detail;
 	}
-	
+
 	public void resetShowBox() {
+		boxPicture.removeImg();
 		boxName.setText("");
 		boxLife.setText(String.valueOf(""));
 		boxAttack.setText(String.valueOf(""));

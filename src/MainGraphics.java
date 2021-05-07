@@ -98,7 +98,6 @@ public class MainGraphics {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.resetShowBox();
 				game.showDetail("");
 				myEngine.letsGo();
 				myEngine.boxProcess();

@@ -72,7 +72,7 @@ public class GameEngine {
 		if (player1.isAlive()) {
 			viewer.showDetail(player1.getName() + " est arrivé à la fin du plateau. Jeu terminé !");
 		} else {
-			viewer.showDetail(player1.getName() + " a trouvé la mort en combattant un " + myGameBoard.getBox().getName());
+			viewer.addDetail(player1.getName() + " a trouvé la mort en combattant un " + myGameBoard.getBox().getName());
 		}
 	}
 	
