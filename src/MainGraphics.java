@@ -7,38 +7,23 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
-public class MainGraphics implements Viewer {
+public class MainGraphics {
 
 	Player player;
 	MyUtils u;
 	MyGame game;
-	boolean waitBtnClic;
+	JFrame myWindow;
 
 	public MainGraphics() {
 		u = new MyUtils();
 		game = new MyGame();
-		waitBtnClic = true;
-	}
-
-	/**
-	 * @return the waitBtnClic
-	 */
-	public boolean isWaitBtnClic() {
-		return waitBtnClic;
-	}
-
-	/**
-	 * @param waitBtnClic the waitBtnClic to set
-	 */
-	public void setWaitBtnClic(boolean waitBtnClic) {
-		this.waitBtnClic = waitBtnClic;
 	}
 
 	public void start() throws IOException {
 
 		// déclarations et instanciations
 		// la fenêtre principale
-		JFrame myWindow = new JFrame("DungeonsAndDragons");
+		myWindow = new JFrame("DungeonsAndDragons");
 
 		// l'objet MyGame qui crée tout l'interface graphique du jeu
 		MyGame game = new MyGame();
@@ -67,8 +52,7 @@ public class MainGraphics implements Viewer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				game.showGamePanel(true);
-				startEngine();
-				System.out.println("Suite");
+				startGame();
 			}
 		});
 
@@ -108,14 +92,6 @@ public class MainGraphics implements Viewer {
 			}
 		});
 
-		game.rollDice.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				clic();
-			}
-		});
-
 		// construction du menu
 		menu.add(menuItem1);
 		menu.add(menuItem2);
@@ -131,58 +107,7 @@ public class MainGraphics implements Viewer {
 		// affichage de la fenêtre
 		myWindow.setVisible(true);
 
-	}
-
-
-
-	@Override
-	public void showMove(int dice, int playerPosition) {
-		game.storyMove.setText("Vous avancez de " + dice + " case(s) et arrivez en case " + playerPosition + ".");
-	}
-
-	@Override
-	public void showEvent(String s) {
-		game.storyEvent.setText(s);
-
-	}
-
-	@Override
-	public void showDetail(String s) {
-		game.storyDetail.setText(s);
-
-	}
-
-	@Override
-	public void showPlayer(Player player) {
-		// TODO : afficher l'image
-		game.playerName.setText(player.getName());
-		game.playerLife.setText(String.valueOf(player.getLife()));
-		game.playerAttack.setText(String.valueOf(player.getAttack()));
-		game.playerTotalAttack.setText(String.valueOf(player.getAttack() + player.getFirstAttack().getAttack()));
-	}
-
-	@Override
-	public void showBox(Box box) {
-		// TODO afficher l'image
-		game.boxName.setText(box.name);
-		game.boxLife.setText(String.valueOf(box.life));
-		game.boxAttack.setText(String.valueOf(box.attack));
-		game.boxClass.setText(String.valueOf(box.life));
-
-	}
-
-	@Override
-	public boolean waitDice() {
-		// attendre le clic sur bouton...
-		while (isWaitBtnClic()) {
-			u.print("MainGraphics wait...");
-		}
-		return false;
-	}
-
-	public void clic() {
-		waitBtnClic = false;
-	}
+	}	
 
 	// fonction qui crée un guerrier ou un magicien
 	private void createPlayer(String myClass, String name) {
@@ -194,9 +119,10 @@ public class MainGraphics implements Viewer {
 		}
 	}
 	
-	private void startEngine() {
-		GameEngine myEngine = new GameEngine(player, this);
-		myEngine.start();
+	// fonction qui permet de lancer le moteur
+	private void startGame() {
+		System.out.println("Let's go !!");
+		game.startEngine(player);
 	}
 
 }

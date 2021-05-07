@@ -23,8 +23,6 @@ public class GameEngine {
 		while (myGameBoard.playerNotOnLastBox() && player1.isAlive()) {
 			u.print("2");
 			// jouer un tour
-			// int dice = myGameBoard.advancePlayer();
-			//viewer.playRound(dice, myGameBoard.getPlayerPos());
 			while(viewer.waitDice()) {
 				
 			}

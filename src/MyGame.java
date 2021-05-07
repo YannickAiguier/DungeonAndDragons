@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -13,7 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MyGame {
+public class MyGame implements Viewer {
 	
 	JPanel all, gamePanel, boardPanel, playerFullPanel, playerPanel, playerWeaponPanel, storyPanel, boxPanel, buttonsPanel;
 	// TODO ligne suivante à changer en GraphArea lors de la mise en place des images
@@ -23,8 +25,11 @@ public class MyGame {
 	TextArea storyEvent, storyDetail, storyMove;
 	TextArea boxName, boxLife, boxAttack, boxClass;
 	JButton rollDice;
-	
+	boolean waitBtnClic;
+
 	public MyGame() {
+		waitBtnClic = true;
+		
 		// création du JPanel parent
 		all = new JPanel(new BorderLayout());
 		all.setBackground(Color.black);
@@ -123,7 +128,16 @@ public class MyGame {
 			rollDice.setBorderPainted(false);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}		
+		}	
+		
+		// listener
+		rollDice.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clic !!");
+			}
+		});
 		
 		// assemblage !
 		playerPanel.add(playerPicture);
@@ -156,6 +170,14 @@ public class MyGame {
 		all.add(gamePanel, BorderLayout.CENTER);
 	}
 	
+	public boolean isWaitBtnClic() {
+		return waitBtnClic;
+	}
+
+	public void setWaitBtnClic(boolean waitBtnClic) {
+		this.waitBtnClic = waitBtnClic;
+	}
+	
 	// récupérer le JPanel parent
 	public JPanel getAll() {
 		return all;
@@ -166,6 +188,56 @@ public class MyGame {
 		gamePanel.setVisible(b);
 	}
 	
-	// 
+	//
+	@Override
+	public void showMove(int dice, int playerPosition) {
+		storyMove.setText("Vous avancez de " + dice + " case(s) et arrivez en case " + playerPosition + ".");
+	}
+
+	@Override
+	public void showEvent(String s) {
+		storyEvent.setText(s);
+
+	}
+
+	@Override
+	public void showDetail(String s) {
+		storyDetail.setText(s);
+
+	}
+
+	@Override
+	public void showPlayer(Player player) {
+		// TODO : afficher l'image
+		playerName.setText(player.getName());
+		playerLife.setText(String.valueOf(player.getLife()));
+		playerAttack.setText(String.valueOf(player.getAttack()));
+		playerTotalAttack.setText(String.valueOf(player.getAttack() + player.getFirstAttack().getAttack()));
+	}
+
+	@Override
+	public void showBox(Box box) {
+		// TODO afficher l'image
+		boxName.setText(box.name);
+		boxLife.setText(String.valueOf(box.life));
+		boxAttack.setText(String.valueOf(box.attack));
+		boxClass.setText(String.valueOf(box.life));
+
+	}
+
+	@Override
+	public boolean waitDice() {
+		// attendre le clic sur bouton...
+		while (isWaitBtnClic()) {
+			System.out.println("MainGraphics wait...");
+		}
+		return false;
+	}
+	
+	public void startEngine(Player player) {
+		GameEngine myEngine = new GameEngine(player, this);
+		System.out.println("Engine OK, lancement du jeu.");
+		//myEngine.start();
+	}
 
 }
