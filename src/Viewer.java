@@ -6,6 +6,8 @@ public interface Viewer {
 	void showEvent(String s);
 
 	void showDetail(String s);
+	
+	void addDetail(String s);
 
 	void showPlayer(Player player);
 

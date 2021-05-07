@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MyGame implements Viewer {
+public class MyGame implements Viewer{
 	
 	JPanel all, gamePanel, boardPanel, playerFullPanel, playerPanel, playerWeaponPanel, storyPanel, boxPanel, buttonsPanel;
 	// TODO ligne suivante à changer en GraphArea lors de la mise en place des images
@@ -27,10 +27,10 @@ public class MyGame implements Viewer {
 	TextArea storyEvent, storyDetail, storyMove;
 	TextArea boxName, boxLife, boxAttack, boxClass;
 	JButton rollDice;
-	boolean waitBtnClic;
+	String detail;
 
 	public MyGame() {
-		waitBtnClic = true;
+		detail = "</html>";
 		
 		// création du JPanel parent
 		all = new JPanel(new BorderLayout());
@@ -55,7 +55,7 @@ public class MyGame implements Viewer {
 		
 		gamePanel = new JPanel(new BorderLayout());
 		gamePanel.setBackground(Color.green);
-		//gamePanel.setVisible(false);
+		gamePanel.setVisible(false);
 		
 		// création des JPanels enfants de gamePanel
 		boardPanel = new JPanel();
@@ -73,10 +73,6 @@ public class MyGame implements Viewer {
 		buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(Color.black);
 		buttonsPanel.setPreferredSize(new Dimension(1000, 50));
-		boardPanel.setVisible(false);
-		playerFullPanel.setVisible(false);
-		storyPanel.setVisible(false);
-		boxPanel.setVisible(false);
 		
 		// création des JPanel enfants de playerFullPanel
 		playerPanel = new JPanel();
@@ -104,14 +100,14 @@ public class MyGame implements Viewer {
 		// création des éléments de storyPanel
 		//Border border = BorderFactory.createLineBorder(Color.blue, 1);
 		storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
-		storyEvent = new TextArea("Story Event", 20, 300, 25);
+		storyEvent = new TextArea("", 20, 300, 25);
 		//storyEvent.setHorizontalAlignment(SwingConstants.CENTER);
 		storyEvent.setMaximumSize(new Dimension(400, 100));
 		//storyEvent.setBorder(border);
-		storyDetail = new TextArea("Story Detail", 20, 300, 25);
+		storyDetail = new TextArea("", 20, 300, 25);
 		//storyDetail.setHorizontalAlignment(SwingConstants.CENTER);
 		storyDetail.setMaximumSize(new Dimension(400, 300));
-		storyMove = new TextArea("Story Move", 20, 300, 25);
+		storyMove = new TextArea("", 20, 300, 25);
 		//storyMove.setHorizontalAlignment(SwingConstants.CENTER);
 		storyMove.setMaximumSize(new Dimension(400, 100));
 		
@@ -136,14 +132,7 @@ public class MyGame implements Viewer {
 			e1.printStackTrace();
 		}	
 		
-		// listener
-		rollDice.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clic !!");
-			}
-		});
+		
 		
 		// assemblage !
 		playerPanel.add(playerPicture);
@@ -176,14 +165,6 @@ public class MyGame implements Viewer {
 		all.add(gamePanel, BorderLayout.CENTER);
 	}
 	
-	public boolean isWaitBtnClic() {
-		return waitBtnClic;
-	}
-
-	public void setWaitBtnClic(boolean waitBtnClic) {
-		this.waitBtnClic = waitBtnClic;
-	}
-	
 	// récupérer le JPanel parent
 	public JPanel getAll() {
 		return all;
@@ -191,30 +172,16 @@ public class MyGame implements Viewer {
 	
 	// afficher les infos du jeu au lancement de la partie
 	public void showGamePanel(boolean b) {
-		boardPanel.setVisible(b);
-		playerFullPanel.setVisible(b);
-		storyPanel.setVisible(b);
-		boxPanel.setVisible(b);
+		gamePanel.setVisible(b);
+	}
+		
+	public void startEngine(Player player) {
+		showGamePanel(true);
+		//GameEngine myEngine = new GameEngine(player, this);
+		System.out.println("Engine OK, lancement du jeu.");
+		//myEngine.start();
 	}
 	
-	//
-	@Override
-	public void showMove(int dice, int playerPosition) {
-		storyMove.setText("Vous avancez de " + dice + " case(s) et arrivez en case " + playerPosition + ".");
-	}
-
-	@Override
-	public void showEvent(String s) {
-		storyEvent.setText(s);
-
-	}
-
-	@Override
-	public void showDetail(String s) {
-		storyDetail.setText(s);
-
-	}
-
 	@Override
 	public void showPlayer(Player player) {
 		// TODO : afficher l'image
@@ -223,6 +190,26 @@ public class MyGame implements Viewer {
 		playerAttack.setText(String.valueOf(player.getAttack()));
 		playerTotalAttack.setText(String.valueOf(player.getAttack() + player.getFirstAttack().getAttack()));
 	}
+	
+	@Override
+	public void showMove(int dice, int playerPosition) {
+		storyMove.setText("<html>Vous avancez de " + dice + " case(s) <br>et arrivez en case " + playerPosition + ".</html>");
+	}
+
+	@Override
+	public void showEvent(String s) {
+		storyEvent.setText(s);
+	}
+
+	@Override
+	public void showDetail(String s) {
+		storyDetail.setText("<html>" + s + "<br></html>");
+	}
+	
+	@Override
+	public void addDetail(String s) {
+		storyDetail.setText(addText(s));
+	}
 
 	@Override
 	public void showBox(Box box) {
@@ -230,29 +217,31 @@ public class MyGame implements Viewer {
 		boxName.setText(box.name);
 		boxLife.setText(String.valueOf(box.life));
 		boxAttack.setText(String.valueOf(box.attack));
-		boxClass.setText(String.valueOf(box.life));
+		boxClass.setText(String.valueOf(box.forClass));
 
 	}
 
 	@Override
 	public boolean waitDice() {
-		// attendre le clic sur bouton...
-		while (isWaitBtnClic()) {
-			System.out.println("MainGraphics wait...");
-		}
+		// rien pour le mode graphique
 		return false;
 	}
 	
-	public void startEngine(Player player) {
-		showGamePanel(true);
-		GameEngine myEngine = new GameEngine(player, this);
-		System.out.println("Engine OK, lancement du jeu.");
-		//myEngine.start();
+	private String addText(String s) {
+		detail = storyDetail.getText();
+		if (detail == "") {
+			detail = "</html>";
+		}
+		detail = detail.substring(0, detail.length() - 7);
+		detail = detail + s + "<br></html>";
+		return detail;
 	}
-
-	@Override
-	public String toString() {
-		return "MyGame [gamePanel=" + gamePanel + "]";
+	
+	public void resetShowBox() {
+		boxName.setText("");
+		boxLife.setText(String.valueOf(""));
+		boxAttack.setText(String.valueOf(""));
+		boxClass.setText(String.valueOf(""));
 	}
 
 }
