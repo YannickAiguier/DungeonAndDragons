@@ -1,5 +1,5 @@
 
-public class Menu {
+public class Menu implements Viewer {
 
 	Player player;
 	MyUtils u;
@@ -99,7 +99,7 @@ public class Menu {
 				choix = 0;
 				return;
 			case 4:
-				GameEngine myEngine = new GameEngine(player);
+				GameEngine myEngine = new GameEngine(player, this);
 				myEngine.start();
 				System.exit(0);
 				break;
@@ -109,4 +109,53 @@ public class Menu {
 		}
 	}
 
+	@Override
+	public void showMove(int dice, int playerPosition) {
+		u.print("vous avancez de " + dice + " case(s) et arrivez en case " + playerPosition + ".");
+	}
+
+	@Override
+	public void showEvent(String s) {
+		u.print(s);
+
+	}
+
+	@Override
+	public void showDetail(String s) {
+		u.print(s);
+
+	}
+
+	@Override
+	public void showPlayer(Player player) {
+		u.print(player.getName() + " a " + player.getLife() + " points de vie, se bat avec "
+				+ player.getFirstAttack().getName() + " pour une force d'attaque de "
+				+ (player.getAttack() + player.getFirstAttack().getAttack()) + ".");
+
+	}
+
+	@Override
+	public void showBox(Box box) {
+		// rien à faire en mode texte
+	}
+
+	@Override
+	public void playRound(int dice, int playerPosition) {
+
+		// appuyer sur la touche Entrée pour lancer le dé
+		boolean wait = true;
+		while (wait) {
+			String read = u.getText("Appuyez sur Entrée pour avancer...");
+			if (read.isEmpty()) {
+				//  afficher la position
+				showMove(dice, playerPosition);
+				wait = false;
+			} else {
+				u.print("Merci de juste appuyer sur Entrée");
+			}
+		}
+
+	}
+	
+	
 }

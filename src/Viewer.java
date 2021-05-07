@@ -1,14 +1,16 @@
 
-public abstract class Viewer {
+public interface Viewer {
 
-	public abstract void showMove(int dice, int playerPosition);
-	
-	public abstract void showEvent();
-	
-	public abstract void showDetail();
-	
-	public abstract void showPlayer(Player player);
-	
-	public abstract void showBox(Box box);
-	
+	void showMove(int dice, int playerPosition);
+
+	void showEvent(String s);
+
+	void showDetail(String s);
+
+	void showPlayer(Player player);
+
+	void showBox(Box box);
+
+	void playRound(int dice, int playerPosition);
+
 }

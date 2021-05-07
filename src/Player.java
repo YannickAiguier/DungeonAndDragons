@@ -123,7 +123,7 @@ public abstract class Player {
 	// méthode d'attaque d'un monstre
 	public String attackMonster(Monster monster) {
 		int dmg = this.attack + firstAttack.getAttack();
-		monster.setLife(monster.getLife() - dmg);
+		monster.setLife(Math.max(0, monster.getLife() - dmg));
 		return name + " attaque un " + monster.getClass().getName() + " et lui inflige " + (attack + firstAttack.getAttack()) + " points de dégâts.";
 	}
 

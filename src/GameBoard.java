@@ -1,7 +1,7 @@
 
 public class GameBoard {
 
-	Object[] board;
+	Box[] board;
 	int playerPos;
 
 	// Constructeur : initialisation du plateau à 64 cases, joueur en case 1
@@ -44,13 +44,13 @@ public class GameBoard {
 	}
 
 	// méthode qui retourne le contenu de la case où se trouve le joueur
-	public Object getBox() {
+	public Box getBox() {
 		return board[playerPos];
 	}
 
 	// méthode qui met un objet dans la case board[index]
-	private void setBox(int index, Object object) {
-		board[index] = object;
+	private void setBox(int index, Box box) {
+		board[index] = box;
 	}
 
 	// méthode d'initialisation du plateau de jeu
