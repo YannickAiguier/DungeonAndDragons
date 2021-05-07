@@ -10,13 +10,15 @@ import javax.swing.JOptionPane;
 public class MainGraphics {
 
 	Player player;
-	MyUtils u;
 	MyGame game;
 	JFrame myWindow;
+	GameEngine myEngine;
 
 	public MainGraphics() {
-		u = new MyUtils();
+		player = null;
 		game = new MyGame();
+		myWindow = null;
+		myEngine = null;
 	}
 
 	public void start() throws IOException {
@@ -51,7 +53,9 @@ public class MainGraphics {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				startGame();
+				game.showGamePanel(true);
+				myEngine = new GameEngine(player, game);
+				myEngine.initBoard();
 			}
 		});
 
@@ -91,6 +95,44 @@ public class MainGraphics {
 			}
 		});
 
+		// listener
+		game.rollDice.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				game.resetShowBox();
+				game.showDetail("</html>");
+				myEngine.letsGo();
+				myEngine.boxProcess();
+				System.out.println(myEngine.myGameBoard.getPlayerPos());
+				System.out.println(myEngine.myGameBoard.playerNotOnLastBox());
+				System.out.println(myEngine.player1.getLife());
+				System.out.println(myEngine.player1.isAlive());
+				if (myEngine.isGameOver()) {
+					game.rollDice.setEnabled(false);
+					myEngine.gameEnd();
+				}
+//				if (!player.isAlive()) {
+//					game.showDetail(player.getName() + " a trouvé la mort en combattant un " + myEngine.myGameBoard.getBox().getName());
+//					game.rollDice.setEnabled(false);
+//				} else {
+//					if (!myEngine.myGameBoard.playerNotOnLastBox()) {
+//						game.showDetail(player.getName() + " est arrivé à la fin du plateau. Jeu terminé !");
+//						game.rollDice.setEnabled(false);
+//					}
+//				}
+//				int dice = myGameBoard.advancePlayer();
+//				game.showMove(dice, myGameBoard.getPlayerPos());
+//				if (myGameBoard.getBox() == null) {
+//					game.storyEvent.setText("Case vide, on continue...");
+//				} else {
+//					game.storyEvent.setText("Y'a un truc...");
+//				}
+				//game.showPlayer(player);
+
+			}
+		});
+
 		// construction du menu
 		menu.add(menuItem1);
 		menu.add(menuItem2);
@@ -106,7 +148,7 @@ public class MainGraphics {
 		// affichage de la fenêtre
 		myWindow.setVisible(true);
 
-	}	
+	}
 
 	// fonction qui crée un guerrier ou un magicien
 	private void createPlayer(String myClass, String name) {
@@ -117,14 +159,8 @@ public class MainGraphics {
 			this.player = new Magician(name);
 		}
 	}
-	
-	// fonction qui permet de lancer le moteur
-	private void startGame() {
-		myWindow.setVisible(false);
-		game.showGamePanel(true);
-		myWindow.setVisible(true);
-		System.out.println("Let's go !");
-		//game.startEngine(player);
+
+	public void clic() {
 	}
 
 }
