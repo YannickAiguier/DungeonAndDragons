@@ -125,6 +125,14 @@ public class Menu implements Viewer {
 		u.print(s);
 
 	}
+	
+	
+
+	@Override
+	public void addDetail(String s) {
+		u.print(s);
+		
+	}
 
 	@Override
 	public void showPlayer(Player player) {

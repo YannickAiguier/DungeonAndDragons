@@ -3,9 +3,19 @@ public class GameEngine {
 
 	Player player1;
 	Viewer viewer;
+	GameBoard myGameBoard;
+	int dice;
 
+	public GameEngine() {
+		this.player1 = null;
+		this.viewer = null;
+		this.dice = 0;
+		this.myGameBoard = null;
+	}
+	
 	public GameEngine(Player player, Viewer viewer) {
-		player1 = player;
+		this();
+		this.player1 = player;
 		this.viewer = viewer;
 	}
 
@@ -15,34 +25,55 @@ public class GameEngine {
 		u.print("Jeu lancé");
 		
 		// création et initialisation du plateau de jeu
-		GameBoard myGameBoard = new GameBoard();
-		myGameBoard.initBoard();
-		u.print("1");
+		initBoard();
 		
 		// tant que le joueur n'est pas arrivé au bout et qu'il est en vie
-		while (myGameBoard.playerNotOnLastBox() && player1.isAlive()) {
-			u.print("2");
+		while (isNotGameOver()) {
 			// jouer un tour
 			while(viewer.waitDice()) {
 				
 			}
-			// lancer le dé et avancer le joueur
-			int dice = myGameBoard.advancePlayer();
-			u.print(String.valueOf(u));
-			// afficher la position
-			viewer.showMove(dice, myGameBoard.getPlayerPos());
+			// lancer le dé, avancer le joueur et afficher sa position
+			letsGo();
 
 			// traitement de la case
-			if (myGameBoard.getBox() == null) {
-				viewer.showEvent("Case vide, on continue...");
-			} else {
-				myGameBoard.getBox().process(player1, viewer);
-			}
+			boxProcess();
 		}
+		gameEnd();
+	}	
+
+	public void initBoard() {
+		myGameBoard = new GameBoard();
+		myGameBoard.initBoard();
+	}
+	
+	public boolean isNotGameOver() {
+		return this.myGameBoard.playerNotOnLastBox() && player1.isAlive();
+	}
+	
+	public boolean isGameOver() {
+		return !(this.myGameBoard.playerNotOnLastBox() && player1.isAlive());
+	}
+	
+	public void letsGo() {
+		dice = myGameBoard.advancePlayer();
+		viewer.showMove(dice, myGameBoard.getPlayerPos());
+	}
+	
+	public void boxProcess() {
+		if (myGameBoard.getBox() == null) {
+			viewer.showEvent("Case vide, on continue...");
+		} else {
+			myGameBoard.getBox().process(player1, viewer);
+		}
+	}
+	
+	public void gameEnd() {
 		if (player1.isAlive()) {
 			viewer.showDetail(player1.getName() + " est arrivé à la fin du plateau. Jeu terminé !");
 		} else {
 			viewer.showDetail(player1.getName() + " a trouvé la mort en combattant un " + myGameBoard.getBox().getName());
 		}
 	}
+	
 }
