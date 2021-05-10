@@ -17,8 +17,7 @@ public class MyGame implements Viewer {
 
 	JPanel all, gamePanel, boardPanel, playerFullPanel, playerPanel, playerWeaponPanel, storyPanel, boxPanel,
 			buttonsPanel;
-	GraphArea playerWeaponPicture, boxPicture;
-	GraphArea playerPicture;
+	GraphArea titlePicture, bottomPicture, playerWeaponPicture, boxPicture, playerPicture;
 	TextArea playerName, playerLife, playerAttack, playerTotalAttack, playerWeaponAttack;
 	TextArea storyEvent, storyDetail, storyMove;
 	TextArea boxName, boxLife, boxAttack, boxClass;
@@ -35,23 +34,31 @@ public class MyGame implements Viewer {
 		// création des 5 JPanels enfants
 		JPanel titlePanel = new JPanel();
 		titlePanel.setPreferredSize(new Dimension(1200, 100));
-		titlePanel.setBackground(Color.cyan);
+		titlePanel.setBackground(Color.black);
 
 		JPanel leftDecoPanel = new JPanel();
-		leftDecoPanel.setPreferredSize(new Dimension(100, 600));
-		leftDecoPanel.setBackground(Color.pink);
+		leftDecoPanel.setPreferredSize(new Dimension(50, 600));
+		leftDecoPanel.setBackground(Color.black);
 
 		JPanel rightDecoPanel = new JPanel();
-		rightDecoPanel.setPreferredSize(new Dimension(100, 600));
-		rightDecoPanel.setBackground(Color.pink);
+		rightDecoPanel.setPreferredSize(new Dimension(50, 600));
+		rightDecoPanel.setBackground(Color.black);
 
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setPreferredSize(new Dimension(1200, 100));
-		bottomPanel.setBackground(Color.cyan);
+		bottomPanel.setBackground(Color.black);
 
 		gamePanel = new JPanel(new BorderLayout());
 		gamePanel.setBackground(Color.black);
 		gamePanel.setVisible(false);
+		
+		// création des décors
+		titlePicture = new GraphArea();
+		titlePicture.setMinimumSize(new Dimension(1000, 100));
+		titlePicture.setImg("title.png", 1000, 100);
+		bottomPicture = new GraphArea();
+		bottomPicture.setMinimumSize(new Dimension(1200, 100));
+		bottomPicture.setImg("bottom_border.png", 1200, 100);
 
 		// création des JPanels enfants de gamePanel
 		boardPanel = new JPanel();
@@ -62,7 +69,7 @@ public class MyGame implements Viewer {
 		playerFullPanel.setPreferredSize(new Dimension(400, 500));
 		storyPanel = new JPanel();
 		storyPanel.setBackground(Color.black);
-		storyPanel.setPreferredSize(new Dimension(400, 500));
+		storyPanel.setPreferredSize(new Dimension(500, 500));
 		boxPanel = new JPanel();
 		boxPanel.setBackground(Color.black);
 		boxPanel.setPreferredSize(new Dimension(200, 500));
@@ -82,7 +89,6 @@ public class MyGame implements Viewer {
 
 		// création des éléments de playerPanel
 		playerPicture = new GraphArea();
-		// playerPicture.setImg("orc.png", 200, 300);
 		playerPicture.setMinimumSize(new Dimension(200, 300));
 		playerName = new TextArea("", 20, 300, 25);
 		playerLife = new TextArea("", 20, 300, 25);
@@ -96,11 +102,11 @@ public class MyGame implements Viewer {
 		// création des éléments de storyPanel
 		storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
 		storyMove = new TextArea("", 20, 300, 25);
-		storyMove.setMaximumSize(new Dimension(400, 100));
+		storyMove.setMaximumSize(new Dimension(500, 100));
 		storyEvent = new TextArea("", 20, 300, 25);
-		storyEvent.setMaximumSize(new Dimension(400, 100));
+		storyEvent.setMaximumSize(new Dimension(500, 100));
 		storyDetail = new TextArea("", 20, 300, 25);
-		storyDetail.setMaximumSize(new Dimension(400, 300));
+		storyDetail.setMaximumSize(new Dimension(500, 300));
 
 		// création des éléments de boxPanel
 		boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
@@ -147,6 +153,8 @@ public class MyGame implements Viewer {
 		gamePanel.add(storyPanel, BorderLayout.CENTER);
 		gamePanel.add(boxPanel, BorderLayout.LINE_END);
 		gamePanel.add(buttonsPanel, BorderLayout.PAGE_END);
+		titlePanel.add(titlePicture);
+		bottomPanel.add(bottomPicture);
 		all.add(titlePanel, BorderLayout.PAGE_START);
 		all.add(leftDecoPanel, BorderLayout.LINE_START);
 		all.add(rightDecoPanel, BorderLayout.LINE_END);
@@ -220,7 +228,6 @@ public class MyGame implements Viewer {
 			boxAttack.setText("Attaque : " + String.valueOf(box.attack));
 			boxClass.setText("");
 		}
-		System.out.println(box.getClass().getName());
 	}
 
 	@Override
