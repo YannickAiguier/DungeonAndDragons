@@ -2,6 +2,8 @@ package viewers;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -34,10 +36,12 @@ public class GraphArea extends JLabel {
 	public void setImg(String img, int width, int height) {
 		try {
 			
-			File file = new File("./resources/images/" + img);
-			Image resizedImage = ImageIO.read(file).getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			//File file = new File("./resources/images/" + img);
+			//Image resizedImage = ImageIO.read(file).getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			URL myImage = ClassLoader.getSystemResource("images/" + img);
+			Image resizedImage = ImageIO.read(myImage).getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			this.setIcon(new ImageIcon(resizedImage));
-		} catch (IOException e1) {
+		} catch (Exception e1) {
 			System.out.println(this.getClass().getResource("/" + img));
 		}
 	}

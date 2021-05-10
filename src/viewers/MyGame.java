@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -126,8 +127,10 @@ public class MyGame implements Viewer {
 		// création des éléments de buttonsPanel
 		buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		try {
-			File file = new File("./resources/images/dice.png");
-			Image resizedImage = ImageIO.read(file).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+			//File file = new File("./resources/images/dice.png");
+			//Image resizedImage = ImageIO.read(file).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+			URL myImage = ClassLoader.getSystemResource("images/dice.png");
+			Image resizedImage = ImageIO.read(myImage).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 			rollDice = new JButton(new ImageIcon(resizedImage));
 			rollDice.setMargin(new Insets(0, 0, 0, 0));
 			rollDice.setContentAreaFilled(false);
