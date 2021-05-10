@@ -1,21 +1,25 @@
+package box;
+import player.Player;
+import player.Warrior;
+
 /**
- * Classe pour gérer un sort (hérite de MeanOfAttack).
+ * Classe pour gérer une arme (hérite de MeanOfAttack).
  * 
  * @see MeanOfAttack
  * @author yannick
  *
  */
-public class Spell extends MeanOfAttack {
-	
+public class Weapon extends MeanOfAttack {
+
 	/**
 	 * Construteur, utilise celui de la classe parente MeanOfAttack.
-	 * <p>Pas de life pour un sort, le forClass Magician est automatique.
+	 * <p>Pas de life pour une arme, le forClass Warrior est automatique.
 	 * @param name
 	 * @param img
 	 * @param attack
 	 */
-	public Spell(String name, String img, int attack) {
-		super(name, img, attack, "Magician");
+	public Weapon(String name, String img, int attack) {
+		super(name, img, attack, "Warrior");
 	}
 
 	/**
@@ -30,11 +34,11 @@ public class Spell extends MeanOfAttack {
 	@Override
 	protected String equip(Player player) {
 		
-		if (player instanceof Magician) {
+		if (player instanceof Warrior) {
 			return player.changeItem(this);
 		} else {
-			return "Seul un Magicien peut utiliser cette arme.";
+			return "Seul un guerrier peut utiliser cette arme.";
 		}
-	}
+	}	
 	
 }

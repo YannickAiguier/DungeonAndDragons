@@ -1,3 +1,6 @@
+package player;
+import box.Spell;
+
 /**
  * Classe pour gérer un Magicien (hérite de Player).
  * 

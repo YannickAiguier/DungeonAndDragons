@@ -1,3 +1,6 @@
+package player;
+import box.Weapon;
+
 /**
  * Classe pour gérer un Warrior (hérite de Player).
  * 

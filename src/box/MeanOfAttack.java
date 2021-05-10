@@ -1,3 +1,7 @@
+package box;
+import player.Player;
+import viewers.Viewer;
+
 /**
  * Classe abstraite pour gérer les moyens d'attaque Weapon et Spell (hérite de Box).
  * 

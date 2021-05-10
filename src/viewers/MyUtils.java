@@ -1,3 +1,4 @@
+package viewers;
 import java.util.Scanner;
 
 /**

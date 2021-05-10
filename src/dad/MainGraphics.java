@@ -1,3 +1,4 @@
+package dad;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
@@ -6,6 +7,11 @@ import java.io.IOException;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+
+import player.Magician;
+import player.Player;
+import player.Warrior;
+import viewers.MyGame;
 
 public class MainGraphics {
 
@@ -94,7 +100,7 @@ public class MainGraphics {
 		});
 
 		// listener
-		game.rollDice.addActionListener(new ActionListener() {
+		game.getRollDice().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -102,7 +108,7 @@ public class MainGraphics {
 				myEngine.letsGo();
 				myEngine.boxProcess();
 				if (myEngine.isGameOver()) {
-					game.rollDice.setEnabled(false);
+					game.getRollDice().setEnabled(false);
 					myEngine.gameEnd();
 				}
 			}

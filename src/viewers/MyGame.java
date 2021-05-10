@@ -1,3 +1,4 @@
+package viewers;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +13,12 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import box.Box;
+import box.MeanOfAttack;
+import box.Monster;
+import box.Potion;
+import player.Player;
 
 public class MyGame implements Viewer {
 
@@ -161,6 +168,26 @@ public class MyGame implements Viewer {
 		all.add(bottomPanel, BorderLayout.PAGE_END);
 		all.add(gamePanel, BorderLayout.CENTER);
 	}
+	
+	
+
+	/**
+	 * @return the rollDice
+	 */
+	public JButton getRollDice() {
+		return rollDice;
+	}
+
+
+
+	/**
+	 * @param rollDice the rollDice to set
+	 */
+	public void setRollDice(JButton rollDice) {
+		this.rollDice = rollDice;
+	}
+
+
 
 	// récupérer le JPanel parent
 	public JPanel getAll() {
@@ -174,14 +201,14 @@ public class MyGame implements Viewer {
 
 	@Override
 	public void showPlayer(Player player) {
-		playerPicture.setImg(player.img, 250, 200);
+		playerPicture.setImg(player.getImg(), 250, 200);
 		playerName.setText(player.getName());
 		playerLife.setText("Vie : " + String.valueOf(player.getLife()));
 		playerAttack.setText("Attaque de base : " + String.valueOf(player.getAttack()));
 		playerWeaponAttack.setText("Attaque de l'arme : " + String.valueOf(player.getFirstAttack().getAttack()));
 		playerTotalAttack.setText(
 				"Attaque totale : " + String.valueOf(player.getAttack() + player.getFirstAttack().getAttack()));
-		playerWeaponPicture.setImg(player.getFirstAttack().img, 100, 100);
+		playerWeaponPicture.setImg(player.getFirstAttack().getImg(), 100, 100);
 	}
 
 	@Override
@@ -211,21 +238,21 @@ public class MyGame implements Viewer {
 
 	@Override
 	public void showBox(Box box) {
-		boxName.setText("<html><p style=\"text-align: center\">" + box.name + "</p></html>");
+		boxName.setText("<html><p style=\"text-align: center\">" + box.getName() + "</p></html>");
 		if (box instanceof Potion) {
-			boxPicture.setImg(box.img, 200, 200);
-			boxLife.setText("Vie : " + String.valueOf(box.life));
+			boxPicture.setImg(box.getImg(), 200, 200);
+			boxLife.setText("Vie : " + String.valueOf(box.getLife()));
 			boxAttack.setText("");
 			boxClass.setText("");
 		} else if (box instanceof MeanOfAttack) {
-			boxPicture.setImg(box.img, 200, 200);
+			boxPicture.setImg(box.getImg(), 200, 200);
 			boxLife.setText("");
-			boxAttack.setText("Attaque : " + String.valueOf(box.attack));
+			boxAttack.setText("Attaque : " + String.valueOf(box.getAttack()));
 			boxClass.setText("");
 		} else if (box instanceof Monster) {
-			boxPicture.setImg(box.img, 200, 200);
-			boxLife.setText("Vie : " + String.valueOf(box.life));
-			boxAttack.setText("Attaque : " + String.valueOf(box.attack));
+			boxPicture.setImg(box.getImg(), 200, 200);
+			boxLife.setText("Vie : " + String.valueOf(box.getLife()));
+			boxAttack.setText("Attaque : " + String.valueOf(box.getAttack()));
 			boxClass.setText("");
 		}
 	}

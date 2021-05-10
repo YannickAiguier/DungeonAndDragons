@@ -1,3 +1,7 @@
+package box;
+import player.Player;
+import viewers.Viewer;
+
 /**
  * Classe abstraite représentant les cases du plateau de jeu.
  * 

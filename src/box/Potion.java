@@ -1,3 +1,7 @@
+package box;
+import player.Player;
+import viewers.Viewer;
+
 /**
  * Classe pour gérer les potions (hérite de Box).
  * 

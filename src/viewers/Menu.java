@@ -1,3 +1,10 @@
+package viewers;
+import box.Box;
+import dad.GameEngine;
+import player.Magician;
+import player.Player;
+import player.Warrior;
+
 /**
  * Classe pour gérer le menu en mode console, implémente l'interface Viewer pour
  * ce mode.

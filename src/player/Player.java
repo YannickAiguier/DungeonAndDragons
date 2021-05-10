@@ -1,3 +1,7 @@
+package player;
+import box.MeanOfAttack;
+import box.Monster;
+
 /**
  * Classe abstraite représentant le joueur.
  * <p>Un joueur est représenté par :

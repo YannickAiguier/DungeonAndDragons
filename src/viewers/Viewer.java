@@ -1,3 +1,7 @@
+package viewers;
+import box.Box;
+import player.Player;
+
 /**
  * Interface pour les viewers (console ou graphique).
  * @author yannick

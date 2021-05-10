@@ -1,3 +1,4 @@
+package dad;
 /**
  * Classe représentant l'exception provoquée lorsque le joueur dépasse la dernière case du plateau de jeu.
  * <p>

@@ -1,3 +1,8 @@
+package dad;
+import player.Player;
+import viewers.MyUtils;
+import viewers.Viewer;
+
 /**
  * Classe moteur de jeu qui fournit les outils pour gérer une partie. Mode
  * console : boucle gérée par le moteur de jeu, appelle les fonctions

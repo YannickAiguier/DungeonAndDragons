@@ -1,3 +1,7 @@
+package box;
+import player.Player;
+import viewers.Viewer;
+
 /**
  * Classe abstraite représentant tous les monstres pouvant être générés sur une
  * case du plateau de jeu (hérite de Box).

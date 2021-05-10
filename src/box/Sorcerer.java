@@ -1,3 +1,4 @@
+package box;
 /**
  * Classe pour gérer un Sorcier (hérite de Monster).
  * 

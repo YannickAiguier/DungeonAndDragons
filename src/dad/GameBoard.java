@@ -1,3 +1,14 @@
+package dad;
+import box.Box;
+import box.Dragon;
+import box.Gobelin;
+import box.Monster;
+import box.Potion;
+import box.Sorcerer;
+import box.Spell;
+import box.Weapon;
+import viewers.MyUtils;
+
 /**
  * Classe représenatnt le plateau de jeu.
  * 
