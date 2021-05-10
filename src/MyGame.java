@@ -119,13 +119,13 @@ public class MyGame implements Viewer {
 		// création des éléments de buttonsPanel
 		buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		try {
-			File file = new File("/home/yannick/campus/DungeonsAndDragons/resources/images/dice.png");
+			File file = new File("./resources/images/dice.png");
 			Image resizedImage = ImageIO.read(file).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 			rollDice = new JButton(new ImageIcon(resizedImage));
 			rollDice.setMargin(new Insets(0, 0, 0, 0));
 			rollDice.setContentAreaFilled(false);
 			rollDice.setBorderPainted(false);
-		} catch (IOException e1) {
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 

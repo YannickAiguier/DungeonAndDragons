@@ -1,14 +1,35 @@
-
+/**
+ * Classe abstraite représentant les cases du plateau de jeu.
+ * 
+ * <p>Une case est représentée par les informations suivantes :
+ * <ul>
+ * <li>Un nom, qui permet de savoir ce qu'il y a sur la case.</li>
+ * <li>Le nom du fichier image la représentant (seulement en mode graphique).</li>
+ * <li>De la vie, soit à ajouter à celle du héros (potion), soit indiquant la vie du monstre présent sur la case.</li>
+ * <li>Une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.</li>
+ * <li>Une "classe d'utilisation", permettant de savoir quel type de héro peut utiliser l'arme ou le sort trouvé.</li>
+ * </ul>
+ * </p>
+ * 
+ * @see Monster
+ * @see MeanOfAttack
+ * @see Potion
+ * @author yannick
+ * 
+ */
 public abstract class Box {
 	
-	String name;
-	String img;
-	int life;
-	int attack;
-	String forClass;	
+	protected String name;
+	protected String img;
+	protected int life;
+	protected int attack;
+	protected String forClass;	
 
 	/**
+	 * Constructeur de la classe
+	 * 
 	 * @param name
+	 * @param img
 	 * @param life
 	 * @param attack
 	 * @param forClass
@@ -28,12 +49,34 @@ public abstract class Box {
 		return name;
 	}
 
+
+
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+
+	/**
+	 * @return the img
+	 */
+	public String getImg() {
+		return img;
+	}
+
+
+
+	/**
+	 * @param img the img to set
+	 */
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+
 
 	/**
 	 * @return the life
@@ -42,12 +85,16 @@ public abstract class Box {
 		return life;
 	}
 
+
+
 	/**
 	 * @param life the life to set
 	 */
 	public void setLife(int life) {
 		this.life = life;
 	}
+
+
 
 	/**
 	 * @return the attack
@@ -56,12 +103,16 @@ public abstract class Box {
 		return attack;
 	}
 
+
+
 	/**
 	 * @param attack the attack to set
 	 */
 	public void setAttack(int attack) {
 		this.attack = attack;
 	}
+
+
 
 	/**
 	 * @return the forClass
@@ -70,6 +121,8 @@ public abstract class Box {
 		return forClass;
 	}
 
+
+
 	/**
 	 * @param forClass the forClass to set
 	 */
@@ -77,12 +130,20 @@ public abstract class Box {
 		this.forClass = forClass;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Box [name=" + name + ", life=" + life + ", attack=" + attack + ", forClass=" + forClass + "]";
+		return "Box [name=" + name + ", img=" + img + ", life=" + life + ", attack=" + attack + ", forClass=" + forClass
+				+ "]";
 	}
 
-	// fonction qui gère le traitement d'une case de plateau de jeu
+	/**
+	 * Gère le traitement d'une case de plateau de jeu lorsque le joueur s'y arrête.
+	 * 
+	 * @param player : le joueur sur la case.
+	 * @param viewer : l'objet Viewer auquel passer les résultats pour affichage.
+	 */
 	public abstract void process(Player player, Viewer viewer);
 	
 }

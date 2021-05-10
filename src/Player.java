@@ -1,38 +1,67 @@
-
+/**
+ * Classe abstraite représentant le joueur.
+ * <p>Un joueur est représenté par :
+ * <ul>
+ * <li>Un nom.</li>
+ * <li>Une image (seulement en mode graphique).</li>
+ * <li>De la vie.</li>
+ * <li>Une vie maximum.</p>
+ * <li>Une force d'attaque de base.</p>
+ * <li>Un moyen d'attaque adapté à sa classe.</p>
+ * <li>Un moyen de protection adapté à sa classe.</p>
+ * </ul>
+ * </p>
+ * 
+ * @see #Magician
+ * @see #Warrior
+ * @see MeanOfAttack
+ * @author yannick
+ *
+ */
 public abstract class Player {
 
-	private String name;
-	String img;
-	private int life;
-	private int maxLife;
-	private int attack;
-	private MeanOfAttack firstAttack;
-	private String protectionType;
+	protected String name;
+	protected String img;
+	protected int life;
+	protected int maxLife;
+	protected int attack;
+	protected MeanOfAttack firstAttack;
+	protected String protectionType;
 
 	/**
 	 * Constructeur sans paramètre
 	 */
 	public Player() {
+		this.name = null;
+		this.img = null;
+		this.life = 0;
+		this.maxLife = 0;
+		this.attack = 0;
+		this.firstAttack = null;
+		this.protectionType = null;
+		
 	}
 
 	/**
-	 * Constructeur
+	 * Constructeur avec le nom.
 	 * 
-	 * @param name
+	 * @param name : le nom du joueur.
 	 */
 	public Player(String name) {
+		this();
 		this.name = name;
 	}
 
 	/**
-	 * Constructeur
+	 * Constructeur complet avec tous les paramètres.
 	 * 
-	 * @param name
-	 * @param life
-	 * @param maxLife
-	 * @param attack
-	 * @param firstAttack
-	 * @param protectionType
+	 * @param name : le nom du joueur.
+	 * @param img : le nom du fichier image correspondant au joueur.
+	 * @param life : la vie du joueur.
+	 * @param maxLife : la vie maximum du joueur.
+	 * @param attack : la force d'attaque de base du joueur.
+	 * @param firstAttack : le moyen d'attaque du joueur.
+	 * @param protectionType : le type de protetion du joueur.
 	 */
 	public Player(String name, String img, int life, int maxLife, int attack, MeanOfAttack firstAttack, String protectionType) {
 		this.name = name;
@@ -56,6 +85,21 @@ public abstract class Player {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+
+	/**
+	 * @return the img
+	 */
+	public String getImg() {
+		return img;
+	}
+
+	/**
+	 * @param img the img to set
+	 */
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	/**
@@ -115,21 +159,49 @@ public abstract class Player {
 	public void setFirstAttack(MeanOfAttack attackType) {
 		this.firstAttack = attackType;
 	}
+	
+	/**
+	 * @return the protectionType
+	 */
+	public String getProtectionType() {
+		return protectionType;
+	}
+
+	/**
+	 * @param protectionType the protectionType to set
+	 */
+	public void setProtectionType(String protectionType) {
+		this.protectionType = protectionType;
+	}
+
+	
 
 	@Override
 	public String toString() {
-		return this.getClass().getName() + " [name= " + name + ", life= " + life + ", attack= " + attack
-				+ ", firstAttack= " + firstAttack + " , protectionType= " + protectionType + "]";
+		return "Player [name=" + name + ", img=" + img + ", life=" + life + ", maxLife=" + maxLife + ", attack="
+				+ attack + ", firstAttack=" + firstAttack + ", protectionType=" + protectionType + "]";
 	}
 
-	// méthode d'attaque d'un monstre
+	
+	/**
+	 * Gère une attaque du joueur sur un monstre.
+	 * 
+	 * @param monster : le monstre attaqué
+	 * @return Une chaine de cractères correspondant au résultat du combat.
+	 */
 	public String attackMonster(Monster monster) {
 		int dmg = this.attack + firstAttack.getAttack();
 		monster.setLife(Math.max(0, monster.getLife() - dmg));
 		return name + " attaque un " + monster.getClass().getName() + " et lui inflige " + (attack + firstAttack.getAttack()) + " points de dégâts.";
 	}
 
-	// méthode qui change l'équipement seulement s'il est meilleur que l'actuel
+	
+	/**
+	 * Change le moyen d'attaque du joueur si celui trouvé est plus intéressant que l'actuel.
+	 * 
+	 * @param item : le moyen d'attaque trouvé.
+	 * @return Une chaine de cractères correspondant au changement (ou pas) de l'équipement. 
+	 */
 	public String changeItem(MeanOfAttack item) {
 		if (item.getAttack() > firstAttack.getAttack()) {
 			firstAttack = item;
@@ -139,7 +211,12 @@ public abstract class Player {
 		}
 	}
 	
-	// fonction qui vérifie si le joueur est en vie
+	
+	/**
+	 * Vérifie si le joueur est en vie.
+	 * 
+	 * @return booléen : true si le joueur est vivant, false s'il est mort.
+	 */
 	public boolean isAlive() {
 		return life > 0;
 	}
