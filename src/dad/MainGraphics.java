@@ -1,9 +1,9 @@
 package dad;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -13,6 +13,28 @@ import player.Player;
 import player.Warrior;
 import viewers.MyGame;
 
+/**
+ * Classe qui gère la fenêtre principale de l'interface graphique, ainsi que les
+ * interactions (menus, boutons, dialogBox pour création de personnage).
+ * 
+ * <p>
+ * Elle prend également en charge le rôle de moteur de jeu.<br>
+ * Cette classe utilise :
+ * <ul>
+ * <li>Un joueur.</li>
+ * <li>Un viewer MyGame, pour la représentation graphique du jeu.</li>
+ * <li>Une JFrame, la fenêtre principale.</li>
+ * <li>Un moteur de jeu, pour utiliser ses fonctions de gestion du jeu.</li>
+ * </ul>
+ * </p>
+ * 
+ * @author yannick
+ *
+ */
+/**
+ * @author yannick
+ *
+ */
 public class MainGraphics {
 
 	Player player;
@@ -20,41 +42,77 @@ public class MainGraphics {
 	JFrame myWindow;
 	GameEngine myEngine;
 
+	/**
+	 * Constructeur, initialise tous les composant à null. Ils seront remplis plus
+	 * tard. 
+	 */
 	public MainGraphics() {
 		player = null;
-		game = new MyGame();
+		game = null;
 		myWindow = null;
 		myEngine = null;
 	}
 
-	public void start() throws IOException {
+	/**
+	 * Crée la fenêtre graphique, met en place les ActonListener et lance le jeu. 
+	 */
+	public void start() {
 
-		// déclarations et instanciations
 		// la fenêtre principale
 		myWindow = new JFrame("DungeonsAndDragons");
+		myWindow.setSize(1200, 900);
+		myWindow.setResizable(false);
+		myWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myWindow.setLocationRelativeTo(null);
 
 		// l'objet MyGame qui crée tout l'interface graphique du jeu
 		MyGame game = new MyGame();
 
 		// le menu
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menu = new JMenu("Action");
-		JMenu menuItem1 = new JMenu("Nouveau Personnage");
-		JMenuItem menuItem2 = new JMenuItem("Lancer le jeu");
-		JMenuItem menuItem3 = new JMenuItem("Quitter");
-		JMenuItem warriorItem = new JMenuItem("Guerrier");
-		JMenuItem MagicianItem = new JMenuItem("Magicien");
+		JMenu menuAction = new JMenu("Action");
+		JMenu menuNew = new JMenu("Nouveau Personnage");
+		JMenuItem menuLaunch = new JMenuItem("Lancer le jeu");
+		JMenuItem menuExit = new JMenuItem("Quitter");
+		JMenuItem menuWarrior = new JMenuItem("Guerrier");
+		JMenuItem menuMagician = new JMenuItem("Magicien");
+		menuLaunch.setEnabled(false);	
+		menuAction.add(menuNew);
+		menuAction.add(menuLaunch);
+		menuAction.add(menuExit);
+		menuNew.add(menuWarrior);
+		menuNew.add(menuMagician);
+		menuBar.add(menuAction);
 
-		// paramétrage
-		myWindow.setSize(1200, 900);
-		myWindow.setResizable(false);
-		myWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		myWindow.setLocationRelativeTo(null);
+		// ajout du menu et du panneau de jeu à la fenêtre principale
+		myWindow.setJMenuBar(menuBar);
+		myWindow.setContentPane(game.init());
 
-		menuItem2.setEnabled(false);
+		// ajout des Listeners du menu
+		createMenuListeners(game, menuLaunch, menuExit, menuWarrior, menuMagician);
 
-		// listeners
-		menuItem2.addActionListener(new ActionListener() {
+		// ajout du listener du bouton de dé
+		createDiceListener(game);
+
+		// affichage de la fenêtre
+		myWindow.setVisible(true);
+
+	}
+	
+	/**
+	 * Crée les listeners du menu.
+	 * 
+	 * @param game
+	 * @param menuLaunch
+	 * @param menuExit
+	 * @param menuWarrior
+	 * @param menuMagician
+	 */
+	private void createMenuListeners(MyGame game, JMenuItem menuLaunch, JMenuItem menuExit, JMenuItem menuWarrior,
+			JMenuItem menuMagician) {
+
+		// Lancer le jeu
+		menuLaunch.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -65,7 +123,8 @@ public class MainGraphics {
 			}
 		});
 
-		menuItem3.addActionListener(new ActionListener() {
+		// Quitter le jeu ?
+		menuExit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,29 +136,37 @@ public class MainGraphics {
 			}
 		});
 
-		warriorItem.addActionListener(new ActionListener() {
+		// créer d'un joueur guerrier et autoriser le lancement du jeu
+		menuWarrior.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Guerrier ?",
 						"Nouveau Guerrier", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Warrior", name);
-				menuItem2.setEnabled(true);
+				menuLaunch.setEnabled(true);
 			}
 		});
 
-		MagicianItem.addActionListener(new ActionListener() {
+		// création d'un joueur magicien et autoriser le lancement du jeu
+		menuMagician.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Magicien ?",
 						"Nouveau Magicien", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Magician", name);
-				menuItem2.setEnabled(true);
+				menuLaunch.setEnabled(true);
 			}
 		});
+	}
 
-		// listener
+	/**
+	 * Crée le listener du bouton de lancer du dé.
+	 * 
+	 * @param game
+	 */
+	private void createDiceListener(MyGame game) {
 		game.getRollDice().addActionListener(new ActionListener() {
 
 			@Override
@@ -113,25 +180,16 @@ public class MainGraphics {
 				}
 			}
 		});
-
-		// construction du menu
-		menu.add(menuItem1);
-		menu.add(menuItem2);
-		menu.add(menuItem3);
-		menuItem1.add(warriorItem);
-		menuItem1.add(MagicianItem);
-		menuBar.add(menu);
-
-		// construction de la fenêtre principale
-		myWindow.setJMenuBar(menuBar);
-		myWindow.setContentPane(game.getAll());
-
-		// affichage de la fenêtre
-		myWindow.setVisible(true);
-
 	}
 
-	// fonction qui crée un guerrier ou un magicien
+	
+
+	/**
+	 * Crée un joueur de type guerrier ou un magicien.
+	 * 
+	 * @param myClass : la classe de joueur à créer.
+	 * @param name : le nom du joueur.
+	 */
 	private void createPlayer(String myClass, String name) {
 		if (myClass == "Warrior") {
 			this.player = new Warrior(name);

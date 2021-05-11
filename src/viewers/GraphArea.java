@@ -1,7 +1,5 @@
 package viewers;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -35,14 +33,12 @@ public class GraphArea extends JLabel {
 	 */
 	public void setImg(String img, int width, int height) {
 		try {
-			
-			//File file = new File("./resources/images/" + img);
-			//Image resizedImage = ImageIO.read(file).getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			URL myImage = ClassLoader.getSystemResource("images/" + img);
 			Image resizedImage = ImageIO.read(myImage).getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			this.setIcon(new ImageIcon(resizedImage));
 		} catch (Exception e1) {
-			System.out.println(this.getClass().getResource("/" + img));
+			System.out.println("Impossible de trouver l'image");
+			
 		}
 	}
 	
