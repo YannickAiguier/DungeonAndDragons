@@ -11,7 +11,7 @@ package dad;
  */
 public class PersonnageHorsPlateauException extends RuntimeException {
 
-	int dice;
+	private int dice;
 	
 	/**
 	 * Constructeur de l'exception.

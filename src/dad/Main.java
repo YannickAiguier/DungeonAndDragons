@@ -20,9 +20,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		try {
 			String one = args[0];
-			System.out.println("/" + one + "/");
-			System.out.println(one == "console");
-			if (one == "console") {
+			if (one.equals("console")) {
 				Menu myMenu = new Menu();
 				myMenu.start();
 			} else {

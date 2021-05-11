@@ -37,14 +37,14 @@ import viewers.MyGame;
  */
 public class MainGraphics {
 
-	Player player;
-	MyGame game;
-	JFrame myWindow;
-	GameEngine myEngine;
+	private Player player;
+	private MyGame game;
+	private JFrame myWindow;
+	private GameEngine myEngine;
 
 	/**
 	 * Constructeur, initialise tous les composant à null. Ils seront remplis plus
-	 * tard. 
+	 * tard.
 	 */
 	public MainGraphics() {
 		player = null;
@@ -54,7 +54,7 @@ public class MainGraphics {
 	}
 
 	/**
-	 * Crée la fenêtre graphique, met en place les ActonListener et lance le jeu. 
+	 * Crée la fenêtre graphique, met en place les ActonListener et lance le jeu.
 	 */
 	public void start() {
 
@@ -76,7 +76,7 @@ public class MainGraphics {
 		JMenuItem menuExit = new JMenuItem("Quitter");
 		JMenuItem menuWarrior = new JMenuItem("Guerrier");
 		JMenuItem menuMagician = new JMenuItem("Magicien");
-		menuLaunch.setEnabled(false);	
+		menuLaunch.setEnabled(false);
 		menuAction.add(menuNew);
 		menuAction.add(menuLaunch);
 		menuAction.add(menuExit);
@@ -98,7 +98,7 @@ public class MainGraphics {
 		myWindow.setVisible(true);
 
 	}
-	
+
 	/**
 	 * Crée les listeners du menu.
 	 * 
@@ -182,13 +182,11 @@ public class MainGraphics {
 		});
 	}
 
-	
-
 	/**
 	 * Crée un joueur de type guerrier ou un magicien.
 	 * 
 	 * @param myClass : la classe de joueur à créer.
-	 * @param name : le nom du joueur.
+	 * @param name    : le nom du joueur.
 	 */
 	private void createPlayer(String myClass, String name) {
 		if (myClass == "Warrior") {

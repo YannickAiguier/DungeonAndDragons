@@ -49,12 +49,12 @@ import player.Player;
  */
 public class MyGame implements Viewer {
 
-	JPanel fullPanel, titlePanel, leftDecoPanel, rightDecoPanel, bottomPanel, gamePanel, boardPanel, playerFullPanel,
+	private JPanel fullPanel, titlePanel, leftDecoPanel, rightDecoPanel, bottomPanel, gamePanel, boardPanel, playerFullPanel,
 			playerPanel, playerWeaponPanel, storyPanel, boxPanel, buttonsPanel;
-	GraphArea titlePicture, bottomPicture, playerWeaponPicture, boxPicture, playerPicture;
-	TextArea playerName, playerLife, playerAttack, playerTotalAttack, playerWeaponAttack, storyEvent, storyDetail,
+	private GraphArea titlePicture, bottomPicture, playerWeaponPicture, boxPicture, playerPicture;
+	private TextArea playerName, playerLife, playerAttack, playerTotalAttack, playerWeaponAttack, storyEvent, storyDetail,
 			storyMove, boxName, boxLife, boxAttack, boxClass;
-	JButton rollDice;
+	private JButton rollDice;
 
 	/**
 	 * Constructeur, initialise tous les composant à null. Ils seront remplis plus
@@ -464,7 +464,7 @@ public class MyGame implements Viewer {
 	/**
 	 * Efface le contenu de showBox, pour le case d'une case vide.
 	 */
-	public void resetShowBox() {
+	private void resetShowBox() {
 		boxPicture.removeImg();
 		boxName.setText("");
 		boxLife.setText(String.valueOf(""));
