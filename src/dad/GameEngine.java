@@ -16,7 +16,7 @@ import viewers.Viewer;
  * <li>Un viewer, auquel seront passés les résultats pour affichage.</li>
  * <li>Un plateau de jeu, pour suivre le déroulement de la partie.</li>
  * </ul>
- * </p>
+ * 
  * 
  * @author yannick
  *

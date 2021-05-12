@@ -15,7 +15,7 @@ import player.Warrior;
  * <li>Un objet MyUtils, pour les fonctions de lancer de dé à x faces et de
  * saisie/affichage dans la console.</li>
  * </ul>
- * </p>
+ *
  * 
  * @see Viewer
  * @see MyUtils

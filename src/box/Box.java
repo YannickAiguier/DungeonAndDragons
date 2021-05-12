@@ -13,7 +13,7 @@ import viewers.Viewer;
  * <li>Une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.</li>
  * <li>Une "classe d'utilisation", permettant de savoir quel type de héro peut utiliser l'arme ou le sort trouvé.</li>
  * </ul>
- * </p>
+ * 
  * 
  * @see Monster
  * @see MeanOfAttack

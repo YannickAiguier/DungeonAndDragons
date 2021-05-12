@@ -18,7 +18,7 @@ import viewers.MyUtils;
  * <li>Un tableau de 64 cases d'objets Box.</li>
  * <li>La position du joueur sur ce plateau.</li>
  * </ul>
- * </p>
+ * 
  * 
  * @author yannick
  *

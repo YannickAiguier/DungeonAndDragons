@@ -20,7 +20,7 @@ public abstract class MeanOfAttack extends Box {
 	 * </p>
 	 * 
 	 * @param name
-	 * @param int
+	 * @param img
 	 * @param attack
 	 * @param forClass
 	 */
