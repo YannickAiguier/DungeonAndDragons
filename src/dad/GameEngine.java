@@ -39,8 +39,8 @@ public class GameEngine {
 	/**
 	 * Constructeur, initialise le joueur et le viewer.
 	 * 
-	 * @param player
-	 * @param viewer
+	 * @param player : le joueur qui va jouer la partie.
+	 * @param viewer : le viewer auquel seront passés les résultats pour affichage.
 	 */
 	public GameEngine(Player player, Viewer viewer) {
 		this();

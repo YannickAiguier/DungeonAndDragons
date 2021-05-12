@@ -13,10 +13,11 @@ public class Spell extends MeanOfAttack {
 	
 	/**
 	 * Construteur, utilise celui de la classe parente MeanOfAttack.
-	 * <p>Pas de life pour un sort, le forClass Magician est automatique.
-	 * @param name
-	 * @param img
-	 * @param attack
+	 * <p>Pas de life pour un sort, le forClass Magician est automatique.</p>
+	 * 
+	* @param name : nom de l'objet qi'il y a sur la case.
+	 * @param img : le nom du fichier image la représentant.
+	 * @param attack : une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.
 	 */
 	public Spell(String name, String img, int attack) {
 		super(name, img, attack, "Magician");

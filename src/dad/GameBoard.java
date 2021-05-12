@@ -10,7 +10,7 @@ import box.Weapon;
 import viewers.MyUtils;
 
 /**
- * Classe représenatnt le plateau de jeu.
+ * Classe représentant le plateau de jeu.
  * 
  * <p>
  * Un plateau de jeu est représenté par les informations suivantes :

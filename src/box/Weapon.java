@@ -14,9 +14,10 @@ public class Weapon extends MeanOfAttack {
 	/**
 	 * Construteur, utilise celui de la classe parente MeanOfAttack.
 	 * <p>Pas de life pour une arme, le forClass Warrior est automatique.
-	 * @param name
-	 * @param img
-	 * @param attack
+	 * 
+	 * @param name : nom de l'objet qi'il y a sur la case.
+	 * @param img : le nom du fichier image la représentant.
+	 * @param attack : une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.
 	 */
 	public Weapon(String name, String img, int attack) {
 		super(name, img, attack, "Warrior");

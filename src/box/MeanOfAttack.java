@@ -19,10 +19,10 @@ public abstract class MeanOfAttack extends Box {
 	 * Pas de vie pour un moyen d'attaque.
 	 * </p>
 	 * 
-	 * @param name
-	 * @param img
-	 * @param attack
-	 * @param forClass
+	 * @param name : nom de l'objet qi'il y a sur la case.
+	 * @param img : le nom du fichier image la représentant.
+	 * @param attack : une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.
+	 * @param forClass : une "classe d'utilisation", permettant de savoir quel type de héro peut utiliser l'arme ou le sort trouvé.
 	 */
 	public MeanOfAttack(String name, String img, int attack, String forClass) {
 		super(name, img, 0, attack, forClass);
