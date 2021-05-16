@@ -79,11 +79,12 @@ public class TestJDBC {
 		}
 	}
 
-	public void createTable() throws SQLException {
+	public void createTable(int nb) throws SQLException {
 		String query1 = "CREATE TABLE IF NOT EXISTS Hero (Id int(11) NOT NULL auto_increment, Type varchar(20), Nom varchar(30), NiveauVie tinyint, NiveauForce tinyint, MoyenAttaque char(5), Bouclier varchar(10), PRIMARY KEY (Id))";
 		String query2 = "INSERT INTO Hero(Type, Nom, NiveauVie, NiveauForce, MoyenAttaque, Bouclier) VALUES (\"Guerrier\", \"\", 5, 5, \"Epée\", \"Bouclier\")";
 		String query3 = "INSERT INTO Hero(Type, Nom, NiveauVie, NiveauForce, MoyenAttaque, Bouclier) VALUES (\"Magicien\", \"\", 3, 8, \"Sort\", \"Philtre\")";
-		this.setQuery(query);
+		String q = "CREATE TABLE IF NOT EXISTS " + nb + "boxes (Id int(11) NOT NULL auto_increment, name varchar(20), life tinyint, PRIMARY KEY (Id))";
+		this.setQuery(q);
 		this.executeWriteQuery();
 	}
 
@@ -99,9 +100,9 @@ public class TestJDBC {
 		String q2 = "INSERT INTO Hero(Type, Nom, NiveauVie, NiveauForce, MoyenAttaque, Bouclier) VALUES (\"Guerrier\", \"Moa\", 5, 5, \"Epée\", \"Ecu\")";
 
 		test.startConnection();
-		test.createTable();
-		test.setQuery(q);
-		test.executeReadQuery();
+		test.createTable(5);
+//		test.setQuery(q);
+//		test.executeReadQuery();
 	}
 
 }
