@@ -34,6 +34,10 @@ public class svgJDBC {
 		}
 	}
 
+	public void closeConnection() throws SQLException {
+		this.conn.close();
+	}
+
 	/**
 	 * @param query the query to set
 	 */
@@ -70,9 +74,8 @@ public class svgJDBC {
 	}
 
 	public void createSvg(GameBoard gameBoard, Player player, String svg_name) throws SQLException {
-		// String query = "SELECT id FROM MoA WHERE name=" +
-		// player.getFirstAttack().getName();
-		String query = "SELECT id FROM MoA WHERE name='sword'";
+		String query = "SELECT id FROM MoA WHERE name='" + player.getFirstAttack().getName() + "'";
+//		String query = "SELECT id FROM MoA WHERE name='sword'";
 		int id = 0;
 		// récupérer id MoA
 		this.setQuery(query);
@@ -85,15 +88,16 @@ public class svgJDBC {
 		}
 
 		// insérer player et récupérer l'id
-		query = "INSERT INTO player(name, img, life, maxlife, attack, protectiontype, id_MoA) VALUES ("
-				+ player.getName() + ", " + player.getImg() + ", " + player.getLife() + ", " + player.getMaxLife()
-				+ ", " + player.getAttack() + ", " + player.getProtectionType() + ", " + id + ")";
+		query = "INSERT INTO player(name, img, life, maxlife, attack, protectiontype, id_MoA) VALUES ('"
+				+ player.getName() + "', '" + player.getImg() + "', '" + player.getLife() + "', '" + player.getMaxLife()
+				+ "', '" + player.getAttack() + "', '" + player.getProtectionType() + "', '" + id + "')";
 //		query = "INSERT INTO player(name, img, life, maxlife, attack, protectiontype, id_MoA) VALUES (" + "'Gigi'"
 //				+ ", " + "'img.png'" + ", " + 3 + ", " + 8 + ", " + 8 + ", " + "'Philtre'" + ", " + id + ")";
 		this.setQuery(query);
 		id = executeWriteQuery();
 		// créer svg avec fake boxes_table et récupérer id
-		query = "INSERT INTO svg(position, svg_name, boxes_table, id_player) VALUES (" + gameBoard.getPlayerPos() + ", " + svg_name + ", " + "xxboxes" + ", " + id + ")";
+		query = "INSERT INTO svg(position, svg_name, boxes_table, id_player) VALUES ('" + gameBoard.getPlayerPos()
+				+ "', '" + svg_name + "', '" + "xxboxes" + "', '" + id + "')";
 //		query = "INSERT INTO svg(position, svg_name, boxes_table, id_player) VALUES (" + 7 + ", "
 //				+ "'deuxième sauvegarde'" + ", " + "'xxboxes'" + ", " + id + ")";
 		this.setQuery(query);
@@ -110,12 +114,12 @@ public class svgJDBC {
 
 	}
 
-	public static void main(String[] args) throws SQLException {
-		svgJDBC svg = new svgJDBC();
-
-		svg.startConnection();
-		svg.createSvg(null, null, null);
-
-	}
+//	public static void main(String[] args) throws SQLException {
+//		svgJDBC svg = new svgJDBC();
+//
+//		svg.startConnection();
+//		svg.createSvg(null, null, null);
+//
+//	}	
 
 }
