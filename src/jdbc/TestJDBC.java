@@ -35,11 +35,11 @@ public class TestJDBC {
 			// connecté
 			return conn;
 
-		} catch (SQLException ex) {
+		} catch (SQLException e) {
 			// affiche les erreurs
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ex.getSQLState());
-			System.out.println("VendorError: " + ex.getErrorCode());
+			System.out.println("SQLException: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("VendorError: " + e.getErrorCode());
 			return null;
 		}
 	}
@@ -84,8 +84,14 @@ public class TestJDBC {
 		String query2 = "INSERT INTO Hero(Type, Nom, NiveauVie, NiveauForce, MoyenAttaque, Bouclier) VALUES (\"Guerrier\", \"\", 5, 5, \"Epée\", \"Bouclier\")";
 		String query3 = "INSERT INTO Hero(Type, Nom, NiveauVie, NiveauForce, MoyenAttaque, Bouclier) VALUES (\"Magicien\", \"\", 3, 8, \"Sort\", \"Philtre\")";
 		String q = "CREATE TABLE IF NOT EXISTS " + nb + "boxes (Id int(11) NOT NULL auto_increment, name varchar(20), life tinyint, PRIMARY KEY (Id))";
-		this.setQuery(q);
 		this.executeWriteQuery();
+		this.setQuery(query1);
+//		this.executeWriteQuery();
+//		this.setQuery(query2);
+//		this.executeWriteQuery();
+//		this.setQuery(query3);
+		this.executeWriteQuery();
+		this.setQuery(q);
 	}
 
 	public void removeTable(String table) throws SQLException {
@@ -100,9 +106,9 @@ public class TestJDBC {
 		String q2 = "INSERT INTO Hero(Type, Nom, NiveauVie, NiveauForce, MoyenAttaque, Bouclier) VALUES (\"Guerrier\", \"Moa\", 5, 5, \"Epée\", \"Ecu\")";
 
 		test.startConnection();
-		test.createTable(5);
-//		test.setQuery(q);
-//		test.executeReadQuery();
+//		test.createTable(5);
+		test.setQuery(q);
+		test.executeReadQuery();
 	}
 
 }
