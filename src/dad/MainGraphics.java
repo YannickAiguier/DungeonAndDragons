@@ -70,6 +70,7 @@ public class MainGraphics {
 				myEngine = new GameEngine(player, game);
 				myEngine.initBoard();
 				game.showPlayer(player);
+				menuItem3.setEnabled(true);
 			}
 		});
 		
@@ -82,7 +83,7 @@ public class MainGraphics {
 						"Sauvegarder le jeu", JOptionPane.QUESTION_MESSAGE);
 				try {
 					svg.startConnection();
-					svg.createSvg(myEngine.getMyGameBoard(), player, name);
+					svg.saveGame(myEngine.getMyGameBoard(), player, name);
 					svg.closeConnection();
 				} catch (SQLException ex) {
 					System.out.println("SQLException : " + ex);
@@ -110,7 +111,6 @@ public class MainGraphics {
 						"Nouveau Guerrier", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Warrior", name);
 				menuItem2.setEnabled(true);
-				menuItem3.setEnabled(true);
 			}
 		});
 
@@ -122,7 +122,6 @@ public class MainGraphics {
 						"Nouveau Magicien", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Magician", name);
 				menuItem2.setEnabled(true);
-				menuItem3.setEnabled(true);
 			}
 		});
 

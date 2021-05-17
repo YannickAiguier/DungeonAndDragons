@@ -45,6 +45,14 @@ public abstract class Box {
 		this.attack = attack;
 		this.forClass = forClass;
 	}
+	
+	public Box() {
+		this.name = null;
+		this.img = null;
+		this.life = 0;
+		this.attack = 0;
+		this.forClass = null;
+	}
 
 	/**
 	 * @return the name

@@ -52,6 +52,13 @@ public class GameBoard {
 	}
 
 	/**
+	 * @return the board
+	 */
+	public Box getBox(int i) {
+		return board[i];
+	}
+
+	/**
 	 * Retourne le contenu de la case où se trouve le joueur.
 	 * 
 	 * @return L'objet de type Box à l"emplacement du joueur.
@@ -162,7 +169,7 @@ public class GameBoard {
 		case 2:
 			return new Potion("potion de soin", "potion.png", 2);
 		case 3:
-			return new Potion("grande potion de soin ", "big_potion.png", 5);
+			return new Potion("grande potion de soin", "big_potion.png", 5);
 		default:
 			return null;
 		}

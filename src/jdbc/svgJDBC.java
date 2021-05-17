@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import box.Box;
 import dad.GameBoard;
 import player.Player;
 
@@ -73,10 +74,10 @@ public class svgJDBC {
 		}
 	}
 
-	public void createSvg(GameBoard gameBoard, Player player, String svg_name) throws SQLException {
+	public void saveGame(GameBoard gameBoard, Player player, String svg_name) throws SQLException {
 		String query = "SELECT id FROM MoA WHERE name='" + player.getFirstAttack().getName() + "'";
-//		String query = "SELECT id FROM MoA WHERE name='sword'";
 		int id = 0;
+
 		// récupérer id MoA
 		this.setQuery(query);
 		try (Statement stmt = conn.createStatement()) {
@@ -91,26 +92,40 @@ public class svgJDBC {
 		query = "INSERT INTO player(name, img, life, maxlife, attack, protectiontype, id_MoA) VALUES ('"
 				+ player.getName() + "', '" + player.getImg() + "', '" + player.getLife() + "', '" + player.getMaxLife()
 				+ "', '" + player.getAttack() + "', '" + player.getProtectionType() + "', '" + id + "')";
-//		query = "INSERT INTO player(name, img, life, maxlife, attack, protectiontype, id_MoA) VALUES (" + "'Gigi'"
-//				+ ", " + "'img.png'" + ", " + 3 + ", " + 8 + ", " + 8 + ", " + "'Philtre'" + ", " + id + ")";
 		this.setQuery(query);
 		id = executeWriteQuery();
+
 		// créer svg avec fake boxes_table et récupérer id
 		query = "INSERT INTO svg(position, svg_name, boxes_table, id_player) VALUES ('" + gameBoard.getPlayerPos()
 				+ "', '" + svg_name + "', '" + "xxboxes" + "', '" + id + "')";
-//		query = "INSERT INTO svg(position, svg_name, boxes_table, id_player) VALUES (" + 7 + ", "
-//				+ "'deuxième sauvegarde'" + ", " + "'xxboxes'" + ", " + id + ")";
 		this.setQuery(query);
 		id = executeWriteQuery();
+
 		// créer xxboxes avec cet id
 		query = "CREATE TABLE " + id
-				+ "boxes(nb int NOT NULL, name varchar(20) NOT NULL, img varchar(20) NOT NULL, life int NOT NULL, attack int NOT NULL, forclass varchar(20) NOT NULL)";
+				+ "boxes(nb int NOT NULL, name varchar(25) NOT NULL, img varchar(20) NOT NULL, life int NOT NULL, attack int NOT NULL, forclass varchar(20) NOT NULL)";
 		this.setQuery(query);
 		executeWriteQuery();
+
 		// modifier svg avec le bon nom de boxes_table
 		query = "UPDATE svg SET boxes_table='" + id + "boxes' WHERE id=" + id;
 		this.setQuery(query);
 		executeWriteQuery();
+
+		// reste à remplir la table xxboxes avec les cases du plateau
+		// il faut faire une boucle pour parcourir le plateau de jeu
+		for (int i = 0; i < 64; i++) {
+			Box b = gameBoard.getBox(i);
+			if (b != null) {
+				query = "INSERT INTO " + id + "boxes(nb, name, img, life, attack, forclass) VALUES(" + i + ", '"
+						+ b.getName() + "', '" + b.getImg() + "', " + b.getLife() + ", " + b.getAttack() + ", '"
+						+ b.getForClass() + "')";				
+			} else {
+				query = "INSERT INTO " + id + "boxes(nb, name, img, life, attack, forclass) VALUES(" + i + ", '', '', 0, 0, '')";	
+			}
+			this.setQuery(query);
+			executeWriteQuery();
+		}
 
 	}
 
