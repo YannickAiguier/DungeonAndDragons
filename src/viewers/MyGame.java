@@ -1,12 +1,11 @@
 package viewers;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -21,45 +20,168 @@ import box.Monster;
 import box.Potion;
 import player.Player;
 
+/**
+ * Classe qui gère la représentation graphique du jeu, implémente l'interface
+ * Viewer.
+ * <p>
+ * Utilisée par MainGraphics pour l'affichage, elle utilise les classes TextArea
+ * et GraphArea pour afficher les textes et images.<br>
+ * Elle est découpée en plusieurs JPanel. Le premier d'entre eux est fullPanel
+ * il est découpé en 5 zones :
+ * <ul>
+ * <li>titlePanel : zone d'affichage du titre</li>
+ * <li>leftDecoPanel : zone à gauche de l'écraan, n'affiche rien mais sert pour
+ * gérer les marges</li>
+ * <li>rightDecoPanel : zone à gauche de l'écraan, n'affiche rien mais sert pour
+ * gérer les marges</li>
+ * <li>gamePanel : zone principale au centre, affiche tout le déroulement du
+ * jeu, état du joueur et des cases du plateau de jeu</li>
+ * <li>bottonPanel : zone d'affichage du décor en bas de la fenêtre</li>
+ * </ul>
+ * </p>
+ * 
+ * @see JPanel
+ * @see Viewer
+ * @see textArea
+ * @see GraphArea
+ * @author yannick
+ *
+ */
 public class MyGame implements Viewer {
 
-	JPanel all, gamePanel, boardPanel, playerFullPanel, playerPanel, playerWeaponPanel, storyPanel, boxPanel,
-			buttonsPanel;
-	GraphArea titlePicture, bottomPicture, playerWeaponPicture, boxPicture, playerPicture;
-	TextArea playerName, playerLife, playerAttack, playerTotalAttack, playerWeaponAttack;
-	TextArea storyEvent, storyDetail, storyMove;
-	TextArea boxName, boxLife, boxAttack, boxClass;
-	JButton rollDice;
-	String detail;
+	private JPanel fullPanel, titlePanel, leftDecoPanel, rightDecoPanel, bottomPanel, gamePanel, boardPanel, playerFullPanel,
+			playerPanel, playerWeaponPanel, storyPanel, boxPanel, buttonsPanel;
+	private GraphArea titlePicture, bottomPicture, playerWeaponPicture, boxPicture, playerPicture;
+	private TextArea playerName, playerLife, playerAttack, playerTotalAttack, playerWeaponAttack, storyEvent, storyDetail,
+			storyMove, boxName, boxLife, boxAttack, boxClass;
+	private JButton rollDice;
 
+	/**
+	 * Constructeur, initialise tous les composant à null. Ils seront remplis plus
+	 * tard.
+	 */
 	public MyGame() {
-		detail = "";
+		this.fullPanel = null;
+		this.titlePanel = null;
+		this.leftDecoPanel = null;
+		this.rightDecoPanel = null;
+		this.bottomPanel = null;
+		this.gamePanel = null;
+		this.boardPanel = null;
+		this.playerFullPanel = null;
+		this.playerPanel = null;
+		this.playerWeaponPanel = null;
+		this.storyPanel = null;
+		this.boxPanel = null;
+		this.buttonsPanel = null;
+		this.titlePicture = null;
+		this.bottomPicture = null;
+		this.playerWeaponPicture = null;
+		this.boxPicture = null;
+		this.playerPicture = null;
+		this.playerName = null;
+		this.playerLife = null;
+		this.playerAttack = null;
+		this.playerTotalAttack = null;
+		this.playerWeaponAttack = null;
+		this.storyEvent = null;
+		this.storyDetail = null;
+		this.storyMove = null;
+		this.boxName = null;
+		this.boxLife = null;
+		this.boxAttack = null;
+		this.boxClass = null;
+		this.rollDice = null;
+	}
+	
+	// le seul getter/setter intéressant est celui du dé, donc les autres ne sont pas implémentés.
+	
+	/**
+	 * @return the rollDice
+	 */
+	public JButton getRollDice() {
+		return rollDice;
+	}
 
+	/**
+	 * @param rollDice the rollDice to set
+	 */
+	public void setRollDice(JButton rollDice) {
+		this.rollDice = rollDice;
+	}
+
+	/**
+	 * Crée toute la structure d'affichage, leur affecte le contenu de base pour le
+	 * début de partie et renvoie le résultat (fullPanel contenant tout le reste).
+	 * 
+	 * @see #createFullPanel()
+	 * @see #createTitleAndBottom()
+	 * @see #createGamePanel()
+	 * @see #createPlayerFullPanel()
+	 * @see #createPlayerPanel()
+	 * @see #createStoryPanel()
+	 * @see #createBoxPanel()
+	 * @see #createDiceButton()
+	 * @see #assembleAllPanels()
+	 * 
+	 * @return JPanel : le conteneur parent (fullPanel)
+	 */
+	public JPanel init() {
+		// crée fullPanel et sa structure, conteneur parent
+		createFullPanel();
+		// crée le titre en haut et le décor en bas
+		createTitleAndBottom();
+		// crée la zone du déroulement du jeu et sa tructure
+		createGamePanel();
+		// crée la zone d'affichage de l'état du joueur
+		createPlayerFullPanel();
+		createPlayerPanel();
+		// crée la zone d'affichage du déroulement de l'histoire
+		createStoryPanel();
+		// crée la zone d'affichage du contenu de la case
+		createBoxPanel();
+		// crée le bouton du dé
+		createDiceButton();
+		// assemble le tout
+		assembleAllPanels();
+
+		return fullPanel;
+	}
+
+	/**
+	 * Crée fullPanel et sa structure, conteneur parent.
+	 */
+	private void createFullPanel() {
 		// création du JPanel parent
-		all = new JPanel(new BorderLayout());
-		all.setBackground(Color.black);
+		fullPanel = new JPanel(new BorderLayout());
+		fullPanel.setBackground(Color.black);
 
 		// création des 5 JPanels enfants
-		JPanel titlePanel = new JPanel();
+		titlePanel = new JPanel();
 		titlePanel.setPreferredSize(new Dimension(1200, 100));
 		titlePanel.setBackground(Color.black);
 
-		JPanel leftDecoPanel = new JPanel();
+		leftDecoPanel = new JPanel();
 		leftDecoPanel.setPreferredSize(new Dimension(50, 600));
 		leftDecoPanel.setBackground(Color.black);
 
-		JPanel rightDecoPanel = new JPanel();
+		rightDecoPanel = new JPanel();
 		rightDecoPanel.setPreferredSize(new Dimension(50, 600));
 		rightDecoPanel.setBackground(Color.black);
 
-		JPanel bottomPanel = new JPanel();
+		bottomPanel = new JPanel();
 		bottomPanel.setPreferredSize(new Dimension(1200, 100));
 		bottomPanel.setBackground(Color.black);
 
 		gamePanel = new JPanel(new BorderLayout());
 		gamePanel.setBackground(Color.black);
 		gamePanel.setVisible(false);
-		
+	}
+
+	/**
+	 * Crée le titre en haut et le décor en bas. 
+	 */
+	private void createTitleAndBottom() {
 		// création des décors
 		titlePicture = new GraphArea();
 		titlePicture.setMinimumSize(new Dimension(1000, 100));
@@ -67,7 +189,12 @@ public class MyGame implements Viewer {
 		bottomPicture = new GraphArea();
 		bottomPicture.setMinimumSize(new Dimension(1200, 100));
 		bottomPicture.setImg("bottom_border.png", 1200, 100);
+	}
 
+	/**
+	 * Crée la zone du déroulement du jeu et sa tructure.
+	 */
+	private void createGamePanel() {
 		// création des JPanels enfants de gamePanel
 		boardPanel = new JPanel();
 		boardPanel.setBackground(Color.black);
@@ -84,7 +211,12 @@ public class MyGame implements Viewer {
 		buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(Color.black);
 		buttonsPanel.setPreferredSize(new Dimension(1000, 50));
+	}
 
+	/**
+	 * Crée la zone d'affichage de l'état du joueur (séparé en 2 zones : le joueur et son arme).
+	 */
+	private void createPlayerFullPanel() {
 		// création des JPanel enfants de playerFullPanel
 		playerPanel = new JPanel();
 		playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.Y_AXIS));
@@ -94,7 +226,12 @@ public class MyGame implements Viewer {
 		playerWeaponPanel.setLayout(new BoxLayout(playerWeaponPanel, BoxLayout.Y_AXIS));
 		playerWeaponPanel.setBackground(Color.black);
 		playerWeaponPanel.setPreferredSize(new Dimension(100, 500));
+	}
 
+	/**
+	 * Crée les éléments d'affichage des caractéristiques du joueur.
+	 */
+	private void createPlayerPanel() {
 		// création des éléments de playerPanel
 		playerPicture = new GraphArea();
 		playerPicture.setMinimumSize(new Dimension(200, 300));
@@ -106,7 +243,12 @@ public class MyGame implements Viewer {
 
 		// création des éléments de playerWeaponPicture
 		playerWeaponPicture = new GraphArea();
+	}
 
+	/**
+	 * Crée la zone d'affichage du déroulement de l'histoire.
+	 */
+	private void createStoryPanel() {
 		// création des éléments de storyPanel
 		storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
 		storyMove = new TextArea("", 20, 300, 25);
@@ -115,7 +257,12 @@ public class MyGame implements Viewer {
 		storyEvent.setMaximumSize(new Dimension(500, 100));
 		storyDetail = new TextArea("", 20, 300, 25);
 		storyDetail.setMaximumSize(new Dimension(500, 300));
+	}
 
+	/**
+	 * Crée la zone d'affichage du contenu de la case.
+	 */
+	private void createBoxPanel() {
 		// création des éléments de boxPanel
 		boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
 		boxPicture = new GraphArea();
@@ -123,12 +270,15 @@ public class MyGame implements Viewer {
 		boxLife = new TextArea("", 20, 300, 25);
 		boxAttack = new TextArea("", 20, 300, 25);
 		boxClass = new TextArea("", 20, 300, 25);
+	}
 
+	/**
+	 * Crée le bouton du dé.
+	 */
+	private void createDiceButton() {
 		// création des éléments de buttonsPanel
 		buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		try {
-			//File file = new File("./resources/images/dice.png");
-			//Image resizedImage = ImageIO.read(file).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 			URL myImage = ClassLoader.getSystemResource("images/dice.png");
 			Image resizedImage = ImageIO.read(myImage).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 			rollDice = new JButton(new ImageIcon(resizedImage));
@@ -138,8 +288,13 @@ public class MyGame implements Viewer {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
 
-		// assemblage !
+	/**
+	 * Assemble le tout.
+	 */
+	private void assembleAllPanels() {
+		// assemblage du playerPanel
 		playerPanel.add(playerPicture);
 		playerPanel.add(playerName);
 		playerPanel.add(playerLife);
@@ -165,43 +320,30 @@ public class MyGame implements Viewer {
 		gamePanel.add(buttonsPanel, BorderLayout.PAGE_END);
 		titlePanel.add(titlePicture);
 		bottomPanel.add(bottomPicture);
-		all.add(titlePanel, BorderLayout.PAGE_START);
-		all.add(leftDecoPanel, BorderLayout.LINE_START);
-		all.add(rightDecoPanel, BorderLayout.LINE_END);
-		all.add(bottomPanel, BorderLayout.PAGE_END);
-		all.add(gamePanel, BorderLayout.CENTER);
+		fullPanel.add(titlePanel, BorderLayout.PAGE_START);
+		fullPanel.add(leftDecoPanel, BorderLayout.LINE_START);
+		fullPanel.add(rightDecoPanel, BorderLayout.LINE_END);
+		fullPanel.add(bottomPanel, BorderLayout.PAGE_END);
+		fullPanel.add(gamePanel, BorderLayout.CENTER);
 	}
+
 	
-	
-
-	/**
-	 * @return the rollDice
-	 */
-	public JButton getRollDice() {
-		return rollDice;
-	}
-
-
-
-	/**
-	 * @param rollDice the rollDice to set
-	 */
-	public void setRollDice(JButton rollDice) {
-		this.rollDice = rollDice;
-	}
-
-
-
-	// récupérer le JPanel parent
-	public JPanel getAll() {
-		return all;
-	}
 
 	// afficher les infos du jeu au lancement de la partie
+	/**
+	 * Affiche ou non le gamePanel.
+	 * 
+	 * @param b : booléen
+	 */
 	public void showGamePanel(boolean b) {
 		gamePanel.setVisible(b);
 	}
 
+	/**
+	 * Gère l'affichage récapitulatif de l'état du joueur et de son équipement.
+	 * 
+	 * @param player : le joueur à afficher.
+	 */
 	@Override
 	public void showPlayer(Player player) {
 		playerPicture.setImg(player.getImg(), 250, 200);
@@ -214,12 +356,23 @@ public class MyGame implements Viewer {
 		playerWeaponPicture.setImg(player.getFirstAttack().getImg(), 100, 100);
 	}
 
+	/**
+	 * Gère l'affichage de la progression du joueur.
+	 * 
+	 * @param dice : le résultat du lancer de dé.
+	 * @param playerPosition : la position du joueur sur le plateau de jeu.
+	 */
 	@Override
 	public void showMove(int dice, int playerPosition) {
 		storyMove.setText("<html><p style=\"text-align: center\">Vous avancez de " + dice
 				+ " case(s) et arrivez en case " + playerPosition + ".</p></html>");
 	}
 
+	/**
+	 * Gère l'affichage de l'évènement sur la case.
+	 * 
+	 * @param s : le message à afficher.
+	 */
 	@Override
 	public void showEvent(String s) {
 		if (s == "Case vide, on continue...") {
@@ -229,16 +382,34 @@ public class MyGame implements Viewer {
 
 	}
 
+	/**
+	 * Gère l'affichage des détails de l'évènement (combat, s'équiper, boire une potion,...).
+	 * 
+	 * @param s : le message à afficher.
+	 */
 	@Override
 	public void showDetail(String s) {
 		storyDetail.setText("<html><p style=\"text-align: center\">" + s + "</p></html>");
 	}
 
+	/**
+	 * Gère l'affichage des détails de l'évènement sur plusieurs lignes (combat, s'équiper, boire une potion,...).
+	 * 
+	 * 
+	 * @param s : le message à afficher.
+	 * @see MyGame#addDetail(String)
+	 */
 	@Override
 	public void addDetail(String s) {
 		storyDetail.setText(addText(s));
 	}
 
+	/**
+	 * Gère l'affichage graphique du contenu de la case.
+	 * 
+	 * @param box : la case à afficher.
+	 * @see MyGame#showBox(Box)
+	 */
 	@Override
 	public void showBox(Box box) {
 		boxName.setText("<html><p style=\"text-align: center\">" + box.getName() + "</p></html>");
@@ -260,14 +431,27 @@ public class MyGame implements Viewer {
 		}
 	}
 
+	/**
+	 * Gère l'attente d'appui sur la touche entrée pour lancer le dé.
+	 * <p>Inutile en mode graphique, implémentée pour compatibilité avec l'interface Viewer.</p>
+	 * 
+	 * @return booléen : false lorsque l'utilisateur a appuyé sur la touche entrée seule.
+	 */
 	@Override
 	public boolean waitDice() {
 		// rien pour le mode graphique
 		return false;
 	}
 
+	
+	/**
+	 * Ajoute une nouvelle ligne au texte qui sera affiché dans showDetail.
+	 * 
+	 * @param s : le texte à ajouter.
+	 * @return la nouvelle chaine de caractères (ancien texte + nouveau texte).
+	 */
 	private String addText(String s) {
-		detail = storyDetail.getText();
+		String detail = storyDetail.getText();
 		if (detail == "") {
 			detail = "</html>";
 		}
@@ -276,7 +460,11 @@ public class MyGame implements Viewer {
 		return detail;
 	}
 
-	public void resetShowBox() {
+	
+	/**
+	 * Efface le contenu de showBox, pour le case d'une case vide.
+	 */
+	private void resetShowBox() {
 		boxPicture.removeImg();
 		boxName.setText("");
 		boxLife.setText(String.valueOf(""));

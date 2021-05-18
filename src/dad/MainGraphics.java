@@ -18,25 +18,57 @@ import player.Player;
 import player.Warrior;
 import viewers.MyGame;
 
+/**
+ * Classe qui gère la fenêtre principale de l'interface graphique, ainsi que les
+ * interactions (menus, boutons, dialogBox pour création de personnage).
+ * 
+ * <p>
+ * Elle prend également en charge le rôle de moteur de jeu.<br>
+ * Cette classe utilise :
+ * <ul>
+ * <li>Un joueur.</li>
+ * <li>Un viewer MyGame, pour la représentation graphique du jeu.</li>
+ * <li>Une JFrame, la fenêtre principale.</li>
+ * <li>Un moteur de jeu, pour utiliser ses fonctions de gestion du jeu.</li>
+ * </ul>
+ * </p>
+ * 
+ * @author yannick
+ *
+ */
+/**
+ * @author yannick
+ *
+ */
 public class MainGraphics {
 
-	Player player;
-	MyGame game;
-	JFrame myWindow;
-	GameEngine myEngine;
+	private Player player;
+	private MyGame game;
+	private JFrame myWindow;
+	private GameEngine myEngine;
 
+	/**
+	 * Constructeur, initialise tous les composant à null. Ils seront remplis plus
+	 * tard.
+	 */
 	public MainGraphics() {
 		player = null;
-		game = new MyGame();
+		game = null;
 		myWindow = null;
 		myEngine = null;
 	}
 
-	public void start() throws IOException {
+	/**
+	 * Crée la fenêtre graphique, met en place les ActonListener et lance le jeu.
+	 */
+	public void start() {
 
-		// déclarations et instanciations
 		// la fenêtre principale
 		myWindow = new JFrame("DungeonsAndDragons");
+		myWindow.setSize(1200, 900);
+		myWindow.setResizable(false);
+		myWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myWindow.setLocationRelativeTo(null);
 
 		// l'objet MyGame qui crée tout l'interface graphique du jeu
 		MyGame game = new MyGame();
@@ -142,7 +174,6 @@ public class MainGraphics {
 
 			}
 		});
-
 		menuExit.addActionListener(new ActionListener() {
 
 			@Override
@@ -193,6 +224,7 @@ public class MainGraphics {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Guerrier ?",
 						"Nouveau Guerrier", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Warrior", name);
+
 				menuLaunchGame.setEnabled(true);
 			}
 		});
@@ -207,8 +239,14 @@ public class MainGraphics {
 				menuLaunchGame.setEnabled(true);
 			}
 		});
+	}
 
-		// listener
+	/**
+	 * Crée le listener du bouton de lancer du dé.
+	 * 
+	 * @param game
+	 */
+	private void createDiceListener(MyGame game) {
 		game.getRollDice().addActionListener(new ActionListener() {
 
 			@Override
@@ -240,10 +278,14 @@ public class MainGraphics {
 
 		// affichage de la fenêtre
 		myWindow.setVisible(true);
-
 	}
 
-	// fonction qui crée un guerrier ou un magicien
+	/**
+	 * Crée un joueur de type guerrier ou un magicien.
+	 * 
+	 * @param myClass : la classe de joueur à créer.
+	 * @param name    : le nom du joueur.
+	 */
 	private void createPlayer(String myClass, String name) {
 		if (myClass == "Warrior") {
 			this.player = new Warrior(name);
