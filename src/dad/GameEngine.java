@@ -82,7 +82,6 @@ public class GameEngine {
 	public GameBoard getMyGameBoard() {
 		return myGameBoard;
 	}
-
 	/**
 	 * Gère le jeu une fois la partie démarrée en mode console.
 	 * 

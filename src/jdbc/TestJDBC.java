@@ -64,7 +64,7 @@ public class TestJDBC {
 		}
 	}
 
-	public void executeWriteQuery() throws SQLException {
+	public void sexecuteWriteQuery() throws SQLException {
 		conn.setAutoCommit(false);
 		try (Statement stmt = conn.createStatement()) {
 
@@ -84,20 +84,20 @@ public class TestJDBC {
 		String query2 = "INSERT INTO Hero(Type, Nom, NiveauVie, NiveauForce, MoyenAttaque, Bouclier) VALUES (\"Guerrier\", \"\", 5, 5, \"Epée\", \"Bouclier\")";
 		String query3 = "INSERT INTO Hero(Type, Nom, NiveauVie, NiveauForce, MoyenAttaque, Bouclier) VALUES (\"Magicien\", \"\", 3, 8, \"Sort\", \"Philtre\")";
 		String q = "CREATE TABLE IF NOT EXISTS " + nb + "boxes (Id int(11) NOT NULL auto_increment, name varchar(20), life tinyint, PRIMARY KEY (Id))";
-		this.executeWriteQuery();
+		this.sexecuteWriteQuery();
 		this.setQuery(query1);
 //		this.executeWriteQuery();
 //		this.setQuery(query2);
 //		this.executeWriteQuery();
 //		this.setQuery(query3);
-		this.executeWriteQuery();
+		this.sexecuteWriteQuery();
 		this.setQuery(q);
 	}
 
 	public void removeTable(String table) throws SQLException {
 		String query = "DROP TABLE IF EXISTS " + table;
 		this.setQuery(query);
-		this.executeWriteQuery();
+		this.sexecuteWriteQuery();
 	}
 
 	public static void main(String[] args) throws SQLException {

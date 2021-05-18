@@ -1,4 +1,5 @@
 package dad;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
@@ -38,7 +39,7 @@ public class MainGraphics {
 
 		// l'objet MyGame qui crée tout l'interface graphique du jeu
 		MyGame game = new MyGame();
-		
+
 		// l'objet svgJDBC qui permet de gérer les sauvegardes
 		svgJDBC svg = new svgJDBC();
 
@@ -48,7 +49,8 @@ public class MainGraphics {
 		JMenu menuItem1 = new JMenu("Nouveau Personnage");
 		JMenuItem menuItem2 = new JMenuItem("Lancer le jeu");
 		JMenuItem menuItem3 = new JMenuItem("Sauvegarder");
-		JMenuItem menuItem4 = new JMenuItem("Quitter");
+		JMenuItem menuItem4 = new JMenuItem("Charger une partie");
+		JMenuItem menuItem5 = new JMenuItem("Quitter");
 		JMenuItem warriorItem = new JMenuItem("Guerrier");
 		JMenuItem MagicianItem = new JMenuItem("Magicien");
 
@@ -73,12 +75,13 @@ public class MainGraphics {
 				menuItem3.setEnabled(true);
 			}
 		});
-		
+
 		menuItem3.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// faire le nécessaire pour sauvegarder le jeu : dialogbox demandant le nom de la sauvegarde
+				// faire le nécessaire pour sauvegarder le jeu : dialogbox demandant le nom de
+				// la sauvegarde
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre sauvegarde ?",
 						"Sauvegarder le jeu", JOptionPane.QUESTION_MESSAGE);
 				try {
@@ -86,12 +89,44 @@ public class MainGraphics {
 					svg.saveGame(myEngine.getMyGameBoard(), player, name);
 					svg.closeConnection();
 				} catch (SQLException ex) {
-					System.out.println("SQLException : " + ex);
+					System.out.println("SQLException Main : " + ex);
 				}
 			}
 		});
 
 		menuItem4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// faire le nécessaire pour chager le jeu : pour l'instant on charge la première
+				// partie
+				int choose = JOptionPane.showConfirmDialog(myWindow, "Charger la sauvegarde ?", "Charger une partie",
+						JOptionPane.YES_NO_OPTION);
+				if (choose == 0) {
+					// préparer
+					game.showGamePanel(true);
+					myEngine = new GameEngine(player, game);
+					myEngine.initBoard();
+
+					// charger la svg
+					try {
+						svg.startConnection();
+						player = svg.loadGame("123", player, myEngine.getMyGameBoard());
+						svg.closeConnection();
+					} catch (SQLException ex) {
+						System.out.println("SQLException Main : " + ex);
+					}
+					myEngine.setPlayer1(player);
+					myEngine.getMyGameBoard().showBoard();
+					System.out.println(myEngine.getMyGameBoard().getPlayerPos());
+					game.showPlayer(player);
+					menuItem3.setEnabled(true);
+				}
+				
+			}
+		});
+
+		menuItem5.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -145,6 +180,7 @@ public class MainGraphics {
 		menu.add(menuItem2);
 		menu.add(menuItem3);
 		menu.add(menuItem4);
+		menu.add(menuItem5);
 		menuItem1.add(warriorItem);
 		menuItem1.add(MagicianItem);
 		menuBar.add(menu);
