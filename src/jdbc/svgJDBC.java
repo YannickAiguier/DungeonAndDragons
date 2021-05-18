@@ -221,6 +221,35 @@ public class svgJDBC {
 			return null;
 		}
 	}
+	
+	public void deleteGame(String name) throws SQLException {
+		int id_svg = 0;
+		int id_player = 0;
+		String boxes_table = null;
+		
+		String query = "SELECT * FROM svg WHERE svg_name='" + name + "'";
+		this.setQuery(query);
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(this.query);
+			rs.next();
+			id_svg = rs.getInt("id");
+			id_player = rs.getInt("id_player");
+			boxes_table = rs.getString("boxes_table");
+		} catch (SQLException e) {
+			System.out.println("SQLException: " + e.getMessage());
+		}
+		
+		// effacer svg puis player puis boxes_table
+		query = "DELETE FROM svg WHERE id=" + id_svg;
+		this.setQuery(query);
+		executeWriteQuery();
+		query = "DELETE FROM player WHERE id=" + id_player;
+		this.setQuery(query);
+		executeWriteQuery();
+		query = "DROP TABLE " + boxes_table;
+		this.setQuery(query);
+		executeWriteQuery();
+	}
 
 //	public static void main(String[] args) throws SQLException {
 //		svgJDBC svg = new svgJDBC();
