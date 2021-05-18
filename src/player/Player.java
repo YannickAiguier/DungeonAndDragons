@@ -9,15 +9,15 @@ import box.Monster;
  * <li>Un nom.</li>
  * <li>Une image (seulement en mode graphique).</li>
  * <li>De la vie.</li>
- * <li>Une vie maximum.</p>
- * <li>Une force d'attaque de base.</p>
- * <li>Un moyen d'attaque adapté à sa classe.</p>
- * <li>Un moyen de protection adapté à sa classe.</p>
+ * <li>Une vie maximum.</li>
+ * <li>Une force d'attaque de base.<li>
+ * <li>Un moyen d'attaque adapté à sa classe.</li>
+ * <li>Un moyen de protection adapté à sa classe.</li>
  * </ul>
- * </p>
  * 
- * @see #Magician
- * @see #Warrior
+ * 
+ * @see Magician
+ * @see Warrior
  * @see MeanOfAttack
  * @author yannick
  *

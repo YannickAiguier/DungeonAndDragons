@@ -1,4 +1,5 @@
 package dad;
+
 import box.Box;
 import box.Dragon;
 import box.Gobelin;
@@ -10,7 +11,7 @@ import box.Weapon;
 import viewers.MyUtils;
 
 /**
- * Classe représenatnt le plateau de jeu.
+ * Classe représentant le plateau de jeu.
  * 
  * <p>
  * Un plateau de jeu est représenté par les informations suivantes :
@@ -18,7 +19,7 @@ import viewers.MyUtils;
  * <li>Un tableau de 64 cases d'objets Box.</li>
  * <li>La position du joueur sur ce plateau.</li>
  * </ul>
- * </p>
+ * 
  * 
  * @author yannick
  *
@@ -52,6 +53,13 @@ public class GameBoard {
 	}
 
 	/**
+	 * @return the board
+	 */
+	public Box getBox(int i) {
+		return board[i];
+	}
+
+	/**
 	 * Retourne le contenu de la case où se trouve le joueur.
 	 * 
 	 * @return L'objet de type Box à l"emplacement du joueur.
@@ -73,6 +81,16 @@ public class GameBoard {
 	@Override
 	public String toString() {
 		return " en case " + (playerPos + 1) + " sur 64.";
+	}
+
+	public void showBoard() {
+		for (Box b : board) {
+			if (b == null) {
+				System.out.println("Case vide.");
+			} else {
+				System.out.println(b.toString());
+			}
+		}
 	}
 
 	/**
@@ -111,7 +129,9 @@ public class GameBoard {
 
 	/**
 	 * Initialise le plateau de jeu.
-	 * <p>Cases paires = rien, cases impaires = surprise !</p>
+	 * <p>
+	 * Cases paires = rien, cases impaires = surprise !
+	 * </p>
 	 */
 	public void initBoard() {
 		// pour l'instant les objets seront placés toujours à la même place
@@ -133,7 +153,9 @@ public class GameBoard {
 
 	/**
 	 * Tire au hasard un monstre, l'instancie et le renvoie.
-	 * <p>D3 : 1 = gobelin, 2 = sorcier, 3 = dragon.</p>
+	 * <p>
+	 * D3 : 1 = gobelin, 2 = sorcier, 3 = dragon.
+	 * </p>
 	 * 
 	 * @return Un objet Monster.
 	 */
@@ -152,7 +174,9 @@ public class GameBoard {
 
 	/**
 	 * Tire au hasard une potion, l'instancie et la renvoie.
-	 * <p>D3 : 1/2 = potion (2) , 3 = grande potion (5).</p>
+	 * <p>
+	 * D3 : 1/2 = potion (2) , 3 = grande potion (5).
+	 * </p>
 	 * 
 	 * @return Un objet Potion.
 	 */
@@ -160,9 +184,9 @@ public class GameBoard {
 		switch (new MyUtils().rollDice(3)) {
 		case 1:
 		case 2:
-			return new Potion("potion de soin", "potion.png", 2);
+			return new Potion("Potion de soin", "potion.png", 2);
 		case 3:
-			return new Potion("grande potion de soin ", "big_potion.png", 5);
+			return new Potion("Grande potion de soin", "big_potion.png", 5);
 		default:
 			return null;
 		}
@@ -171,7 +195,9 @@ public class GameBoard {
 
 	/**
 	 * Tire au hasard une arme, l'instancie et la renvoie.
-	 * <p>D2 : 1 = massue, 2 = épée.</p>
+	 * <p>
+	 * D2 : 1 = massue, 2 = épée.
+	 * </p>
 	 * 
 	 * @return Un objet Weapon.
 	 */
@@ -188,7 +214,9 @@ public class GameBoard {
 
 	/**
 	 * Tire au hasard un sort, l'instancie et le renvoie.
-	 * <p>D2 : 1 = éclair, 2 = boule de feu.</p>
+	 * <p>
+	 * D2 : 1 = éclair, 2 = boule de feu.
+	 * </p>
 	 * 
 	 * @return Un objet Spell.
 	 */
@@ -201,6 +229,47 @@ public class GameBoard {
 		default:
 			return null;
 		}
+	}
+
+	public void createBox(int index, String name, String img, int life, int attack, String forclass) {
+		Box b = null;
+		switch (name) {
+		case "Gobelin":
+			b = new Gobelin();
+			break;
+		case "Sorcerer":
+			b = new Sorcerer();
+			break;
+		case "Dragon":
+			b = new Dragon();
+			break;
+		case "Epée":
+			b = new Weapon("Epée", "sword.png", 5);
+			break;
+		case "Massue":
+			b = new Weapon("Epée", "sword.png", 5);
+			break;
+		case "Lightning":
+			b = new Spell("Lightning", "lightning.png", 2);
+			break;
+		case "Fireball":
+			b = new Spell("Fireball", "fireball.png", 7);
+			break;
+		case "Potion de soin":
+			b = new Potion("Potion de soin", "potion.png", 2);
+			break;
+		case "Grande potion de soin":
+			b = new Potion("Grande potion de soin", "big_potion.png", 5);
+			break;
+		default:
+			b = null;
+			break;
+		}
+		this.board[index] = b;
+	}
+
+	public void createNullBox(int index) {
+		this.board[index] = null;
 	}
 
 }

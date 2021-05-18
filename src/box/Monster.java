@@ -21,10 +21,10 @@ public abstract class Monster extends Box {
 	 * Pas de forClass pour un monstre.
 	 * </p>
 	 * 
-	 * @param name
-	 * @param img
-	 * @param life
-	 * @param attack
+	 * @param name : nom de l'objet qi'il y a sur la case.
+	 * @param img : le nom du fichier image la représentant.
+	 * @param life : de la vie, soit à ajouter à celle du héros (potion), soit indiquant la vie du monstre présent sur la case.
+	 * @param attack : une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.
 	 */
 	public Monster(String name, String img, int life, int attack) {
 		super(name, img, life, attack, "");

@@ -16,7 +16,7 @@ import viewers.Viewer;
  * <li>Un viewer, auquel seront passés les résultats pour affichage.</li>
  * <li>Un plateau de jeu, pour suivre le déroulement de la partie.</li>
  * </ul>
- * </p>
+ * 
  * 
  * @author yannick
  *
@@ -39,8 +39,8 @@ public class GameEngine {
 	/**
 	 * Constructeur, initialise le joueur et le viewer.
 	 * 
-	 * @param player
-	 * @param viewer
+	 * @param player : le joueur qui va jouer la partie.
+	 * @param viewer : le viewer auquel seront passés les résultats pour affichage.
 	 */
 	public GameEngine(Player player, Viewer viewer) {
 		this();
@@ -82,7 +82,6 @@ public class GameEngine {
 	public GameBoard getMyGameBoard() {
 		return myGameBoard;
 	}
-
 	/**
 	 * Gère le jeu une fois la partie démarrée en mode console.
 	 * 

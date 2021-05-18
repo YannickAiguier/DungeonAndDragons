@@ -17,9 +17,9 @@ public class Potion extends Box {
 	 * </p>
 	 *
 	 * 
-	 * @param name
-	 * @param img
-	 * @param life
+	* @param name : nom de l'objet qi'il y a sur la case.
+	 * @param img : le nom du fichier image la représentant.
+	 * @param life : de la vie, soit à ajouter à celle du héros (potion), soit indiquant la vie du monstre présent sur la case.
 	 */
 	public Potion(String name, String img, int life) {
 		super(name, img, life, 0, "");

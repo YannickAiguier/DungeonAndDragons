@@ -13,7 +13,7 @@ import viewers.Viewer;
  * <li>Une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.</li>
  * <li>Une "classe d'utilisation", permettant de savoir quel type de héro peut utiliser l'arme ou le sort trouvé.</li>
  * </ul>
- * </p>
+ * 
  * 
  * @see Monster
  * @see MeanOfAttack
@@ -32,11 +32,11 @@ public abstract class Box {
 	/**
 	 * Constructeur de la classe
 	 * 
-	 * @param name
-	 * @param img
-	 * @param life
-	 * @param attack
-	 * @param forClass
+	 * @param name : nom de l'objet qi'il y a sur la case.
+	 * @param img : le nom du fichier image la représentant.
+	 * @param life : de la vie, soit à ajouter à celle du héros (potion), soit indiquant la vie du monstre présent sur la case.
+	 * @param attack : une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.
+	 * @param forClass : une "classe d'utilisation", permettant de savoir quel type de héro peut utiliser l'arme ou le sort trouvé.
 	 */
 	public Box(String name, String img, int life, int attack, String forClass) {
 		this.name = name;
@@ -44,6 +44,14 @@ public abstract class Box {
 		this.life = life;
 		this.attack = attack;
 		this.forClass = forClass;
+	}
+	
+	public Box() {
+		this.name = null;
+		this.img = null;
+		this.life = 0;
+		this.attack = 0;
+		this.forClass = null;
 	}
 
 	/**
