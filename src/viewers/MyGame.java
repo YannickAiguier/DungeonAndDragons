@@ -283,5 +283,9 @@ public class MyGame implements Viewer {
 		boxAttack.setText(String.valueOf(""));
 		boxClass.setText(String.valueOf(""));
 	}
+	
+	public void resetMove() {
+		storyMove.setText("");
+	}
 
 }

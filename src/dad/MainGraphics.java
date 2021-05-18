@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
@@ -98,11 +99,21 @@ public class MainGraphics {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// faire le nécessaire pour chager le jeu : pour l'instant on charge la première
-				// partie
-				int choose = JOptionPane.showConfirmDialog(myWindow, "Charger la sauvegarde ?", "Charger une partie",
-						JOptionPane.YES_NO_OPTION);
-				if (choose == 0) {
+				// récupération de la liste des sauvegardes
+				List<String> values = null;
+				try {
+					svg.startConnection();
+					values = svg.showGames();
+					svg.closeConnection();
+				} catch (SQLException ex) {
+					System.out.println("SQLException : " + ex.getMessage());
+				}
+
+				// création de la dialogbox avec liste
+				Object[] possibleValues = values.toArray();
+				Object selectedValue = JOptionPane.showInputDialog(null, "Choisissez votre sauvegarde",
+						"Charger une partie", JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
+				if (selectedValue != null) {
 					// préparer
 					game.showGamePanel(true);
 					myEngine = new GameEngine(player, game);
@@ -111,18 +122,23 @@ public class MainGraphics {
 					// charger la svg
 					try {
 						svg.startConnection();
-						player = svg.loadGame("123", player, myEngine.getMyGameBoard());
+						player = svg.loadGame(selectedValue.toString(), player, myEngine.getMyGameBoard());
 						svg.closeConnection();
 					} catch (SQLException ex) {
 						System.out.println("SQLException Main : " + ex);
 					}
 					myEngine.setPlayer1(player);
 					myEngine.getMyGameBoard().showBoard();
-					System.out.println(myEngine.getMyGameBoard().getPlayerPos());
 					game.showPlayer(player);
 					menuItem3.setEnabled(true);
+					
+					// gérer l'affichage
+					game.resetShowBox();
+					game.showDetail("Sauvegardé chargée, vous êtes en case " + myEngine.getMyGameBoard().getPlayerPos());
+					game.showEvent("");
+					game.resetMove();
 				}
-				
+
 			}
 		});
 

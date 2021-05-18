@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import box.Box;
 import box.MeanOfAttack;
@@ -203,6 +205,21 @@ public class svgJDBC {
 			System.out.println("SQLException : " + e.getMessage());
 		}
 		return player;
+	}
+	
+	public List<String> showGames() {
+		List<String> result = new ArrayList<String>();
+		this.setQuery("SELECT svg_name FROM svg");
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(this.query);
+			while (rs.next()) {
+				result.add(rs.getString("svg_name"));
+			}
+			return result;
+		} catch (SQLException e) {
+			System.out.println("SQLException : " + e.getMessage());
+			return null;
+		}
 	}
 
 //	public static void main(String[] args) throws SQLException {
