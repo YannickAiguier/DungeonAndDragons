@@ -1,13 +1,18 @@
 package dad;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
+import jdbc.svgJDBC;
 import player.Magician;
 import player.Player;
 import player.Warrior;
@@ -36,14 +41,20 @@ public class MainGraphics {
 		// l'objet MyGame qui crée tout l'interface graphique du jeu
 		MyGame game = new MyGame();
 
+		// l'objet svgJDBC qui permet de gérer les sauvegardes
+		svgJDBC svg = new svgJDBC();
+
 		// le menu
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Action");
-		JMenu menuItem1 = new JMenu("Nouveau Personnage");
-		JMenuItem menuItem2 = new JMenuItem("Lancer le jeu");
-		JMenuItem menuItem3 = new JMenuItem("Quitter");
-		JMenuItem warriorItem = new JMenuItem("Guerrier");
-		JMenuItem MagicianItem = new JMenuItem("Magicien");
+		JMenu menuNewPlayer = new JMenu("Nouveau Personnage");
+		JMenuItem menuLaunchGame = new JMenuItem("Lancer le jeu");
+		JMenuItem menuSaveGame = new JMenuItem("Sauvegarder");
+		JMenuItem menuLoadGame = new JMenuItem("Charger une partie");
+		JMenuItem menuExit = new JMenuItem("Quitter");
+		JMenuItem menuDeleteGame = new JMenuItem("Effacer une sauvegarde");
+		JMenuItem menuCreateWarrior = new JMenuItem("Guerrier");
+		JMenuItem menuCreateMagician = new JMenuItem("Magicien");
 
 		// paramétrage
 		myWindow.setSize(1200, 900);
@@ -51,10 +62,11 @@ public class MainGraphics {
 		myWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myWindow.setLocationRelativeTo(null);
 
-		menuItem2.setEnabled(false);
+		menuLaunchGame.setEnabled(false);
+		menuSaveGame.setEnabled(false);
 
 		// listeners
-		menuItem2.addActionListener(new ActionListener() {
+		menuLaunchGame.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -62,10 +74,76 @@ public class MainGraphics {
 				myEngine = new GameEngine(player, game);
 				myEngine.initBoard();
 				game.showPlayer(player);
+				menuSaveGame.setEnabled(true);
 			}
 		});
 
-		menuItem3.addActionListener(new ActionListener() {
+		menuSaveGame.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// faire le nécessaire pour sauvegarder le jeu : dialogbox demandant le nom de
+				// la sauvegarde
+				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre sauvegarde ?",
+						"Sauvegarder le jeu", JOptionPane.QUESTION_MESSAGE);
+				try {
+					svg.startConnection();
+					svg.saveGame(myEngine.getMyGameBoard(), player, name);
+					svg.closeConnection();
+				} catch (SQLException ex) {
+					System.out.println("SQLException Main : " + ex);
+				}
+			}
+		});
+
+		menuLoadGame.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// récupération de la liste des sauvegardes
+				List<String> values = null;
+				try {
+					svg.startConnection();
+					values = svg.showGames();
+					svg.closeConnection();
+				} catch (SQLException ex) {
+					System.out.println("SQLException : " + ex.getMessage());
+				}
+
+				// création de la dialogbox avec liste
+				Object[] possibleValues = values.toArray();
+				Object selectedValue = JOptionPane.showInputDialog(null, "Choisissez votre sauvegarde",
+						"Charger une partie", JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
+				if (selectedValue != null) {
+					// préparer
+					game.showGamePanel(true);
+					myEngine = new GameEngine(player, game);
+					myEngine.initBoard();
+
+					// charger la svg
+					try {
+						svg.startConnection();
+						player = svg.loadGame(selectedValue.toString(), player, myEngine.getMyGameBoard());
+						svg.closeConnection();
+					} catch (SQLException ex) {
+						System.out.println("SQLException Main : " + ex);
+					}
+					myEngine.setPlayer1(player);
+					myEngine.getMyGameBoard().showBoard();
+					game.showPlayer(player);
+					menuSaveGame.setEnabled(true);
+					
+					// gérer l'affichage
+					game.resetShowBox();
+					game.showDetail("Sauvegardé chargée, vous êtes en case " + myEngine.getMyGameBoard().getPlayerPos());
+					game.showEvent("");
+					game.resetMove();
+				}
+
+			}
+		});
+
+		menuExit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,25 +155,56 @@ public class MainGraphics {
 			}
 		});
 
-		warriorItem.addActionListener(new ActionListener() {
+		menuDeleteGame.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// récupération de la liste des sauvegardes
+				List<String> values = null;
+				try {
+					svg.startConnection();
+					values = svg.showGames();
+					svg.closeConnection();
+				} catch (SQLException ex) {
+					System.out.println("SQLException : " + ex.getMessage());
+				}
+
+				// création de la dialogbox avec liste
+				Object[] possibleValues = values.toArray();
+				Object selectedValue = JOptionPane.showInputDialog(null, "Choisissez la sauvegarde à supprimer",
+						"Supprimer une sauvegarde", JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
+				
+				if (selectedValue != null) {
+					try {
+						svg.startConnection();
+						svg.deleteGame(selectedValue.toString());
+						svg.closeConnection();
+					} catch (SQLException ex) {
+						System.out.println("SQLException : " + ex.getMessage());
+					}
+				}
+			}
+		});
+
+		menuCreateWarrior.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Guerrier ?",
 						"Nouveau Guerrier", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Warrior", name);
-				menuItem2.setEnabled(true);
+				menuLaunchGame.setEnabled(true);
 			}
 		});
 
-		MagicianItem.addActionListener(new ActionListener() {
+		menuCreateMagician.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = (String) JOptionPane.showInputDialog(myWindow, "Quel nom pour votre Magicien ?",
 						"Nouveau Magicien", JOptionPane.QUESTION_MESSAGE);
 				createPlayer("Magician", name);
-				menuItem2.setEnabled(true);
+				menuLaunchGame.setEnabled(true);
 			}
 		});
 
@@ -115,11 +224,14 @@ public class MainGraphics {
 		});
 
 		// construction du menu
-		menu.add(menuItem1);
-		menu.add(menuItem2);
-		menu.add(menuItem3);
-		menuItem1.add(warriorItem);
-		menuItem1.add(MagicianItem);
+		menu.add(menuNewPlayer);
+		menu.add(menuLaunchGame);
+		menu.add(menuSaveGame);
+		menu.add(menuLoadGame);
+		menu.add(menuDeleteGame);
+		menu.add(menuExit);
+		menuNewPlayer.add(menuCreateWarrior);
+		menuNewPlayer.add(menuCreateMagician);
 		menuBar.add(menu);
 
 		// construction de la fenêtre principale
