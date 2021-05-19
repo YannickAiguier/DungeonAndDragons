@@ -247,7 +247,7 @@ public class GameBoard {
 			b = new Weapon("Epée", "sword.png", 5);
 			break;
 		case "Massue":
-			b = new Weapon("Epée", "sword.png", 5);
+			b = new Weapon("Massue", "club.png", 3);
 			break;
 		case "Lightning":
 			b = new Spell("Lightning", "lightning.png", 2);

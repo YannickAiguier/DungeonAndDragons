@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS svg, player, Hero, MoA, 1boxes, 2boxes, 3boxes, 4boxes, 5boxes;
+SHOW TABLES;

@@ -161,7 +161,6 @@ public class svgJDBC {
 							rs.getInt("attack"), rs.getString("forclass"));
 				}
 			}
-			board.showBoard();
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 		}
@@ -191,16 +190,15 @@ public class svgJDBC {
 				rs2.next();
 				if (player instanceof Warrior) {
 					// générer Warrior et Weapon
-					moa = new Weapon(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
+					moa = new Weapon(rs2.getString("name"), "fist.png", rs2.getInt("attack"));
 				} else {
 					// générer Magician et Spell
-					moa = new Spell(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
+					moa = new Spell(rs2.getString("name"), "primary_spell.png", rs2.getInt("attack"));
 				}
 				player.setFirstAttack(moa);
 			} catch (SQLException e) {
 				System.out.println("SQLException : " + e.getMessage());
 			}
-			System.out.println(player);
 		} catch (SQLException e) {
 			System.out.println("SQLException : " + e.getMessage());
 		}

@@ -129,7 +129,6 @@ public class MainGraphics {
 						System.out.println("SQLException Main : " + ex);
 					}
 					myEngine.setPlayer1(player);
-					myEngine.getMyGameBoard().showBoard();
 					game.showPlayer(player);
 					menuSaveGame.setEnabled(true);
 					
