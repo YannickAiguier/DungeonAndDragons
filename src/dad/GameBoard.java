@@ -1,5 +1,7 @@
 package dad;
 
+import java.util.ArrayList;
+
 import box.Box;
 import box.Dragon;
 import box.Gobelin;
@@ -26,7 +28,7 @@ import viewers.MyUtils;
  */
 public class GameBoard {
 
-	private Box[] board;
+	private ArrayList<Box> board;
 	private int playerPos;
 
 	/**
@@ -34,7 +36,7 @@ public class GameBoard {
 	 * en case 1.
 	 */
 	public GameBoard() {
-		this.board = new Box[64];
+		this.board = new ArrayList<Box>();
 		this.playerPos = 0;
 	}
 
@@ -56,7 +58,7 @@ public class GameBoard {
 	 * @return the board
 	 */
 	public Box getBox(int i) {
-		return board[i];
+		return board.get(i);
 	}
 
 	/**
@@ -65,7 +67,7 @@ public class GameBoard {
 	 * @return L'objet de type Box à l"emplacement du joueur.
 	 */
 	public Box getBox() {
-		return board[playerPos];
+		return board.get(playerPos);
 	}
 
 	/**
@@ -75,7 +77,7 @@ public class GameBoard {
 	 * @param box   : le contenu à insérer.
 	 */
 	private void setBox(int index, Box box) {
-		board[index] = box;
+		board.set(index, box);
 	}
 
 	@Override
@@ -133,7 +135,7 @@ public class GameBoard {
 	 * Cases paires = rien, cases impaires = surprise !
 	 * </p>
 	 */
-	public void initBoard() {
+	public void oldInitBoard() {
 		// pour l'instant les objets seront placés toujours à la même place
 		// trésor et monstre une fois sur deux
 		for (int i = 1; i < 63; i += 4) {
@@ -148,6 +150,59 @@ public class GameBoard {
 			} else {
 				this.setBox(i, createWeapon());
 			}
+		}
+	}
+	
+	public void initBoard() {
+		// créer 64 cases
+		initEmptyBoard();
+		
+		// placer les monstres
+		int[] dragonsPositions = {45, 52, 56, 62};
+		for (int i: dragonsPositions) {
+			this.board.set(i,  new Dragon());
+		}
+		int[] sorcerersPositions = {10, 20, 25, 32, 35, 36, 37, 40, 44, 47};
+		for (int i: sorcerersPositions) {
+			this.board.set(i,  new Sorcerer());
+		}
+		
+		for (int i = 3; i < 31; i += 3) {
+			this.board.set(i,  new Gobelin());
+		}
+		
+		// placer les surprises
+		int[] clubsPositions = {2, 11, 15, 22, 38};
+		for (int i: clubsPositions) {
+			this.board.set(i,  new Weapon("Massue", "club.png", 3));
+		}
+		int[] swordsPositions = {19, 26, 42, 53};
+		for (int i: swordsPositions) {
+			this.board.set(i,  new Weapon("Epée", "sword.png", 5));
+		}
+		int[] lightningsPositions = {1, 4, 8, 17 ,23};
+		for (int i: lightningsPositions) {
+			this.board.set(i,  new Spell("Lightning", "lightning.png", 2));
+		}
+		int[] fireballsPositions = {48, 49};
+		for (int i: fireballsPositions) {
+			this.board.set(i,  new Spell("Fireball", "fireball.png", 7));
+		}
+		int[] potionsPositions = {7, 13, 31, 33, 39, 43};
+		for (int i: potionsPositions) {
+			this.board.set(i,  new Potion("Potion de soin", "potion.png", 2));
+		}
+		int[] bigPotionsPositions = {28, 41};
+		for (int i: bigPotionsPositions) {
+			this.board.set(i,  new Potion("Grande potion de soin", "big_potion.png", 5));
+		}
+		
+		this.showBoard();
+	}
+
+	public void initEmptyBoard() {
+		for (int i = 1; i < 65; i++) {
+			this.board.add(null);
 		}
 	}
 
@@ -265,11 +320,11 @@ public class GameBoard {
 			b = null;
 			break;
 		}
-		this.board[index] = b;
+		this.board.set(index,b);
 	}
 
 	public void createNullBox(int index) {
-		this.board[index] = null;
+		this.board.set(index, null);
 	}
 
 }
