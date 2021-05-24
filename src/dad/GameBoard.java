@@ -196,8 +196,6 @@ public class GameBoard {
 		for (int i: bigPotionsPositions) {
 			this.board.set(i,  new Potion("Grande potion de soin", "big_potion.png", 5));
 		}
-		
-		this.showBoard();
 	}
 
 	public void initEmptyBoard() {
