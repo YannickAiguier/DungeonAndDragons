@@ -204,8 +204,8 @@ public class Menu implements Viewer {
 	@Override
 	public void showPlayer(Player player) {
 		u.print(player.getName() + " a " + player.getLife() + " points de vie, se bat avec "
-				+ player.getFirstAttack().getName() + " pour une force d'attaque de "
-				+ (player.getAttack() + player.getFirstAttack().getAttack()) + ".");
+				+ player.getMoa(0).getName() + " pour une force d'attaque de "
+				+ (player.getAttack() + player.getMoa(0).getAttack()) + ".");
 
 	}
 

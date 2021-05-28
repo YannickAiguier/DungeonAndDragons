@@ -36,7 +36,7 @@ public class Spell extends MeanOfAttack {
 	protected String equip(Player player) {
 		
 		if (player instanceof Magician) {
-			return player.changeItem(this);
+			return player.changeItem(this, 0);
 		} else {
 			return "Seul un Magicien peut utiliser cette arme.";
 		}

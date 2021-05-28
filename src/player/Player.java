@@ -1,4 +1,6 @@
 package player;
+import box.BadSpirit;
+import box.Dragon;
 import box.MeanOfAttack;
 import box.Monster;
 
@@ -29,7 +31,7 @@ public abstract class Player {
 	protected int life;
 	protected int maxLife;
 	protected int attack;
-	protected MeanOfAttack firstAttack;
+	protected MeanOfAttack[] MoAs = new MeanOfAttack[2];
 	protected String protectionType;
 
 	/**
@@ -41,7 +43,6 @@ public abstract class Player {
 		this.life = 0;
 		this.maxLife = 0;
 		this.attack = 0;
-		this.firstAttack = null;
 		this.protectionType = null;
 		
 	}
@@ -73,7 +74,7 @@ public abstract class Player {
 		this.life = life;
 		this.maxLife = maxLife;
 		this.attack = attack;
-		this.firstAttack = firstAttack;
+		this.MoAs[0] = firstAttack;
 		this.protectionType = protectionType;
 	}
 
@@ -149,19 +150,9 @@ public abstract class Player {
 	public void setAttack(int attack) {
 		this.attack = attack;
 	}
-
-	/**
-	 * @return the attackType
-	 */
-	public MeanOfAttack getFirstAttack() {
-		return firstAttack;
-	}
-
-	/**
-	 * @param attackType the attackType to set
-	 */
-	public void setFirstAttack(MeanOfAttack attackType) {
-		this.firstAttack = attackType;
+	
+	public MeanOfAttack getMoa(int index) {
+		return this.MoAs[index];
 	}
 	
 	/**
@@ -183,7 +174,7 @@ public abstract class Player {
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", img=" + img + ", life=" + life + ", maxLife=" + maxLife + ", attack="
-				+ attack + ", firstAttack=" + firstAttack + ", protectionType=" + protectionType + "]";
+				+ attack + ", protectionType=" + protectionType + "]";
 	}
 
 	
@@ -193,10 +184,17 @@ public abstract class Player {
 	 * @param monster : le monstre attaqué
 	 * @return Une chaine de cractères correspondant au résultat du combat.
 	 */
-	public String attackMonster(Monster monster) {
-		int dmg = this.attack + firstAttack.getAttack();
+	public String attackMonster(Monster monster, MeanOfAttack attack) {
+		int dmg;
+		if (monster instanceof Dragon && attack.getName().equals("Bow")) {
+			dmg = this.attack + attack.getAttack() + 2;
+		} else if (monster instanceof BadSpirit && attack.getName().equals("Invisibility")) {
+			dmg = this.attack + attack.getAttack() + 3;
+		} else {
+			dmg = this.attack + attack.getAttack();
+		}		 
 		monster.setLife(Math.max(0, monster.getLife() - dmg));
-		return name + " attaque un " + monster.getClass().getName() + " et lui inflige " + (attack + firstAttack.getAttack()) + " points de dégâts.";
+		return name + " attaque un " + monster.getName() + " et lui inflige " + (this.attack + attack.getAttack()) + " points de dégâts.";
 	}
 
 	
@@ -206,13 +204,9 @@ public abstract class Player {
 	 * @param item : le moyen d'attaque trouvé.
 	 * @return Une chaine de cractères correspondant au changement (ou pas) de l'équipement. 
 	 */
-	public String changeItem(MeanOfAttack item) {
-		if (item.getAttack() > firstAttack.getAttack()) {
-			firstAttack = item;
-			return name + " s'équipe de " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts.";
-		} else {
-			return name + " trouve  " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts. Pas intéressant...";
-		}
+	public String changeItem(MeanOfAttack item, int index) {
+		this.MoAs[index] = item;
+		return name + " s'équipe de " + item.getName() + " qui inflige " + item.getAttack() + " points de dégâts.";
 	}
 	
 	

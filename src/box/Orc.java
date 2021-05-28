@@ -11,10 +11,10 @@ public class Orc extends Monster {
 	}
 	
 	@Override
-	public void fight(Player player, Viewer viewer) {
+	public void fight(Player player, Viewer viewer, int index) {
 		if (player instanceof Warrior) {
 			while (player.isAlive() && this.isAlive()) {
-				viewer.addDetail(player.attackMonster(this));
+				viewer.addDetail(player.attackMonster(this, player.getMoa(index)));
 				if (this.isAlive()) {
 					viewer.addDetail(this.attackPlayer(player));
 				} else {

@@ -208,10 +208,10 @@ public class MyGame implements Viewer {
 		playerName.setText(player.getName());
 		playerLife.setText("Vie : " + String.valueOf(player.getLife()));
 		playerAttack.setText("Attaque de base : " + String.valueOf(player.getAttack()));
-		playerWeaponAttack.setText("Attaque de l'arme : " + String.valueOf(player.getFirstAttack().getAttack()));
+		playerWeaponAttack.setText("Attaque de l'arme : " + String.valueOf(player.getMoa(0).getAttack()));
 		playerTotalAttack.setText(
-				"Attaque totale : " + String.valueOf(player.getAttack() + player.getFirstAttack().getAttack()));
-		playerWeaponPicture.setImg(player.getFirstAttack().getImg(), 100, 100);
+				"Attaque totale : " + String.valueOf(player.getAttack() + player.getMoa(0).getAttack()));
+		playerWeaponPicture.setImg(player.getMoa(0).getImg(), 100, 100);
 	}
 
 	@Override

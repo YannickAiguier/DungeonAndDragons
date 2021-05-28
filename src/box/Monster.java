@@ -51,9 +51,9 @@ public abstract class Monster extends Box {
 		// afficher le contenu de la case
 		viewer.showBox(this);
 		// afficher ce qu'il se passe
-		viewer.showEvent("Vous rencontrez un " + this.name + ".");
+		viewer.showEvent("Vous rencontrez un " + name + ".");
 		// gérer le combat
-		this.fight(player, viewer);
+		this.fight(player, viewer, 0);
 		// afficher le résultat
 		viewer.showPlayer(player);
 
@@ -68,9 +68,9 @@ public abstract class Monster extends Box {
 	 * @see #attackPlayer(Player)
 	 * @see Player#attackMonster(Monster)
 	 */
-	public void fight(Player player, Viewer viewer) {
+	public void fight(Player player, Viewer viewer, int index) {
 		while (player.isAlive() && this.isAlive()) {
-			viewer.addDetail(player.attackMonster(this));
+			viewer.addDetail(player.attackMonster(this, player.getMoa(index)));
 			if (this.isAlive()) {
 				viewer.addDetail(this.attackPlayer(player));
 			} else {

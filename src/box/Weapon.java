@@ -36,7 +36,7 @@ public class Weapon extends MeanOfAttack {
 	protected String equip(Player player) {
 		
 		if (player instanceof Warrior) {
-			return player.changeItem(this);
+			return player.changeItem(this, 0);
 		} else {
 			return "Seul un guerrier peut utiliser cette arme.";
 		}
