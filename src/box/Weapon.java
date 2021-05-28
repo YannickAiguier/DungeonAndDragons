@@ -33,10 +33,10 @@ public class Weapon extends MeanOfAttack {
 	 * @see Player#changeItem(MeanOfAttack)
 	 */
 	@Override
-	protected String equip(Player player) {
+	public String equip(Player player) {
 		
 		if (player instanceof Warrior) {
-			return player.changeItem(this, 0);
+			return player.changeItem(this, player.getChosenSlot());
 		} else {
 			return "Seul un guerrier peut utiliser cette arme.";
 		}

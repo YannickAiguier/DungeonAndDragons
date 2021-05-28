@@ -49,16 +49,18 @@ public abstract class MeanOfAttack extends Box {
 		viewer.showBox(this);
 		// afficher ce qu'il se passe
 		viewer.showEvent("Vous trouvez un(e) " + this.name + ".");
+		// choisir ou mettre le moa dans l'inventaire
+		viewer.chooseInventorySlot(player, this);
 		// S'équiper de l'objet s'il est meilleur que l'actuel
-		viewer.showDetail(this.equip(player));
+		//viewer.showDetail(this.equip(player));
 		// afficher le résultat
-		viewer.showPlayer(player);
+		//viewer.showPlayer(player);
 	}
 
 	/**
 	 * @param player
 	 * @return
 	 */
-	protected abstract String equip(Player player);
+	public abstract String equip(Player player);
 
 }

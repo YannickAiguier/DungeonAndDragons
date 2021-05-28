@@ -16,6 +16,6 @@ public class Warrior extends Player {
 	 * @param name : le nom à donner au warrior.
 	 */
 	public Warrior(String name) {
-		super(name, "warrior.png", 5, 10, 5, new Weapon("Rien", "fist.png", 0), "Shield");
+		super(name, "warrior.png", 5, 10, 5, new Weapon("Rien", "fist.png", 0), new Weapon("Rien", "fist.png", 0), "Shield");
 	}
 }

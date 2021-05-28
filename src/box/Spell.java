@@ -33,13 +33,14 @@ public class Spell extends MeanOfAttack {
 	 * @see Player#changeItem(MeanOfAttack)
 	 */
 	@Override
-	protected String equip(Player player) {
+	public String equip(Player player) {
 		
 		if (player instanceof Magician) {
-			return player.changeItem(this, 0);
+			return player.changeItem(this, player.getChosenSlot());
 		} else {
 			return "Seul un Magicien peut utiliser cette arme.";
 		}
 	}
+
 	
 }

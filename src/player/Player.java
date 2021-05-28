@@ -33,6 +33,7 @@ public abstract class Player {
 	protected int attack;
 	protected MeanOfAttack[] MoAs = new MeanOfAttack[2];
 	protected String protectionType;
+	protected int chosenSlot;
 
 	/**
 	 * Constructeur sans paramètre
@@ -44,6 +45,7 @@ public abstract class Player {
 		this.maxLife = 0;
 		this.attack = 0;
 		this.protectionType = null;
+		this.chosenSlot = 0;
 		
 	}
 
@@ -68,14 +70,16 @@ public abstract class Player {
 	 * @param firstAttack : le moyen d'attaque du joueur.
 	 * @param protectionType : le type de protetion du joueur.
 	 */
-	public Player(String name, String img, int life, int maxLife, int attack, MeanOfAttack firstAttack, String protectionType) {
+	public Player(String name, String img, int life, int maxLife, int attack, MeanOfAttack firstAttack, MeanOfAttack secondAttack, String protectionType) {
 		this.name = name;
 		this.img = img;
 		this.life = life;
 		this.maxLife = maxLife;
 		this.attack = attack;
 		this.MoAs[0] = firstAttack;
+		this.MoAs[1] = secondAttack;
 		this.protectionType = protectionType;
+		this.chosenSlot = 0;
 	}
 
 	/**
@@ -155,6 +159,10 @@ public abstract class Player {
 		return this.MoAs[index];
 	}
 	
+	public void setMoa(int index, MeanOfAttack moa) {
+		this.MoAs[index] = moa;
+	}
+	
 	/**
 	 * @return the protectionType
 	 */
@@ -168,8 +176,21 @@ public abstract class Player {
 	public void setProtectionType(String protectionType) {
 		this.protectionType = protectionType;
 	}
-
 	
+
+	/**
+	 * @return the chosenSlot
+	 */
+	public int getChosenSlot() {
+		return chosenSlot;
+	}
+
+	/**
+	 * @param chosenSlot the chosenSlot to set
+	 */
+	public void setChosenSlot(int chosenSlot) {
+		this.chosenSlot = chosenSlot;
+	}
 
 	@Override
 	public String toString() {

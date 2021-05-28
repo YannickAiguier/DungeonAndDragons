@@ -221,6 +221,8 @@ public class MainGraphics {
 				}
 			}
 		});
+		
+		// TODO écrire le listener pour les cases d'inventaire
 
 		// construction du menu
 		menu.add(menuNewPlayer);

@@ -10,7 +10,7 @@ public class Main {
 	        System.out.println("/" + one + "/");
 	        System.out.println(one == "console");
 	        if (one == "console") {
-	        	Menu myMenu = new Menu();	    		
+	        	Menu myMenu = new Menu();
 	    		myMenu.start();
 	        } else {
 	        	System.out.println("Mauvais argument.");

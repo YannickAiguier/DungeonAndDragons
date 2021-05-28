@@ -1,4 +1,5 @@
 package box;
+
 import player.Player;
 import viewers.Viewer;
 
@@ -21,10 +22,12 @@ public abstract class Monster extends Box {
 	 * Pas de forClass pour un monstre.
 	 * </p>
 	 * 
-	 * @param name : nom de l'objet qi'il y a sur la case.
-	 * @param img : le nom du fichier image la représentant.
-	 * @param life : de la vie, soit à ajouter à celle du héros (potion), soit indiquant la vie du monstre présent sur la case.
-	 * @param attack : une force d'attaque, représentant celle de l'arme trouvée ou celle du monstre présent sur la case.
+	 * @param name   : nom de l'objet qi'il y a sur la case.
+	 * @param img    : le nom du fichier image la représentant.
+	 * @param life   : de la vie, soit à ajouter à celle du héros (potion), soit
+	 *               indiquant la vie du monstre présent sur la case.
+	 * @param attack : une force d'attaque, représentant celle de l'arme trouvée ou
+	 *               celle du monstre présent sur la case.
 	 */
 	public Monster(String name, String img, int life, int attack) {
 		super(name, img, life, attack, "");
@@ -52,10 +55,12 @@ public abstract class Monster extends Box {
 		viewer.showBox(this);
 		// afficher ce qu'il se passe
 		viewer.showEvent("Vous rencontrez un " + name + ".");
+		// choisir MoA
+		viewer.chooseAttack(player, this);
 		// gérer le combat
-		this.fight(player, viewer, 0);
+		//this.fight(player, viewer, 0);
 		// afficher le résultat
-		viewer.showPlayer(player);
+		//viewer.showPlayer(player);
 
 	}
 
@@ -68,9 +73,9 @@ public abstract class Monster extends Box {
 	 * @see #attackPlayer(Player)
 	 * @see Player#attackMonster(Monster)
 	 */
-	public void fight(Player player, Viewer viewer, int index) {
+	public void fight(Player player, Viewer viewer) {
 		while (player.isAlive() && this.isAlive()) {
-			viewer.addDetail(player.attackMonster(this, player.getMoa(index)));
+			viewer.addDetail(player.attackMonster(this, player.getMoa(player.getChosenSlot())));
 			if (this.isAlive()) {
 				viewer.addDetail(this.attackPlayer(player));
 			} else {
@@ -78,7 +83,6 @@ public abstract class Monster extends Box {
 			}
 		}
 	}
-	
 
 	/**
 	 * Gère une attaque du monstre sur un joueur.
@@ -91,11 +95,11 @@ public abstract class Monster extends Box {
 		return this.name + " riposte et lui inflige " + attack + " points de dégâts.";
 	}
 
-	
 	/**
 	 * Vérifie si le monstre est en vie.
 	 * 
-	 * @return booléen : true si le monstre est en vie, false s'il n'a plus de points de vie.
+	 * @return booléen : true si le monstre est en vie, false s'il n'a plus de
+	 *         points de vie.
 	 */
 	public boolean isAlive() {
 		return life > 0;

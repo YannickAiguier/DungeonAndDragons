@@ -16,7 +16,7 @@ public class Magician extends Player {
 	 * @param name : le nom à donner au magicien.
 	 */
 	public Magician(String name) {
-		super(name, "magician.png", 3, 6, 8, new Spell("Rien", "primary_spell.png", 0), "Philter");
+		super(name, "magician.png", 3, 6, 8, new Spell("Rien", "primary_spell.png", 0), new Spell("Rien", "primary_spell.png", 0), "Philter");
 	}
 
 }

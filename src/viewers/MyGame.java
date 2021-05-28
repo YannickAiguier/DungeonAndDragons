@@ -1,12 +1,14 @@
 package viewers;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -25,7 +27,7 @@ public class MyGame implements Viewer {
 
 	JPanel all, gamePanel, boardPanel, playerFullPanel, playerPanel, playerWeaponPanel, storyPanel, boxPanel,
 			buttonsPanel;
-	GraphArea titlePicture, bottomPicture, playerWeaponPicture, boxPicture, playerPicture;
+	GraphArea titlePicture, bottomPicture, playerWeapon1Picture, playerWeapon2Picture, boxPicture, playerPicture;
 	TextArea playerName, playerLife, playerAttack, playerTotalAttack, playerWeaponAttack;
 	TextArea storyEvent, storyDetail, storyMove;
 	TextArea boxName, boxLife, boxAttack, boxClass;
@@ -59,7 +61,7 @@ public class MyGame implements Viewer {
 		gamePanel = new JPanel(new BorderLayout());
 		gamePanel.setBackground(Color.black);
 		gamePanel.setVisible(false);
-		
+
 		// création des décors
 		titlePicture = new GraphArea();
 		titlePicture.setMinimumSize(new Dimension(1000, 100));
@@ -105,7 +107,8 @@ public class MyGame implements Viewer {
 		playerTotalAttack = new TextArea("", 20, 300, 25);
 
 		// création des éléments de playerWeaponPicture
-		playerWeaponPicture = new GraphArea();
+		playerWeapon1Picture = new GraphArea();
+		playerWeapon2Picture = new GraphArea();
 
 		// création des éléments de storyPanel
 		storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
@@ -127,8 +130,9 @@ public class MyGame implements Viewer {
 		// création des éléments de buttonsPanel
 		buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		try {
-			//File file = new File("./resources/images/dice.png");
-			//Image resizedImage = ImageIO.read(file).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+			// File file = new File("./resources/images/dice.png");
+			// Image resizedImage = ImageIO.read(file).getScaledInstance(50, 50,
+			// Image.SCALE_SMOOTH);
 			URL myImage = ClassLoader.getSystemResource("images/dice.png");
 			Image resizedImage = ImageIO.read(myImage).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 			rollDice = new JButton(new ImageIcon(resizedImage));
@@ -146,7 +150,8 @@ public class MyGame implements Viewer {
 		playerPanel.add(playerAttack);
 		playerPanel.add(playerWeaponAttack);
 		playerPanel.add(playerTotalAttack);
-		playerWeaponPanel.add(playerWeaponPicture);
+		playerWeaponPanel.add(playerWeapon1Picture);
+		playerWeaponPanel.add(playerWeapon2Picture);
 		playerFullPanel.add(playerPanel);
 		playerFullPanel.add(playerWeaponPanel);
 		storyPanel.add(storyMove);
@@ -171,8 +176,6 @@ public class MyGame implements Viewer {
 		all.add(bottomPanel, BorderLayout.PAGE_END);
 		all.add(gamePanel, BorderLayout.CENTER);
 	}
-	
-	
 
 	/**
 	 * @return the rollDice
@@ -181,16 +184,12 @@ public class MyGame implements Viewer {
 		return rollDice;
 	}
 
-
-
 	/**
 	 * @param rollDice the rollDice to set
 	 */
 	public void setRollDice(JButton rollDice) {
 		this.rollDice = rollDice;
 	}
-
-
 
 	// récupérer le JPanel parent
 	public JPanel getAll() {
@@ -209,9 +208,12 @@ public class MyGame implements Viewer {
 		playerLife.setText("Vie : " + String.valueOf(player.getLife()));
 		playerAttack.setText("Attaque de base : " + String.valueOf(player.getAttack()));
 		playerWeaponAttack.setText("Attaque de l'arme : " + String.valueOf(player.getMoa(0).getAttack()));
-		playerTotalAttack.setText(
-				"Attaque totale : " + String.valueOf(player.getAttack() + player.getMoa(0).getAttack()));
-		playerWeaponPicture.setImg(player.getMoa(0).getImg(), 100, 100);
+		playerTotalAttack
+				.setText("Attaque totale : " + String.valueOf(player.getAttack() + player.getMoa(0).getAttack()));
+		playerWeapon1Picture.setImg(player.getMoa(0).getImg(), 100, 100);
+		if (player.getMoa(1) != null) {
+			playerWeapon2Picture.setImg(player.getMoa(1).getImg(), 100, 100);
+		}
 	}
 
 	@Override
@@ -266,6 +268,16 @@ public class MyGame implements Viewer {
 		return false;
 	}
 
+	@Override
+	public void chooseAttack(Player player, Monster monster) {
+		addAttackListener(player, monster, this);
+	}
+
+	@Override
+	public void chooseInventorySlot(Player player, MeanOfAttack moa) {
+		addInventoryListener(player, moa);
+	}
+
 	private String addText(String s) {
 		detail = storyDetail.getText();
 		if (detail == "") {
@@ -283,9 +295,177 @@ public class MyGame implements Viewer {
 		boxAttack.setText(String.valueOf(""));
 		boxClass.setText(String.valueOf(""));
 	}
-	
+
 	public void resetMove() {
 		storyMove.setText("");
+	}
+
+	private void addInventoryListener(Player player, MeanOfAttack moa) {
+		this.playerWeapon1Picture.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				player.setChosenSlot(0);
+				showDetail(moa.equip(player));
+				showPlayer(player);
+				removeAllMouseListeners();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
+		this.playerWeapon2Picture.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				player.setChosenSlot(1);
+				showDetail(moa.equip(player));
+				showPlayer(player);
+				removeAllMouseListeners();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
+	}
+
+	private void addAttackListener(Player player, Monster monster, Viewer viewer) {
+		this.playerWeapon1Picture.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				player.setChosenSlot(0);
+				monster.fight(player, viewer);
+				showPlayer(player);
+				removeAllMouseListeners();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
+		this.playerWeapon2Picture.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				player.setChosenSlot(1);
+				monster.fight(player, viewer);
+				showPlayer(player);
+				removeAllMouseListeners();
+				;
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
+	}
+
+	private void removeAllMouseListeners() {
+		MouseListener one;
+		try {
+			one = playerWeapon1Picture.getMouseListeners()[0];
+		} catch (Exception e) {
+			one = null;
+		}
+		MouseListener two;
+		try {
+			two = playerWeapon2Picture.getMouseListeners()[0];
+		} catch (Exception e) {
+			two = null;
+		}
+		playerWeapon1Picture.removeMouseListener(one);
+		playerWeapon2Picture.removeMouseListener(two);
 	}
 
 }

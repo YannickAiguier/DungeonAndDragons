@@ -1,5 +1,8 @@
 package viewers;
+
 import box.Box;
+import box.MeanOfAttack;
+import box.Monster;
 import dad.GameEngine;
 import player.Magician;
 import player.Player;
@@ -133,7 +136,6 @@ public class Menu implements Viewer {
 		}
 	}
 
-	
 	/**
 	 * Crée un nouveau joueur.
 	 * 
@@ -153,7 +155,7 @@ public class Menu implements Viewer {
 	/**
 	 * Gère l'affichage de la progression du joueur.
 	 * 
-	 * @param dice : le résultat du lancer de dé.
+	 * @param dice           : le résultat du lancer de dé.
 	 * @param playerPosition : la position du joueur sur le plateau de jeu.
 	 */
 	@Override
@@ -173,7 +175,8 @@ public class Menu implements Viewer {
 	}
 
 	/**
-	 * Gère l'affichage des détails de l'évènement (combat, s'équiper, boire une potion,...).
+	 * Gère l'affichage des détails de l'évènement (combat, s'équiper, boire une
+	 * potion,...).
 	 * 
 	 * @param s : le message à afficher.
 	 */
@@ -184,8 +187,12 @@ public class Menu implements Viewer {
 	}
 
 	/**
-	 * Gère l'affichage des détails de l'évènement (combat, s'équiper, boire une potion,...).
-	 * <p>Surtout utile en mode graphique, présent en mode console pour des raisons de compatibilité avec l'interface Viewer.</p>
+	 * Gère l'affichage des détails de l'évènement (combat, s'équiper, boire une
+	 * potion,...).
+	 * <p>
+	 * Surtout utile en mode graphique, présent en mode console pour des raisons de
+	 * compatibilité avec l'interface Viewer.
+	 * </p>
 	 * 
 	 * @param s : le message à afficher.
 	 * @see MyGame#addDetail(String)
@@ -211,7 +218,10 @@ public class Menu implements Viewer {
 
 	/**
 	 * Gère l'affichage graphique du contenu de la case.
-	 * <p>Inutile en mode console, implémentée pour compatibilité avec l'interface Viewer.</p>
+	 * <p>
+	 * Inutile en mode console, implémentée pour compatibilité avec l'interface
+	 * Viewer.
+	 * </p>
 	 * 
 	 * @param box : la case à afficher.
 	 * @see MyGame#showBox(Box)
@@ -224,7 +234,8 @@ public class Menu implements Viewer {
 	/**
 	 * Gère l'attente d'appui sur la touche entrée pour lancer le dé.
 	 * 
-	 * @return booléen : false lorsque l'utilisateur a appuyé sur la touche entrée seule.
+	 * @return booléen : false lorsque l'utilisateur a appuyé sur la touche entrée
+	 *         seule.
 	 */
 	@Override
 	public boolean waitDice() {
@@ -238,6 +249,17 @@ public class Menu implements Viewer {
 			}
 		}
 		return true;
+	}
+
+	// inutile en mode texte
+	@Override
+	public void chooseAttack(Player player, Monster monster) {
+		
+	}
+
+	@Override
+	public void chooseInventorySlot(Player player, MeanOfAttack moa) {
+		
 	}
 
 }
