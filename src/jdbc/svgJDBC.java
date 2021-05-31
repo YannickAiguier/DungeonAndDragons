@@ -199,10 +199,10 @@ public class svgJDBC {
 				rs2.next();
 				if (player instanceof Warrior) {
 					// générer Warrior et Weapon
-					moa = new Weapon(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
+					moa = new Weapon(rs2.getString("name"), "fist.png", rs2.getInt("attack"));
 				} else {
 					// générer Magician et Spell
-					moa = new Spell(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
+					moa = new Spell(rs2.getString("name"), "primary_spell.png", rs2.getInt("attack"));
 				}
 				player.setMoa(0, moa);
 			} catch (SQLException e) {
@@ -210,15 +210,16 @@ public class svgJDBC {
 			}
 			query = "SELECT * FROM MoA WHERE id=" + rs.getInt("id_MoA2");
 			this.setQuery(query);
+			System.out.println("Ok arme 1");
 			try (Statement stmt2 = conn.createStatement()) {
 				ResultSet rs2 = stmt.executeQuery(this.query);
 				rs2.next();
 				if (player instanceof Warrior) {
 					// générer Warrior et Weapon
-					moa = new Weapon(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
+					moa = new Weapon(rs2.getString("name"), "fist.png", rs2.getInt("attack"));
 				} else {
 					// générer Magician et Spell
-					moa = new Spell(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
+					moa = new Spell(rs2.getString("name"), "primary_spell.png", rs2.getInt("attack"));
 				}
 				player.setMoa(1, moa);
 			} catch (SQLException e) {
