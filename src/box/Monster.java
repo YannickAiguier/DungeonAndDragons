@@ -1,5 +1,6 @@
 package box;
 
+import dad.GameEngine;
 import player.Player;
 import viewers.Viewer;
 
@@ -56,12 +57,11 @@ public abstract class Monster extends Box {
 		// afficher ce qu'il se passe
 		viewer.showEvent("Vous rencontrez un " + name + ".");
 		// choisir MoA
-		viewer.chooseAttack(player, this);
+		//viewer.chooseAttack(player, this);
 		// gérer le combat
 		//this.fight(player, viewer, 0);
 		// afficher le résultat
 		//viewer.showPlayer(player);
-
 	}
 
 	/**
@@ -74,6 +74,7 @@ public abstract class Monster extends Box {
 	 * @see Player#attackMonster(Monster)
 	 */
 	public void fight(Player player, Viewer viewer) {
+		viewer.showDetail("");
 		while (player.isAlive() && this.isAlive()) {
 			viewer.addDetail(player.attackMonster(this, player.getMoa(player.getChosenSlot())));
 			if (this.isAlive()) {
@@ -81,6 +82,10 @@ public abstract class Monster extends Box {
 			} else {
 				viewer.addDetail(player.getName() + " tue le " + name);
 			}
+		}
+		if (!player.isAlive()) {
+			viewer.addDetail(player.getName() + " a trouvé la mort en combattant un " + name);
+			viewer.disableDice();
 		}
 	}
 

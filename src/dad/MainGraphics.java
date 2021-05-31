@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
+import box.Monster;
 import jdbc.svgJDBC;
 import player.Magician;
 import player.Player;
@@ -216,14 +219,18 @@ public class MainGraphics {
 				game.removeAllMouseListeners();
 				myEngine.letsGo();
 				myEngine.boxProcess();
-				if (myEngine.isGameOver()) {
+				if (myEngine.getMyGameBoard().getBox() instanceof Monster) {
+					// listener sur inventaire pour choix arme
+					System.out.println(2);
+					game.attack(player, (Monster) myEngine.getMyGameBoard().getBox(), myEngine);
+				}
+				if(myEngine.isGameOver()) {
 					game.getRollDice().setEnabled(false);
 					myEngine.gameEnd();
 				}
 			}
+			
 		});
-		
-		// TODO écrire le listener pour les cases d'inventaire
 
 		// construction du menu
 		menu.add(menuNewPlayer);
@@ -253,6 +260,6 @@ public class MainGraphics {
 		if (myClass == "Magician") {
 			this.player = new Magician(name);
 		}
-	}
-
+	}		
+	
 }

@@ -2,7 +2,6 @@ package viewers;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -21,14 +20,16 @@ import box.Box;
 import box.MeanOfAttack;
 import box.Monster;
 import box.Potion;
+import dad.GameEngine;
 import player.Player;
 
 public class MyGame implements Viewer {
 
 	JPanel all, gamePanel, boardPanel, playerFullPanel, playerPanel, playerWeaponPanel, storyPanel, boxPanel,
 			buttonsPanel;
-	GraphArea titlePicture, bottomPicture, playerWeapon1Picture, playerWeapon2Picture, boxPicture, playerPicture;
-	TextArea playerName, playerLife, playerAttack, playerTotalAttack, playerWeaponAttack;
+	public GraphArea titlePicture, bottomPicture, playerWeapon1Picture, playerWeapon2Picture, boxPicture, playerPicture;
+	TextArea playerName, playerLife, playerAttack, playerTotal1Attack, playerWeapon1Attack, playerTotal2Attack,
+			playerWeapon2Attack;
 	TextArea storyEvent, storyDetail, storyMove;
 	TextArea boxName, boxLife, boxAttack, boxClass;
 	JButton rollDice;
@@ -103,8 +104,10 @@ public class MyGame implements Viewer {
 		playerName = new TextArea("", 20, 300, 25);
 		playerLife = new TextArea("", 20, 300, 25);
 		playerAttack = new TextArea("", 20, 300, 25);
-		playerWeaponAttack = new TextArea("", 20, 300, 25);
-		playerTotalAttack = new TextArea("", 20, 300, 25);
+		playerWeapon1Attack = new TextArea("", 20, 300, 25);
+		playerTotal1Attack = new TextArea("", 20, 300, 25);
+		playerWeapon2Attack = new TextArea("", 20, 300, 25);
+		playerTotal2Attack = new TextArea("", 20, 300, 25);
 
 		// création des éléments de playerWeaponPicture
 		playerWeapon1Picture = new GraphArea();
@@ -148,8 +151,10 @@ public class MyGame implements Viewer {
 		playerPanel.add(playerName);
 		playerPanel.add(playerLife);
 		playerPanel.add(playerAttack);
-		playerPanel.add(playerWeaponAttack);
-		playerPanel.add(playerTotalAttack);
+		playerPanel.add(playerWeapon1Attack);
+		playerPanel.add(playerTotal1Attack);
+		playerPanel.add(playerWeapon2Attack);
+		playerPanel.add(playerTotal2Attack);
 		playerWeaponPanel.add(playerWeapon1Picture);
 		playerWeaponPanel.add(playerWeapon2Picture);
 		playerFullPanel.add(playerPanel);
@@ -199,7 +204,7 @@ public class MyGame implements Viewer {
 	// afficher les infos du jeu au lancement de la partie
 	public void showGamePanel(boolean b) {
 		gamePanel.setVisible(b);
-	}
+	}	
 
 	@Override
 	public void showPlayer(Player player) {
@@ -207,13 +212,14 @@ public class MyGame implements Viewer {
 		playerName.setText(player.getName());
 		playerLife.setText("Vie : " + String.valueOf(player.getLife()));
 		playerAttack.setText("Attaque de base : " + String.valueOf(player.getAttack()));
-		playerWeaponAttack.setText("Attaque de l'arme : " + String.valueOf(player.getMoa(0).getAttack()));
-		playerTotalAttack
-				.setText("Attaque totale : " + String.valueOf(player.getAttack() + player.getMoa(0).getAttack()));
+		playerWeapon1Attack.setText("Attaque de l'arme 1 : " + String.valueOf(player.getMoa(0).getAttack()));
+		playerTotal1Attack
+				.setText("Attaque totale 1: " + String.valueOf(player.getAttack() + player.getMoa(0).getAttack()));
+		playerWeapon2Attack.setText("Attaque de l'arme 2 : " + String.valueOf(player.getMoa(1).getAttack()));
+		playerTotal2Attack
+				.setText("Attaque totale 2: " + String.valueOf(player.getAttack() + player.getMoa(1).getAttack()));
 		playerWeapon1Picture.setImg(player.getMoa(0).getImg(), 100, 100);
-		if (player.getMoa(1) != null) {
-			playerWeapon2Picture.setImg(player.getMoa(1).getImg(), 100, 100);
-		}
+		playerWeapon2Picture.setImg(player.getMoa(1).getImg(), 100, 100);
 	}
 
 	@Override
@@ -268,12 +274,10 @@ public class MyGame implements Viewer {
 		return false;
 	}
 
-	@Override
 	public void chooseAttack(Player player, Monster monster) {
 		addAttackListener(player, monster, this);
 	}
 
-	@Override
 	public void chooseInventorySlot(Player player, MeanOfAttack moa) {
 		addInventoryListener(player, moa);
 	}
@@ -383,6 +387,7 @@ public class MyGame implements Viewer {
 				player.setChosenSlot(0);
 				monster.fight(player, viewer);
 				showPlayer(player);
+				
 				removeAllMouseListeners();
 			}
 
@@ -420,7 +425,6 @@ public class MyGame implements Viewer {
 				monster.fight(player, viewer);
 				showPlayer(player);
 				removeAllMouseListeners();
-				;
 			}
 
 			@Override
@@ -467,5 +471,84 @@ public class MyGame implements Viewer {
 		playerWeapon1Picture.removeMouseListener(one);
 		playerWeapon2Picture.removeMouseListener(two);
 	}
+	
 
+	public void attack(Player player, Monster monster, GameEngine myEngine) {
+		playerWeapon1Picture.putClientProperty("viewer", this);
+		playerWeapon2Picture.putClientProperty("viewer", this);
+		// listener sur inventaire puis lancement du combat
+		playerWeapon1Picture.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				player.setChosenSlot(0);
+				monster.fight(player, (Viewer)((GraphArea)e.getSource()).getClientProperty("viewer"));
+				showPlayer(player);
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
+		playerWeapon2Picture.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				player.setChosenSlot(1);
+				monster.fight(player, (Viewer)((GraphArea)e.getSource()).getClientProperty("viewer"));
+				showPlayer(player);
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+	}
+	
+	public void disableDice() {
+		rollDice.setEnabled(false);
+	}
 }

@@ -1,4 +1,5 @@
 package box;
+import dad.GameEngine;
 import player.Player;
 import viewers.Viewer;
 

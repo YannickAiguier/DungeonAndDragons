@@ -261,5 +261,10 @@ public class Menu implements Viewer {
 	public void chooseInventorySlot(Player player, MeanOfAttack moa) {
 		
 	}
+	
+	@Override
+	public void disableDice() {
+		
+	}
 
 }

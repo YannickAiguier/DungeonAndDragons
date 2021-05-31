@@ -3,6 +3,7 @@ package viewers;
 import box.Box;
 import box.MeanOfAttack;
 import box.Monster;
+import dad.GameEngine;
 import player.Player;
 
 /**
@@ -95,4 +96,6 @@ public interface Viewer {
 	 * @return int : l'index du slot de l'inventaire
 	 */
 	void chooseInventorySlot(Player player, MeanOfAttack moa);
+	
+	void disableDice();
 }

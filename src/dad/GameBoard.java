@@ -2,10 +2,12 @@ package dad;
 
 import java.util.ArrayList;
 
+import box.BadSpirit;
 import box.Box;
 import box.Dragon;
 import box.Gobelin;
 import box.Monster;
+import box.Orc;
 import box.Potion;
 import box.Sorcerer;
 import box.Spell;
