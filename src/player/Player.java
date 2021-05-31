@@ -34,6 +34,7 @@ public abstract class Player {
 	protected MeanOfAttack[] MoAs = new MeanOfAttack[2];
 	protected String protectionType;
 	protected int chosenSlot;
+	protected boolean doubleDamage;
 
 	/**
 	 * Constructeur sans paramètre
@@ -46,7 +47,7 @@ public abstract class Player {
 		this.attack = 0;
 		this.protectionType = null;
 		this.chosenSlot = 0;
-		
+		this.doubleDamage = false;
 	}
 
 	/**
@@ -191,6 +192,22 @@ public abstract class Player {
 	public void setChosenSlot(int chosenSlot) {
 		this.chosenSlot = chosenSlot;
 	}
+	
+	
+
+	/**
+	 * @return the doubleDamage
+	 */
+	public boolean isDoubleDamage() {
+		return doubleDamage;
+	}
+
+	/**
+	 * @param doubleDamage the doubleDamage to set
+	 */
+	public void setDoubleDamage(boolean doubleDamage) {
+		this.doubleDamage = doubleDamage;
+	}
 
 	@Override
 	public String toString() {
@@ -213,12 +230,21 @@ public abstract class Player {
 			dmg = this.attack + attack.getAttack() + 3;
 		} else {
 			dmg = this.attack + attack.getAttack();
-		}		 
+		}		
+		dmg = verifDoubleDamage(dmg);
 		monster.setLife(Math.max(0, monster.getLife() - dmg));
-		return name + " attaque un " + monster.getName() + " et lui inflige " + (this.attack + attack.getAttack()) + " points de dégâts.";
+		return name + " attaque un " + monster.getName() + " et lui inflige " + dmg + " points de dégâts.";
 	}
 
 	
+	private int verifDoubleDamage(int damage) {
+		if (isDoubleDamage()) {
+			setDoubleDamage(false);
+			return damage * 2;
+		}
+		return damage;
+	}
+
 	/**
 	 * Change le moyen d'attaque du joueur si celui trouvé est plus intéressant que l'actuel.
 	 * 

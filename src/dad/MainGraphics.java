@@ -221,7 +221,7 @@ public class MainGraphics {
 				myEngine.boxProcess();
 				if (myEngine.getMyGameBoard().getBox() instanceof Monster) {
 					// listener sur inventaire pour choix arme
-					System.out.println(2);
+					game.disableDice();
 					game.attack(player, (Monster) myEngine.getMyGameBoard().getBox(), myEngine);
 				}
 				if(myEngine.isGameOver()) {

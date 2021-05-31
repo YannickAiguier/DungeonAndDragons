@@ -42,11 +42,18 @@ CREATE TABLE IF NOT EXISTS `ytest`.`Hero` (
   `maxlife` INT NOT NULL,
   `attack` INT NOT NULL,
   `protectiontype` VARCHAR(20) NOT NULL,
-  `id_MoA` INT NOT NULL,
+  `id_MoA1` INT NOT NULL,
+  `id_MoA2` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Hero_MoA_idx` (`id_MoA` ASC) VISIBLE,
-  CONSTRAINT `fk_Hero_MoA`
-    FOREIGN KEY (`id_MoA`)
+  INDEX `fk_Hero_MoA1_idx` (`id_MoA1` ASC) VISIBLE,
+  INDEX `fk_Hero_MoA2_idx` (`id_MoA2` ASC) VISIBLE,
+   CONSTRAINT `fk_hero_MoA1`
+    FOREIGN KEY (`id_MoA1`)
+    REFERENCES `ytest`.`MoA` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+   CONSTRAINT `fk_hero_MoA2`
+    FOREIGN KEY (`id_MoA2`)
     REFERENCES `ytest`.`MoA` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -65,11 +72,18 @@ CREATE TABLE IF NOT EXISTS `ytest`.`player` (
   `maxlife` INT NOT NULL,
   `attack` INT NOT NULL,
   `protectiontype` VARCHAR(20) NOT NULL,
-  `id_MoA` INT NOT NULL,
+  `id_MoA1` INT NOT NULL,
+  `id_MoA2` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_player_MoA1_idx` (`id_MoA` ASC) VISIBLE,
+  INDEX `fk_player_MoA1_idx` (`id_MoA1` ASC) VISIBLE,
+  INDEX `fk_player_MoA2_idx` (`id_MoA2` ASC) VISIBLE,
   CONSTRAINT `fk_player_MoA1`
-    FOREIGN KEY (`id_MoA`)
+    FOREIGN KEY (`id_MoA1`)
+    REFERENCES `ytest`.`MoA` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+   CONSTRAINT `fk_player_MoA2`
+    FOREIGN KEY (`id_MoA2`)
     REFERENCES `ytest`.`MoA` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -107,9 +121,11 @@ INSERT INTO MoA(name, img, life, attack, forclass) VALUES('Massue', 'club.png', 
 INSERT INTO MoA(name, img, life, attack, forclass) VALUES('Epée', 'sword.png', 0, 5, 'Warrior');
 INSERT INTO MoA(name, img, life, attack, forclass) VALUES('Lightning', 'lightning.png', 0, 2, 'Magician');
 INSERT INTO MoA(name, img, life, attack, forclass) VALUES('Fireball', 'fireball.png', 0, 7, 'Magician');
+INSERT INTO MoA(name, img, life, attack, forclass) VALUES('Arc', 'bow.png', 0, 4, 'Warrior');
+INSERT INTO MoA(name, img, life, attack, forclass) VALUES('Invisibilité', 'invisibility.png', 0, 5, 'Magician');
 
-INSERT INTO Hero(type, img, life, maxlife, attack, protectiontype, id_MoA) VALUES ('Warrior', 'warrior.png', 5, 10, 5, 'Bouclier', 1);
-INSERT INTO Hero(type, img, life, maxlife, attack, protectiontype, id_MoA) VALUES ('Magician', 'magician.png', 3, 6, 8, 'Philtre', 1);
+INSERT INTO Hero(type, img, life, maxlife, attack, protectiontype, id_MoA1, id_MoA2) VALUES ('Warrior', 'warrior.png', 5, 10, 5, 'Bouclier', 1, 1);
+INSERT INTO Hero(type, img, life, maxlife, attack, protectiontype, id_MoA1, id_MoA2) VALUES ('Magician', 'magician.png', 3, 6, 8, 'Philtre', 1, 1);
 
 SHOW TABLES;
 SELECT * FROM MoA;

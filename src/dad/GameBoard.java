@@ -164,9 +164,18 @@ public class GameBoard {
 		for (int i: dragonsPositions) {
 			this.board.set(i,  new Dragon());
 		}
-		int[] sorcerersPositions = {10, 20, 25, 32, 35, 36, 37, 40, 44, 47};
+		int[] badSpiritsPositions = {46, 50, 57};
+		for (int i: badSpiritsPositions) {
+			this.board.set(i,  new BadSpirit());
+		}
+		int[] sorcerersPositions = {10, 20, 25, 32, 36, 40, 47};
 		for (int i: sorcerersPositions) {
-			this.board.set(i,  new Sorcerer());
+			this.board.set(i,  new BadSpirit());
+		}
+		
+		int[] orcsPositions = {35, 37, 44};
+		for (int i: orcsPositions) {
+			this.board.set(i,  new Orc());
 		}
 		
 		for (int i = 3; i < 31; i += 3) {
@@ -197,6 +206,10 @@ public class GameBoard {
 		int[] bigPotionsPositions = {28, 41};
 		for (int i: bigPotionsPositions) {
 			this.board.set(i,  new Potion("Grande potion de soin", "big_potion.png", 5));
+		}
+		int[] doublePotionsPositions = {34, 51};
+		for (int i: doublePotionsPositions) {
+			this.board.set(i,  new Potion("Potion Coup de tonnerre", "thunder.png", 5));
 		}
 	}
 

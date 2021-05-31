@@ -67,8 +67,9 @@ public class svgJDBC {
 	}
 
 	public void saveGame(GameBoard gameBoard, Player player, String svg_name) throws SQLException {
-		String query = "SELECT id FROM MoA WHERE name='" + player.getFirstAttack().getName() + "'";
+		String query = "SELECT id FROM MoA WHERE name='" + player.getMoa(0).getName() + "'";
 		int id = 0;
+		int id2 = 0;
 		String type = "abc";
 
 		// récupérer id MoA
@@ -80,6 +81,14 @@ public class svgJDBC {
 		} catch (SQLException e) {
 			System.out.println("SQLException : " + e.getMessage());
 		}
+		query = "SELECT id FROM MoA WHERE name='" + player.getMoa(1).getName() + "'";
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(this.query);
+			rs.next();
+			id2 = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("SQLException : " + e.getMessage());
+		}
 
 		// insérer player et récupérer l'id
 		if (player instanceof Warrior) {
@@ -88,10 +97,10 @@ public class svgJDBC {
 			type = "Magician";
 		}
 
-		query = "INSERT INTO player(type, name, img, life, maxlife, attack, protectiontype, id_MoA) VALUES ('" + type
+		query = "INSERT INTO player(type, name, img, life, maxlife, attack, protectiontype, id_MoA1, id_MoA2) VALUES ('" + type
 				+ "', '" + player.getName() + "', '" + player.getImg() + "', " + player.getLife() + ", "
 				+ player.getMaxLife() + ", " + player.getAttack() + ", '" + player.getProtectionType() + "', " + id
-				+ ")";
+				+ ", " + id2 + ")";
 		this.setQuery(query);
 		id = executeWriteQuery();
 		// créer svg avec fake boxes_table et récupérer id
@@ -183,25 +192,43 @@ public class svgJDBC {
 			player.setMaxLife(rs.getInt("maxlife"));
 			player.setAttack(rs.getInt("attack"));
 			player.setProtectionType(rs.getString("protectiontype"));
-			query = "SELECT * FROM MoA WHERE id=" + rs.getInt("id_MoA");
+			query = "SELECT * FROM MoA WHERE id=" + rs.getInt("id_MoA1");
 			this.setQuery(query);
 			try (Statement stmt2 = conn.createStatement()) {
 				ResultSet rs2 = stmt.executeQuery(this.query);
 				rs2.next();
 				if (player instanceof Warrior) {
 					// générer Warrior et Weapon
-					moa = new Weapon(rs2.getString("name"), "fist.png", rs2.getInt("attack"));
+					moa = new Weapon(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
 				} else {
 					// générer Magician et Spell
-					moa = new Spell(rs2.getString("name"), "primary_spell.png", rs2.getInt("attack"));
+					moa = new Spell(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
 				}
-				player.setFirstAttack(moa);
+				player.setMoa(0, moa);
+			} catch (SQLException e) {
+				System.out.println("SQLException : " + e.getMessage());
+			}
+			query = "SELECT * FROM MoA WHERE id=" + rs.getInt("id_MoA2");
+			this.setQuery(query);
+			try (Statement stmt2 = conn.createStatement()) {
+				ResultSet rs2 = stmt.executeQuery(this.query);
+				rs2.next();
+				if (player instanceof Warrior) {
+					// générer Warrior et Weapon
+					moa = new Weapon(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
+				} else {
+					// générer Magician et Spell
+					moa = new Spell(rs2.getString("name"), rs2.getString("img"), rs2.getInt("attack"));
+				}
+				player.setMoa(1, moa);
 			} catch (SQLException e) {
 				System.out.println("SQLException : " + e.getMessage());
 			}
 		} catch (SQLException e) {
 			System.out.println("SQLException : " + e.getMessage());
 		}
+		System.out.println(player.getMoa(0));
+		System.out.println(player.getMoa(1));
 		return player;
 	}
 	

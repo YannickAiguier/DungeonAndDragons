@@ -47,9 +47,14 @@ public class Potion extends Box {
 		viewer.showBox(this);
 		// afficher ce qu'il se passe
 		viewer.showEvent("Vous trouvez " + toString());
+		if (this.name.equals("Potion Coup de tonnerre")) {
+			player.setDoubleDamage(true);
+			viewer.showDetail("Vous buvez " + this.name + ", votre prochaine attaque fera le double de dégâts.");
+		} else {
 		// augmenter le niveau de vie du joueur, mais pas au-delà de sa vie maximum
 		player.setLife(Math.min(player.getMaxLife(), player.getLife() + this.getLife()));
 		viewer.showDetail("Vous buvez " + this.name + ", vous avez maintenant " + player.getLife() + " points de vie.");
+		}
 		// afficher le résultat = showPlayer
 		viewer.showPlayer(player);
 	}

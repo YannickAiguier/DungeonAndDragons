@@ -484,6 +484,7 @@ public class MyGame implements Viewer {
 				player.setChosenSlot(0);
 				monster.fight(player, (Viewer)((GraphArea)e.getSource()).getClientProperty("viewer"));
 				showPlayer(player);
+				enableDice();
 			}
 
 			@Override
@@ -519,6 +520,7 @@ public class MyGame implements Viewer {
 				player.setChosenSlot(1);
 				monster.fight(player, (Viewer)((GraphArea)e.getSource()).getClientProperty("viewer"));
 				showPlayer(player);
+				enableDice();
 			}
 
 			@Override
@@ -550,5 +552,9 @@ public class MyGame implements Viewer {
 	
 	public void disableDice() {
 		rollDice.setEnabled(false);
+	}
+	
+	public void enableDice() {
+		rollDice.setEnabled(true);
 	}
 }

@@ -25,6 +25,10 @@ public class BadSpirit extends Monster {
 			viewer.addDetail(
 					player.getName() + " n'est pas un magicien, il ne sent pas le présence du mauvais esprit...");
 		}
+		if (!player.isAlive()) {
+			viewer.addDetail(player.getName() + " a trouvé la mort en combattant un " + name);
+			viewer.disableDice();
+		}
 
 	}
 }

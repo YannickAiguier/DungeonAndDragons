@@ -24,6 +24,10 @@ public class Orc extends Monster {
 		} else {
 			viewer.addDetail(player.getName() + " n'est pas un guerrier, l'Orc se désintéresse de lui.");
 		}
+		if (!player.isAlive()) {
+			viewer.addDetail(player.getName() + " a trouvé la mort en combattant un " + name);
+			viewer.disableDice();
+		}
 		
 	}
 
