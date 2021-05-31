@@ -451,7 +451,7 @@ public class MyGame implements Viewer {
 
 	}
 
-	private void removeAllMouseListeners() {
+	public void removeAllMouseListeners() {
 		MouseListener one;
 		try {
 			one = playerWeapon1Picture.getMouseListeners()[0];

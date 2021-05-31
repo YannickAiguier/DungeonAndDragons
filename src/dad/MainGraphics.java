@@ -213,6 +213,7 @@ public class MainGraphics {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				game.showDetail("");
+				game.removeAllMouseListeners();
 				myEngine.letsGo();
 				myEngine.boxProcess();
 				if (myEngine.isGameOver()) {
